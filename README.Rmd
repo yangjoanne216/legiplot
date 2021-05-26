@@ -51,6 +51,7 @@ optional arguments:
 ## Détection d'erreurs
 
 L'application permet de détecter des erreurs de deux types :
+
 - `doublon` : articles apparaissant deux fois dans un code ;
 - `inversion` : deux articles consécutifs dont la numérotation n'est pas croissante.
 

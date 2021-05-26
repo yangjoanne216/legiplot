@@ -45,9 +45,11 @@ dépôts git Archéo Lex.
 
 ## Détection d’erreurs
 
-L’application permet de détecter des erreurs de deux types : - `doublon`
-: articles apparaissant deux fois dans un code ; - `inversion` : deux
-articles consécutifs dont la numérotation n’est pas croissante.
+L’application permet de détecter des erreurs de deux types :
+
+-   `doublon` : articles apparaissant deux fois dans un code ;
+-   `inversion` : deux articles consécutifs dont la numérotation n’est
+    pas croissante.
 
 Cette détection d’erreur est imparfaite, et n’exclu ni faux-positifs ni
 faux-négatifs. La date correspond à la version la plus ancienne à

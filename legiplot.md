@@ -38,7 +38,7 @@ chapitres
 <tbody>
 <tr>
 <td style="text-align:left;">
-code\_civil
+code civil
 </td>
 <td style="text-align:right;">
 6240
@@ -67,7 +67,7 @@ code\_civil
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_de\_commerce
+code de commerce
 </td>
 <td style="text-align:right;">
 16445
@@ -96,7 +96,7 @@ code\_de\_commerce
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_de\_justice\_administrative
+code de justice administrative
 </td>
 <td style="text-align:right;">
 2690
@@ -125,7 +125,7 @@ code\_de\_justice\_administrative
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_de\_l’action\_sociale\_et\_des\_familles
+code de l’action sociale et des familles
 </td>
 <td style="text-align:right;">
 8507
@@ -154,7 +154,7 @@ code\_de\_l’action\_sociale\_et\_des\_familles
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_de\_l’artisanat
+code de l’artisanat
 </td>
 <td style="text-align:right;">
 374
@@ -183,7 +183,7 @@ code\_de\_l’artisanat
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_de\_l’aviation\_civile
+code de l’aviation civile
 </td>
 <td style="text-align:right;">
 2218
@@ -212,7 +212,7 @@ code\_de\_l’aviation\_civile
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_de\_l’éducation
+code de l’éducation
 </td>
 <td style="text-align:right;">
 10747
@@ -241,7 +241,7 @@ code\_de\_l’éducation
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_de\_l’énergie
+code de l’énergie
 </td>
 <td style="text-align:right;">
 3617
@@ -270,7 +270,7 @@ code\_de\_l’énergie
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_de\_l’entrée\_et\_du\_séjour\_des\_étrangers\_et\_du\_droit\_d’asile
+code de l’entrée et du séjour des étrangers et du droit d’asile
 </td>
 <td style="text-align:right;">
 6514
@@ -299,7 +299,7 @@ code\_de\_l’entrée\_et\_du\_séjour\_des\_étrangers\_et\_du\_droit\_d’asil
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_de\_l’environnement
+code de l’environnement
 </td>
 <td style="text-align:right;">
 19966
@@ -328,7 +328,7 @@ code\_de\_l’environnement
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_de\_l’organisation\_judiciaire
+code de l’organisation judiciaire
 </td>
 <td style="text-align:right;">
 5214
@@ -357,7 +357,7 @@ code\_de\_l’organisation\_judiciaire
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_de\_l’urbanisme
+code de l’urbanisme
 </td>
 <td style="text-align:right;">
 12577
@@ -386,7 +386,7 @@ code\_de\_l’urbanisme
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_de\_la\_consommation
+code de la consommation
 </td>
 <td style="text-align:right;">
 6234
@@ -415,7 +415,7 @@ code\_de\_la\_consommation
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_de\_la\_construction\_et\_de\_l’habitation
+code de la construction et de l’habitation
 </td>
 <td style="text-align:right;">
 14600
@@ -444,7 +444,7 @@ code\_de\_la\_construction\_et\_de\_l’habitation
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_de\_la\_défense
+code de la défense
 </td>
 <td style="text-align:right;">
 9202
@@ -473,7 +473,7 @@ code\_de\_la\_défense
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_de\_la\_famille\_et\_de\_l’aide\_sociale
+code de la famille et de l’aide sociale
 </td>
 <td style="text-align:right;">
 890
@@ -502,7 +502,7 @@ code\_de\_la\_famille\_et\_de\_l’aide\_sociale
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_de\_la\_propriété\_intellectuelle
+code de la propriété intellectuelle
 </td>
 <td style="text-align:right;">
 3222
@@ -531,7 +531,7 @@ code\_de\_la\_propriété\_intellectuelle
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_de\_la\_recherche
+code de la recherche
 </td>
 <td style="text-align:right;">
 435
@@ -560,7 +560,7 @@ code\_de\_la\_recherche
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_de\_la\_route
+code de la route
 </td>
 <td style="text-align:right;">
 2763
@@ -589,7 +589,7 @@ code\_de\_la\_route
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_de\_la\_santé\_publique
+code de la santé publique
 </td>
 <td style="text-align:right;">
 51268
@@ -618,7 +618,7 @@ code\_de\_la\_santé\_publique
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_de\_la\_sécurité\_intérieure
+code de la sécurité intérieure
 </td>
 <td style="text-align:right;">
 4606
@@ -647,7 +647,7 @@ code\_de\_la\_sécurité\_intérieure
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_de\_la\_sécurité\_sociale
+code de la sécurité sociale
 </td>
 <td style="text-align:right;">
 40626
@@ -676,7 +676,7 @@ code\_de\_la\_sécurité\_sociale
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_de\_procédure\_civile
+code de procédure civile
 </td>
 <td style="text-align:right;">
 3324
@@ -705,7 +705,7 @@ code\_de\_procédure\_civile
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_de\_procédure\_pénale
+code de procédure pénale
 </td>
 <td style="text-align:right;">
 13103
@@ -734,7 +734,7 @@ code\_de\_procédure\_pénale
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_des\_assurances
+code des assurances
 </td>
 <td style="text-align:right;">
 10492
@@ -763,7 +763,7 @@ code\_des\_assurances
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_des\_juridictions\_financières
+code des juridictions financières
 </td>
 <td style="text-align:right;">
 4280
@@ -792,7 +792,7 @@ code\_des\_juridictions\_financières
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_des\_postes\_et\_des\_communications\_électroniques
+code des postes et des communications électroniques
 </td>
 <td style="text-align:right;">
 3901
@@ -821,7 +821,7 @@ code\_des\_postes\_et\_des\_communications\_électroniques
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_des\_transports
+code des transports
 </td>
 <td style="text-align:right;">
 9120
@@ -850,7 +850,7 @@ code\_des\_transports
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_disciplinaire\_et\_pénal\_de\_la\_marine\_marchande
+code disciplinaire et pénal de la marine marchande
 </td>
 <td style="text-align:right;">
 211
@@ -879,7 +879,7 @@ code\_disciplinaire\_et\_pénal\_de\_la\_marine\_marchande
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_du\_cinéma\_et\_de\_l’image\_animée
+code du cinéma et de l’image animée
 </td>
 <td style="text-align:right;">
 3156
@@ -908,7 +908,7 @@ code\_du\_cinéma\_et\_de\_l’image\_animée
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_du\_patrimoine
+code du patrimoine
 </td>
 <td style="text-align:right;">
 2545
@@ -937,7 +937,7 @@ code\_du\_patrimoine
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_du\_sport
+code du sport
 </td>
 <td style="text-align:right;">
 4667
@@ -966,7 +966,7 @@ code\_du\_sport
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_du\_tourisme
+code du tourisme
 </td>
 <td style="text-align:right;">
 1878
@@ -995,7 +995,7 @@ code\_du\_tourisme
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_du\_travail
+code du travail
 </td>
 <td style="text-align:right;">
 48377
@@ -1024,7 +1024,7 @@ code\_du\_travail
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_électoral
+code électoral
 </td>
 <td style="text-align:right;">
 3644
@@ -1053,7 +1053,7 @@ code\_électoral
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_forestier\_(nouveau)
+code forestier (nouveau)
 </td>
 <td style="text-align:right;">
 427
@@ -1082,7 +1082,7 @@ code\_forestier\_(nouveau)
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_général\_de\_la\_propriété\_des\_personnes\_publiques
+code général de la propriété des personnes publiques
 </td>
 <td style="text-align:right;">
 1364
@@ -1111,7 +1111,7 @@ code\_général\_de\_la\_propriété\_des\_personnes\_publiques
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_général\_des\_collectivités\_territoriales
+code général des collectivités territoriales
 </td>
 <td style="text-align:right;">
 19111
@@ -1140,7 +1140,7 @@ code\_général\_des\_collectivités\_territoriales
 </tr>
 <tr>
 <td style="text-align:left;">
-code\_pénal
+code pénal
 </td>
 <td style="text-align:right;">
 3223
@@ -1170,7 +1170,7 @@ code\_pénal
 </tbody>
 </table>
 
-## Nombre de modifications globales
+## Statistiques générales
 
     ## `summarise()` has grouped output by 'année'. You can override using the `.groups` argument.
 
@@ -1182,8 +1182,40 @@ code\_pénal
 
     ## `summarise()` has grouped output by 'année'. You can override using the `.groups` argument.
 
-![](legiplot_files/figure-gfm/global.code-1.png)<!-- -->
-
-    ## `summarise()` has grouped output by 'année'. You can override using the `.groups` argument.
-
 ![](legiplot_files/figure-gfm/global.code.zoom-1.png)<!-- -->
+
+## Choses à faire
+
+### Comparaison des codes
+
+-   Classement des codes les plus modifiés (absolu)
+
+-   Classement des codes les plus modifiés pendant les dernières
+    mandatures (absolu)
+
+-   Classement des codes les plus modifiés (relatif au nombre
+    d’articles)
+
+-   Classement des codes les plus modifiés pendant les dernières
+    mandatures (relatif au nombre d’articles)
+
+-   Classement des articles les plus livres/titres/chapitres les plus
+    modifiés, tous codes confondus (relatif au nombre d’articles)
+
+-   Classement des articles les plus modifiés, tous codes confondus
+
+-   Classements des plus grosses modifications
+
+-   Classements des plus grosses modifications selon une fenêtre
+    glissante
+
+### Pour un code donné
+
+-   Evolution du nombre d’articles
+-   Evolution du nombre d’articles par Livre/Titre/Chapitre
+-   Visualisation de la taille des sections
+-   Nombre de modifications dans le temps
+-   Classement des Livres/Titres/Chapitres/articles les plus modifiés
+-   Classement des plus grosses modifications
+-   Classements des plus grosses modifications selon une fenêtre
+    glissante
