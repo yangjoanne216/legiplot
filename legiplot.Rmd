@@ -4,16 +4,16 @@ output: github_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(kableExtra)
 library(ggthemes)
 ```
 
 ```{r load}
-legiplot <- read.csv("all_codes_fulltext.csv") %>%
-  mutate(code = str_replace_all(code,'_',' ')) %>%
+legiplot <- read.csv("all_codes_fulltext.csv",encoding ='UTF-8') %>%
   mutate(année = as.numeric(str_sub(date,1,4)))
+
 ```
 
 ## Données 
@@ -34,7 +34,7 @@ legiplot %>%
 ```
 
 
-## Statistiques générales
+## Nombre de modifications globales
 
 ```{r global}
 legiplot %>%
@@ -48,7 +48,7 @@ legiplot %>%
 
 ```{r global.zoom}
 legiplot %>%
-  filter(année >= 1970) %>%
+  filter(année > 1950) %>%
   group_by(année,type) %>%
   summarise(nombre = n()) %>%
   ggplot(aes(x=année,y=nombre,fill=type)) +
@@ -56,8 +56,20 @@ legiplot %>%
   theme_hc()
 ```
 
+```{r fig.width=10, fig.height=8}
+legiplot %>%
+  filter(année > 1950) %>%
+  group_by(année,code) %>%
+  summarise(nombre = n()) %>%
+  ggplot(aes(x=année,y=nombre,color=code)) +
+  geom_line() +
+  facet_wrap(~code) +
+  guides(color=FALSE) +
+  theme_hc()
+```
 
-```{r global.code.zoom, fig.width=10, fig.height=8}
+
+```{r fig.width=10, fig.height=8}
 legiplot %>%
   filter(année > 1999, code != "code_du_travail") %>%
   group_by(année,code) %>%
@@ -69,33 +81,16 @@ legiplot %>%
   theme_hc()
 ```
 
+##Des information pour la propriété intellectuelle
 
-## Choses à faire
+```{r fig.width=10, fig.height=8}
+propriete_intellectuelle %>%
+  summarise(nombre = n()) %>%
+  ggplot(aes(x=livre,y=nombre))+
+  geom_line() +
+  facet_wrap(~code) +
+  guides(color=FALSE) +
+  theme_hc()
+  
 
-### Comparaison des codes 
-
-- Classement des codes les plus modifiés (absolu)
-- Classement des codes les plus modifiés pendant les dernières mandatures (absolu)
-- Classement des codes les plus modifiés (relatif au nombre d'articles)
-- Classement des codes les plus modifiés pendant les dernières mandatures (relatif au nombre d'articles)
-
-- Classement des articles les plus livres/titres/chapitres les plus modifiés, tous codes confondus (relatif au nombre d'articles)
-- Classement des articles les plus modifiés, tous codes confondus
-
-- Classements des plus grosses modifications
-- Classements des plus grosses modifications selon une fenêtre glissante
-
-### Pour un code donné
-
-- Evolution du nombre d'articles
-- Evolution du nombre d'articles par Livre/Titre/Chapitre
-- Visualisation de la taille des sections
-- Nombre de modifications dans le temps
-- Classement des Livres/Titres/Chapitres/articles les plus modifiés
-- Classement des plus grosses modifications
-- Classements des plus grosses modifications selon une fenêtre glissante
-
-
-
-
-
+```

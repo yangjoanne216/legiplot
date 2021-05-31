@@ -1,4 +1,5 @@
 import re
+import sys
 
 class Article:
     def __init__(self, code, date, version, type, section, PLTC_method = "code"):
@@ -9,11 +10,11 @@ class Article:
         self.nb_modifications = 0
         self.section = section
         self.article = section[-1].replace("Article ","")
+        self.partie = self.getPartie()
         if PLTC_method == "code":
-            self.partie = self.getPartie()
             [self.sous_partie,self.livre,self.titre,self.chapitre] = self.getPLTC()
         else:
-            [self.partie, self.sous_partie,self.livre,self.titre,self.chapitre] = self.getPLTC_txt()
+            [self.sous_partie,self.livre,self.titre,self.chapitre] = self.getPLTC_txt()
 
     def isAnnex(self):
         """vérifier si un article est dans l'annex ou non
@@ -54,7 +55,7 @@ class Article:
             return "Réglementaire"
         else:
             return "NA"
-    
+
     def getPLTC(self):
         """vérifier le type du nom d'article et extraire les localisations
             cas normal: L111
@@ -89,9 +90,16 @@ class Article:
         return [souspartie,artnum[0],artnum[1],artnum[2]]
         
     def getPLTC_txt(self):
-        PLTC = self.section[0:5]
-        if len(PLTC) < 5: PLTC.pop()
-        while len(PLTC) < 5: PLTC.append("NA")
+        PLTC = ["Na","Na","Na","Na"]
+        for section in self.section:
+            if(section.find("partie : ") != -1):
+                PLTC[0]=section
+            elif(section.upper().find("LIVRE ")!=-1):
+                PLTC[1]=section
+            elif(section.upper().find("TITRE ")!=-1):
+                PLTC[2]=section
+            elif(section.upper().find("CHAPITRE ")!=-1):
+                PLTC[3]=section
         return PLTC
     
     def normalizeArtnum(self):

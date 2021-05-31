@@ -6,6 +6,7 @@ import git
 import dateparser
 import csv
 import sys
+import shutil
 
 class ArcheoLexLog:
     def __init__(self, code, verbose=False, PLTC_method="code"):
@@ -15,14 +16,10 @@ class ArcheoLexLog:
 
     def createRepo(self):
         """Créer ou mettre à jour un dossier contenant les codes requises
-
         on clone les codes requis sur git et les place dqns les dossier
         correspondant de archeo_lex,Si un code existe déjà,exécute git pull
-
         Arg:
-
         returns: le dépôt GIT du code
-
         Raises：
         IOError:une erreur se produit lorsque on entre les mauvais noms
         GitCommandError:une erreur se produit lorsque il y a un merge
@@ -136,7 +133,7 @@ class ArcheoLexLog:
             type_line = self._getTypeLine(line)
 
             # Si changement de section, enregistrer la nouvelle section
-            if (len(line) > 2 and line[2] == '#'):
+            if (len(line) > 2 and line[1] == '#'):
                 level = line.count("#")
                 cursec = cursec[:level-1]+[re.sub(".*# ","",line)]
 
