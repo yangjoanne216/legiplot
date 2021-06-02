@@ -2,19 +2,59 @@ import re
 import sys
 
 class Article:
-    def __init__(self, code, date, version, type, section, PLTC_method = "code"):
+    def __init__(self, code, date, version, section, PLTC_method = "code"):
         self.code = code
         self.date = date
         self.version = version
-        self.type = type
-        self.nb_modifications = 0
         self.section = section
         self.article = section[-1].replace("Article ","")
-        self.partie = self.getPartie()
         if PLTC_method == "code":
-            [self.sous_partie,self.livre,self.titre,self.chapitre] = self.getPLTC()
+            [self.partie,self.sous_partie,self.livre,self.titre,self.chapitre] = self.getPLTC()
         else:
-            [self.sous_partie,self.livre,self.titre,self.chapitre] = self.getPLTC_txt()
+            [self.partie,self.sous_partie,self.livre,self.titre,self.chapitre] = self.getPLTC_txt()
+
+        self.type_modification =  None
+        self.nb_modifications = 0
+
+        self.type_erreur = None
+        self.info_erreur = None
+
+        self.nb_articles = 1
+        self.nb_lignes = 0
+        self.nb_mots = 0
+
+
+    @staticmethod
+    def getHeader(traitement="diff",shrink=0):
+        """ Affiche l'entête selon le traitement
+        """
+        shrink = min(shrink,6)
+        header = ['code','date','partie','sous_partie','livre','titre','chapitre','article'] #,'version'
+        for i in range(len(header)-1,len(header)-1-shrink,-1):
+            header[i] = "nb_"+header[i]+"s"
+        header_spe = {
+            'diff': ['type'],
+            'check': ['type_erreur','info_erreur'],
+            'stats': ['nb_alineas','nb_mots'],
+        }
+
+        return header + header_spe[traitement]
+
+    def getSections(self):
+        return [self.partie,self.sous_partie,self.livre,self.titre,self.chapitre,self.article]
+
+    def getValues(self,traitement="diff"):
+        """ Affiche une ligne
+        """
+        values = [self.code, self.date]#self.version,
+        values_spe = {
+            'diff': [self.type_modification],
+            'check': [self.type_erreur, self.info_erreur],
+            'stats': [self.nb_lignes, self.nb_mots],
+        }
+
+        return values + self.getSections() + values_spe[traitement]
+
 
     def isAnnex(self):
         """vérifier si un article est dans l'annex ou non
@@ -32,7 +72,7 @@ class Article:
            True:C'est un article dans l'annex
            False:ce n'est pas un article dans l'annex
         """
-        if self.article.upper().find("ANNEX")!=-1 or len(self.article)==1:
+        if self.article.upper().find("ANNEX")!=-1:# or len(self.article)==1:
             return True
         elif self.article[0].isnumeric() and self.code not in ["code_pénal","code_civil"]:
             return True
@@ -45,7 +85,6 @@ class Article:
     def getPartie(self):
         #code_pénal est spéciale,dans sa partie législative,pas de "L" dans le nom des articles
         if self.isAnnex():
-            #Exemple: Article L111 est remplcé par Article 111
             return "Annexe"
         elif self.article[0] == 'L' or self.article[0].isnumeric():
             return "Législative"
@@ -71,43 +110,48 @@ class Article:
         """
         # Extraire le premier numéro d'article
         # Exemples : Article L621, Article L*612, Article , Article 111, Article L10/L10-,
+
+        P = self.partie = self.getPartie()
+
         artnumlist = re.sub("[^0-9-]","",self.article).split('-')
         artnum=artnumlist[0]
         if len(artnum) < 3:
             if len(artnumlist)>2:
                 if len(artnumlist[1])==2 and len(artnum)==2:
-                    return ["NA",artnum[0],artnum[1],artnumlist[1]]
+                    return [P,"NA",artnum[0],artnum[1],artnumlist[1]]
                 else:
-                    return ["NA","NA","NA","NA"]
+                    return [P,"NA","NA","NA","NA"]
             else:
-                return ["NA","NA","NA","NA"]
+                return [P,"NA","NA","NA","NA"]
         if len(artnum) == 4:
             souspartie = artnum[0]
             artnum = artnum[1:]
         else:
             souspartie="NA"
 
-        return [souspartie,artnum[0],artnum[1],artnum[2]]
-        
+        return [P,souspartie,artnum[0],artnum[1],artnum[2]]
+
     def getPLTC_txt(self):
-        PLTC = ["Na","Na","Na","Na"]
+        PLTC = [None,None,None,None,None]
         for section in self.section:
-            if(section.find("partie : ") != -1):
+            if(section.upper().startswith("PARTIE ")):
                 PLTC[0]=section
-            elif(section.upper().find("LIVRE ")!=-1):
+            elif(section.find("partie : ") != -1) and PLTC[1:] == [None,None,None,None]:
                 PLTC[1]=section
-            elif(section.upper().find("TITRE ")!=-1):
+            elif(section.upper().startswith("LIVRE ")):
                 PLTC[2]=section
-            elif(section.upper().find("CHAPITRE ")!=-1):
+            elif(section.upper().startswith("TITRE ")):
                 PLTC[3]=section
+            elif(section.upper().startswith("CHAPITRE ")):
+                PLTC[4]=section
         return PLTC
-    
+
     def normalizeArtnum(self):
         an = re.sub("^[^0-9]*","",self.article).replace(" ","-")
         return [ s.zfill(6) for s in an.split('-') ]
 
     def compareNum(self,other):
-        """ Compare les numéros d'article
+        """ Compare les numéros d'articleDe la communauté légale
         return:
             "lt" si self avant other
             "eq" si égal
@@ -132,9 +176,6 @@ class Article:
                 return "gt"
         except:pass
 
-        if s_artnum < o_artnum:      
+        if s_artnum < o_artnum:
             return "lt"
         else: return "gt"
-
-
- 

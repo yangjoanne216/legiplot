@@ -6,13 +6,17 @@ import git
 import dateparser
 import csv
 import sys
+import string
 import shutil
+import copy
 
 class ArcheoLexLog:
     def __init__(self, code, verbose=False, PLTC_method="code"):
         self.code=code
         self.verbose=verbose
         self.PLTC_method=PLTC_method
+
+        self.word_translator = str.maketrans(string.punctuation, ' '*len(string.punctuation))
 
     def createRepo(self):
         """Créer ou mettre à jour un dossier contenant les codes requises
@@ -33,7 +37,8 @@ class ArcheoLexLog:
             if "already exists and is not an empty directory" in gce.stderr:
                 try:
                     repo = git.Repo(path)
-                    repo.git.pull()
+                    repo.git.fetch()
+                    repo.git.reset("--hard")
                 except git.InvalidGitRepositoryError as gre:
                     sys.stderr.write("Problème avec le dossier "+path+"\n")
                     sys.exit(1)
@@ -90,27 +95,14 @@ class ArcheoLexLog:
             type_line = None
         return type_line
 
-    @staticmethod
-    def outputHeader(csvwriter):
-        """ Affiche l'entête
-        """
-        csvwriter.writerow(['code','version','date','partie','sous_partie','livre','titre','chapitre','article','type'])
-
-    def outputInfo(self,mod,csvwriter):
-        """ Affiche une ligne
-        """
-        csvwriter.writerow([self.code, mod.version, mod.date,
-            mod.partie,mod.sous_partie,mod.livre,mod.titre,mod.chapitre,
-            mod.article,mod.type])
-
-    def getDiff(self,commit):
+    def processDiff(self,commit):
         """Obtenez toutes les modifications d'une version d'un code
 
             Parcourez les informations de différence, nous extrayons les informations
             correspondantes du nom de l'article
 
             Arg:
-                number_commit: Commit(type) de version
+                commit: Commit de version
 
             return:
                 mods:dict qui répresente une modification(un dict)
@@ -121,7 +113,10 @@ class ArcheoLexLog:
         #get lines in diff
         lines=self.getDifflines(commit)
         if self.verbose:
-            with open(self.code+'-'+date+'.txt', 'w',encoding="utf-8") as verbfile:
+            tf = tempfile.NamedTemporaryFile(suffix='.csv', prefix=os.path.basename(__file__))
+            tf_dir = os.path.dirname(tf.name)
+
+            with open(tf_dir+'/'+self.code+'-'+date+'.txt', 'w',encoding="utf-8") as verbfile:
                 verbfile.write('\n'.join(str(line) for line in lines))
 
         curmod = None # modification courante
@@ -140,37 +135,46 @@ class ArcheoLexLog:
                 # Si changement d'article
                 if line.find("Article") != -1:
                     # Si une modification a été détectée, l'enregistrer
-                    if curmod is not None and curmod.type is not None:
+                    if curmod is not None and curmod.type_modification is not None:
                         if curmod.article in mods:
                             nbm = mods[curmod.article].nb_modifications + curmod.nb_modifications
                             if nbm == 0:
                                 del mods[curmod.article]
                             else:
-                                mods[curmod.article].type = "Modification"
+                                mods[curmod.article].type_modification = "Modification"
                                 mods[curmod.article].nb_modifications = nbm
                         else:
                             mods[curmod.article] = curmod
 
                     # Réinitialiser la modification courante
-                    curmod = Article(self.code, date, version, type_line, cursec, self.PLTC_method)
+                    curmod = Article(self.code, date, version, cursec, self.PLTC_method)
+                    curmod.type_modification = type_line
+
 
             # Si pas de changement de section, on vérifie juste s'il n'y a pas de modifications,
             # dans une ligne non vide
             elif type_line is not None and len(line[1:].strip()) > 0 and curmod is not None:
-                if curmod.type is None : curmod.type = "Modification"
+                if curmod.type_modification is None : curmod.type_modification = "Modification"
                 curmod.nb_modifications += 1
+
+
+        if curmod is not None and curmod.type_modification is not None:
+            if curmod.article not in mods:
+                mods[curmod.article] = curmod
+
         return mods
 
-    def getErrors(self,commit):
+    def processVersion(self,commit,traitement,shrink=0):
         """Obtenez toutes les erreurs d'une version d'un code
             Arg:
-                number_commit: Commit(type) de version
+                commit: Commit de version
+                traitement: Traitement à appliquer (check ou stats)
         """
         #get la version et la date
         date = self.getDate(commit)
         version = self.getVersion(commit)
         cursec = [] # section courante
-        errors = {}
+        resultat = {}
         article_precedent = None
 
         #get lines du code
@@ -179,31 +183,73 @@ class ArcheoLexLog:
             with open(self.code+'-'+date+'.txt', 'w',encoding="utf-8") as verbfile:
                 verbfile.write('\n'.join(str(line) for line in lines))
 
+        nbs = [1,1,1,1,1,1,1,1]
+        article_precedent = None
+
         for num,line in enumerate(lines):
             # Si changement de section, enregistrer la nouvelle section
-            if (len(line) > 2 and line[2] == '#'):
+            if len(line) == 0: continue
+
+            # Si c'est une ligne normale on fait les statistiques
+            if line[0] != '#': # and traitement == "stats" or traitement == "finestats":
+                article.nb_lignes += 1
+                article.nb_mots += len(line.translate(self.word_translator).split())
+
+            # Si c'est un changement de section
+            else:
                 level = line.count("#")
                 cursec = cursec[:level-1]+[re.sub(".*# ","",line)]
 
                 # Si changement d'article
                 if line.find("Article") != -1:
-                    article = Article(self.code, date, version, None, cursec, self.PLTC_method)
+                    article = Article(self.code, date, version, cursec, PLTC_method = self.PLTC_method)
+
+                    # Test erreurs
                     cmp = article.compareNum(article_precedent)
-
-                    # Test doublon
                     if cmp == "eq":
-                        article.type = "doublon"
-                        errors[article.article] = article
-
-                    # Test inversion
+                        article.type_erreur = "doublon"
                     if cmp == "lt":
-                        article.type = "inversion "+article_precedent.article
-                        errors[article.article] = article
+                        article.type_erreur = "inversion"
+                        article.info_erreur = article_precedent.article
+
+                    # Ajout à la sortie
+                    if traitement == "check" and article.type_erreur is not None:
+                        resultat[article.article] = article
+
+                    if traitement == "stats" and article.type_erreur != "doublon" and article_precedent != None:
+                        ap = article_precedent
+                        nbs[-1] += ap.nb_mots
+                        nbs[-2] += ap.nb_lignes
+                        #print(nbs)
+
+                        if shrink == 0 or (shrink < 6 and article.getSections()[0:-(shrink)] != ap.getSections()[0:-(shrink)]):
+                            nbs[0:-2-shrink] = ap.getSections()[0:6-shrink]
+                            (ap.partie,ap.sous_partie,ap.livre,ap.titre,ap.chapitre,ap.article,ap.nb_lignes,ap.nb_mots) = nbs
+                            resultat[str(len(resultat))] = ap
+
+                            nbs = [0,0,0,0,0,0,0,0]
+
+                        for i in range(6-shrink,6):
+                            if article.getSections()[i] is None or ap.getSections()[i] is None:
+                                continue
+                            if article.getSections()[i] != ap.getSections()[i]:
+                                nbs[i] += 1
+                                #print(str(i)+' '+str(nbs)+' : '+article.getSections()[i]+' vs '+ap.getSections()[i])
 
                     article_precedent = article
-        return errors
 
-    def processCode(self,datelimit,csvwriter,traitement="check",print_progression=False):
+        if traitement == "stats" and article_precedent is not None:
+            ap = article 
+            nbs[-1] += ap.nb_mots
+            nbs[-2] += ap.nb_lignes
+            nbs[0:-2-shrink] = ap.getSections()[0:6-shrink]
+            (ap.partie,ap.sous_partie,ap.livre,ap.titre,ap.chapitre,ap.article,ap.nb_lignes,ap.nb_mots) = nbs
+            resultat[str(len(resultat))] = ap
+
+        return resultat
+
+
+    def processCode(self,datelimit,csvwriter,traitement="check",shrink=0,print_progression=False):
         """Obtenir tous les versions d'un et pour chaque version on fonction getDiff()
         """
         self.repo = self.createRepo()
@@ -218,27 +264,26 @@ class ArcheoLexLog:
         if traitement == "check":
             log_list.reverse()  #ordre chronologique
 
-        articles = []
+        articles = {}
+        seen_articles = []
 
         for log in log_list:
             commit_number ="".join(re.findall(r"{\"(.+?)\"}",log))
             commit=self.repo.commit(commit_number)
             date=self.getDate(commit)
 
-            if datelimit != None:
-                if traitement == "diff" and date < datelimit: return()
-                if traitement == "check" and date > datelimit: return()
-
             if print_progression:
                 sys.stderr.write("\r"+self.code+" "+date+" " * 50)
 
-            if traitement == "check":
-                errors = self.getErrors(commit)
-                for e in errors:
-                    if errors[e].article not in articles:
-                        self.outputInfo(errors[e], csvwriter)
-                        articles.append(errors[e].article)
+            if traitement == "diff":
+                articles = self.processDiff(commit)
             else:
-                mods = self.getDiff(commit)
-                for m in mods:
-                    self.outputInfo(mods[m], csvwriter)
+                articles = self.processVersion(commit,traitement,shrink)
+
+            for article in articles.values():
+                csvwriter.writerow(article.getValues(traitement))
+
+            if datelimit != None:
+                if datelimit == "last": return()
+                if traitement != "check" and date < datelimit: return()
+                if traitement == "check" and date > datelimit: return()

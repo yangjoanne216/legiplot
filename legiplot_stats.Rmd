@@ -1,0 +1,79 @@
+---
+title: "Legiplot Stats"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(fig.width = 8, fig.height = 4.5)
+
+library(tidyverse)
+library(ggthemes)
+```
+
+```{r loadsave, echo=FALSE}
+stats <- read.csv("stats_shortlist_ts6.csv") %>%
+  mutate(
+    code = as.factor(code),
+    date = as.Date(date),
+    alineas_par_article = nb_alineas / nb_articles,
+    mots_par_article = nb_mots / nb_articles,
+    mots_par_alinea = nb_mots / nb_alineas
+   ) %>%
+  filter(date >= as.Date("2000-01-01"))
+```
+
+```{r nb_mots}
+stats %>%
+  mutate(code = fct_reorder(code,-nb_mots,.fun=first)) %>%
+  ggplot(aes(x=date,y=nb_mots,color=code)) +
+  geom_line(aes(group=code)) +
+  theme_excel_new() + theme(legend.position = "right")
+```
+
+
+```{r nb_alineas}
+stats %>%
+  mutate(code = fct_reorder(code,-nb_alineas,.fun=first)) %>%
+  ggplot(aes(x=date,y=nb_alineas,color=code)) +
+  geom_line(aes(group=code)) +
+  theme_excel_new() + theme(legend.position = "right")
+```
+
+
+```{r nb_articles}
+stats %>%
+  mutate(code = fct_reorder(code,-nb_articles,.fun=first)) %>%
+  ggplot(aes(x=date,y=nb_articles,color=code)) +
+  geom_line(aes(group=code)) +
+  theme_excel_new() + theme(legend.position = "right")
+```
+
+
+```{r alineas_par_article}
+stats %>%
+  mutate(code = fct_reorder(code,-alineas_par_article,.fun=first)) %>%
+  ggplot(aes(x=date,y=alineas_par_article,color=code)) +
+  geom_line(aes(group=code)) +
+  theme_excel_new() + theme(legend.position = "right")
+```
+
+
+
+```{r mots_par_article}
+stats %>%
+  mutate(code = fct_reorder(code,-mots_par_article,.fun=first)) %>%
+  ggplot(aes(x=date,y=mots_par_article,color=code)) +
+  geom_line(aes(group=code)) +
+  theme_excel_new() + theme(legend.position = "right")
+```
+
+
+
+```{r mots_par_alinea}
+stats %>%
+  mutate(code = fct_reorder(code,-mots_par_alinea,.fun=first)) %>%
+  ggplot(aes(x=date,y=mots_par_alinea,color=code)) +
+  geom_line(aes(group=code)) +
+  theme_excel_new() + theme(legend.position = "right")
+```
