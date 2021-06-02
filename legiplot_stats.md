@@ -12,3 +12,7 @@ Legiplot Stats
 ![](legiplot_stats_files/figure-gfm/mots_par_article-1.png)<!-- -->
 
 ![](legiplot_stats_files/figure-gfm/mots_par_alinea-1.png)<!-- -->
+
+## Un seul code, détaillé
+
+![](legiplot_stats_files/figure-gfm/pi.livres-1.png)<!-- -->

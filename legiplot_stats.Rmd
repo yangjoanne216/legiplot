@@ -77,3 +77,35 @@ stats %>%
   geom_line(aes(group=code)) +
   theme_excel_new() + theme(legend.position = "right")
 ```
+
+
+
+## Un seul code, détaillé
+
+```{r pi.data}
+stats.pi <- read.csv("stats_shortlist_ts3.csv") %>%
+  filter(code == "code_de_la_propriété_intellectuelle") %>%
+  mutate(
+    code = as.factor(code),
+    date = as.Date(date),
+    alineas_par_article = nb_alineas / nb_articles,
+    mots_par_article = nb_mots / nb_articles,
+    mots_par_alinea = nb_mots / nb_alineas
+   ) %>%
+  mutate_at(
+    c("sous_partie","livre"),
+    function(x) gsub("(.*) :.*", "\\1",x)
+    ) %>%
+  mutate_at(
+    c("partie","sous_partie","livre"),
+    function(x) factor(x,unique(x))
+    )
+```
+
+```{r pi.livres}
+stats.pi %>%
+  ggplot(aes(x=date,y=nb_mots,fill=livre)) +
+  geom_area(aes(group=livre)) +
+  facet_grid(.~partie)  +
+  theme_excel_new() + theme(legend.position = "right")
+```
