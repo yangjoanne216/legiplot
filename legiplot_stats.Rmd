@@ -79,14 +79,67 @@ stats %>%
 ```
 
 
+## Fouille de stats détaillées 
 
-## Un seul code, détaillé
+
+```{r det.1, echo = TRUE, fig.height=9, fig.width=16}
+stats.det <- read.csv("stats_shortlist_ts3.csv") %>%
+  filter(code == "code_de_l'éducation") %>%
+  mutate(date = as.Date(date)) 
+
+stats.det %>%
+  ggplot(aes(x=date,y=nb_mots,fill=livre)) +
+  geom_area(aes(group=livre)) +
+  facet_grid(.~partie)  +
+  theme_excel_new() + 
+  theme(legend.position = "right")
+```
+
+Premier problème : les livres ne sont pas dans l'ordre : Livre IX < Livre V
+
+Pour traiter ce problème, on force l'ordre des livres avec l'ordre dans le csv:
+
+
+```{r det.2, echo = TRUE, fig.height=9, fig.width=16}
+stats.det %>%
+    mutate_at(
+    c("partie","sous_partie","livre"),
+    function(x) factor(x,unique(x))
+    ) %>%
+  ggplot(aes(x=date,y=nb_mots,fill=livre)) +
+  geom_area(aes(group=livre)) +
+  facet_grid(.~partie)  +
+  theme_excel_new() + 
+  theme(legend.position = "right")
+```
+
+Deuxième problème : des titres changent au cours du temps.
+
+Pour traiter ce problème, on va supprimer ces titres :
+
+```{r det.3, echo = TRUE, fig.height=9, fig.width=16}
+stats.det %>%
+  mutate_at(
+    c("sous_partie","livre"),
+    function(x) gsub("(.*) :.*", "\\1",x)
+    ) %>%
+    mutate_at(
+    c("partie","sous_partie","livre"),
+    function(x) factor(x,unique(x))
+    ) %>%
+  ggplot(aes(x=date,y=nb_mots,fill=livre)) +
+  geom_area(aes(group=livre)) +
+  facet_grid(.~partie)  +
+  theme_excel_new() + 
+  theme(legend.position = "right")
+```
+
+## Fouille du code PI
 
 ```{r pi.data}
 stats.pi <- read.csv("stats_shortlist_ts3.csv") %>%
   filter(code == "code_de_la_propriété_intellectuelle") %>%
   mutate(
-    code = as.factor(code),
     date = as.Date(date),
     alineas_par_article = nb_alineas / nb_articles,
     mots_par_article = nb_mots / nb_articles,
@@ -107,5 +160,6 @@ stats.pi %>%
   ggplot(aes(x=date,y=nb_mots,fill=livre)) +
   geom_area(aes(group=livre)) +
   facet_grid(.~partie)  +
-  theme_excel_new() + theme(legend.position = "right")
+  theme_excel_new() + 
+  theme(legend.position = "right")
 ```
