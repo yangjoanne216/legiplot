@@ -13,6 +13,14 @@ Legiplot Stats
 
 ![](legiplot_stats_files/figure-gfm/mots_par_alinea-1.png)<!-- -->
 
+## Législative vs. Réglementaire
+
+![](legiplot_stats_files/figure-gfm/lr.all-1.png)<!-- -->
+
+![](legiplot_stats_files/figure-gfm/lr.all.stack-1.png)<!-- -->
+
+![](legiplot_stats_files/figure-gfm/lr.all.fill-1.png)<!-- -->
+
 ## Fouille de stats détaillées
 
 ``` r

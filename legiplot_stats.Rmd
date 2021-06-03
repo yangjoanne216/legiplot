@@ -119,8 +119,8 @@ stats.lr %>%
 ```{r lr.all.fill, fig.width=8, fig.height=8}
 stats.lr %>%
   mutate(code = fct_reorder(code,-nb_mots,.fun=first)) %>%
-  ggplot(aes(x=date,y=nb_mots,color=partie,fill=partie)) +
-  geom_area(aes(group=partie)) +
+  ggplot(aes(x=date,y=nb_articles,color=partie,fill=partie)) +
+  geom_area(aes(group=partie),position="fill") +
   facet_wrap(code~., labeller = label_wrap_gen(width=20)) +
   theme_hc() + theme(legend.position = "top")
 ```
