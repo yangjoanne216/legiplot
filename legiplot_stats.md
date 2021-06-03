@@ -24,7 +24,7 @@ stats.det %>%
   ggplot(aes(x=date,y=nb_mots,fill=livre)) +
   geom_area(aes(group=livre)) +
   facet_grid(.~partie)  +
-  theme_excel_new() + 
+  theme_hc() + 
   theme(legend.position = "right")
 ```
 
@@ -45,7 +45,7 @@ stats.det %>%
   ggplot(aes(x=date,y=nb_mots,fill=livre)) +
   geom_area(aes(group=livre)) +
   facet_grid(.~partie)  +
-  theme_excel_new() + 
+  theme_hc() + 
   theme(legend.position = "right")
 ```
 
@@ -68,7 +68,7 @@ stats.det %>%
   ggplot(aes(x=date,y=nb_mots,fill=livre)) +
   geom_area(aes(group=livre)) +
   facet_grid(.~partie)  +
-  theme_excel_new() + 
+  theme_hc() + 
   theme(legend.position = "right")
 ```
 
