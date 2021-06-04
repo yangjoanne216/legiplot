@@ -19,6 +19,8 @@ Legiplot Stats
 
 ![](legiplot_stats_files/figure-gfm/lr.all.stack-1.png)<!-- -->
 
+    ## `summarise()` has grouped output by 'date', 'code'. You can override using the `.groups` argument.
+
 ![](legiplot_stats_files/figure-gfm/lr.all.fill-1.png)<!-- -->
 
 ## Fouille de stats détaillées

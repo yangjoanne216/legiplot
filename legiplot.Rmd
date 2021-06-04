@@ -11,7 +11,7 @@ library(ggthemes)
 ```
 
 ```{r load}
-legiplot <- read.csv("all_codes_fulltext.csv",encoding ='UTF-8') %>%
+# legiplot <- read.csv("diff_shortlist_t.csv",encoding ='UTF-8') %>%
   mutate(année = as.numeric(str_sub(date,1,4)))
 
 ```

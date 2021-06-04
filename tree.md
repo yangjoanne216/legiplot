@@ -3,8 +3,10 @@ un arbre pour la structure de code
 
 ``` r
 # create a data frame 
-data <- read.csv("code_structure.csv",encoding = "UTF-8")%>%filter(code=="code_de_l'éducation")
-data <- transform(data, sous_partie= ifelse(sous_partie=="", partie,sous_partie))
+data <- read.csv("stats_shortlist_lts1.csv",encoding = "UTF-8") %>% 
+  filter(code=="code_de_l'éducation") %>%
+  mutate(code = str_replace_all(code,'_',' ')) %>%
+  mutate(sous_partie = ifelse(sous_partie=="", partie,sous_partie))
 ```
 
 ``` r
@@ -19,7 +21,8 @@ edges_livre_titre <- data %>% select(livre, titre) %>% unique %>% rename(from=li
 
 edges_titre_chapitre <- data %>% select(titre,chapitre) %>% unique %>% rename(from=titre,to=chapitre)
 
-edges=rbind(edges_code_partie,edges_partie_sousPartie,edges_sousPartie_livre,edges_livre_titre,edges_titre_chapitre)
+#edges=rbind(edges_code_partie,edges_partie_sousPartie,edges_sousPartie_livre,edges_livre_titre,edges_titre_chapitre)
+edges=rbind(edges_code_partie,edges_partie_sousPartie,edges_sousPartie_livre)
 ```
 
 ``` r
@@ -58,14 +61,21 @@ vertices$group[mycode]="NA"
     #this<-sqldf(sprintf("SELECT partie FROM data where livre='%s'"),vertices$name[livre])$partie[1]
    #"Livre Ier : Principes généraux de l'éducation"
     vertices$group[livre]<-sqldf("SELECT partie FROM data where livre='Livre Ier : Principes généraux de l''éducation'")$partie[1]
-
-
  }
 ```
 
 ``` r
+labeller = label_wrap_gen(width = 15)
+
 mygraph<- graph_from_data_frame(edges,vertices=vertices) 
-ggraph(mygraph, layout = 'dendrogram', circular =TRUE)+geom_edge_diagonal(colour="grey")+scale_edge_colour_distiller(palette = "RdPu") +geom_node_point(aes(colour=group,size=niveau))+geom_node_text(aes(label=name,colour=group),size=8)+theme_void()+theme(legend.position="none",plot.margin=unit(c(0,0,0,0),"cm"))
+ggraph(mygraph, layout = 'dendrogram', circular =TRUE)+
+  geom_edge_diagonal(colour="grey")+
+  scale_edge_colour_distiller(palette = "RdPu")+
+  geom_node_point(aes(size=niveau),colour="grey")+
+  geom_node_text(aes(label=labeller(name),colour=group,size=niveau))+
+  scale_size_continuous(range=c(4,10)) +
+  theme_void()+
+  theme(legend.position="none",plot.margin=unit(c(0,0,0,0),"cm"))
 ```
 
     ## Multiple parents. Unfolding graph
