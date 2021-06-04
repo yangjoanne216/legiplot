@@ -3,7 +3,7 @@ un arbre pour la structure de code
 
 ``` r
 # create a data frame 
-data <- read.csv("test.csv",encoding = "UTF-8")%>%filter(code=="code_de_l'éducation")
+data <- read.csv("code_structure.csv",encoding = "UTF-8")%>%filter(code=="code_de_l'éducation")
 data <- transform(data, sous_partie= ifelse(sous_partie=="", partie,sous_partie))
 ```
 
@@ -55,9 +55,9 @@ vertices$group[mycode]="NA"
 
  for (livre in mylivre)
  {
-    #this<-sqldf(sprintf("SELECT partie FROM data where livre='%s'"),vertices$name[livre])
+    #this<-sqldf(sprintf("SELECT partie FROM data where livre='%s'"),vertices$name[livre])$partie[1]
    #"Livre Ier : Principes généraux de l'éducation"
-     vertices$group[livre]<-sqldf("SELECT partie FROM data where livre='Livre Ier : Principes généraux de l''éducation'")$partie[1]
+    vertices$group[livre]<-sqldf("SELECT partie FROM data where livre='Livre Ier : Principes généraux de l''éducation'")$partie[1]
 
 
  }
