@@ -1,9 +1,10 @@
-code de la propiérité intellectuelle
+un arbre pour la structure de code
 ================
 
 ``` r
 # create a data frame 
-data <- read.csv("test.csv",encoding = "UTF-8")%>%filter(code=="code_du_cinéma_et_de_l'image_animée")
+data <- read.csv("test.csv",encoding = "UTF-8")%>%filter(code=="code_de_l'éducation")
+data <- transform(data, sous_partie= ifelse(sous_partie=="", partie,sous_partie))
 ```
 
 ``` r
@@ -24,31 +25,47 @@ edges=rbind(edges_code_partie,edges_partie_sousPartie,edges_sousPartie_livre,edg
 ``` r
 vertices = data.frame(
   name = unique(c(as.character(edges$from), as.character(edges$to)))
-) 
-vertices$group = edges$from[ match( vertices$name, edges$to ) ]
-head(vertices)
-```
+)
 
-    ##                                      name                               group
-    ## 1     code_du_cinéma_et_de_l'image_animée                                <NA>
-    ## 2                      Partie législative code_du_cinéma_et_de_l'image_animée
-    ## 3                    Partie réglementaire code_du_cinéma_et_de_l'image_animée
-    ## 4                                         code_du_cinéma_et_de_l'image_animée
-    ## 5                                    <NA>                  Partie législative
-    ## 6 Livre Ier : Organisation administrative                                <NA>
+#set niveau
+mychapitre=which(is.na(match(vertices$name,edges$from)))
+mytitre=which(!is.na(match(vertices$name,edges_livre_titre$to)))
+mylivre=which(!is.na(match(vertices$name,edges_sousPartie_livre$to)))
+mysouspartie=which(!is.na(match(vertices$name,edges_partie_sousPartie$to)))
+mypartie=which(!is.na(match(vertices$name,edges_code_partie$to)))
+mycode=which(!is.na(match(vertices$name,edges_code_partie$from)))
+
+vertices$niveau[ mychapitre ] =1
+vertices$niveau[ mytitre ] =2
+vertices$niveau[ mylivre ] =4
+vertices$niveau[mysouspartie]=8
+vertices$niveau[ mypartie ] =16
+vertices$niveau[mycode]=32
+
+vertices$group[ mychapitre ] ="NA"
+vertices$group[ mytitre ] ="NA"
+vertices$group[ mylivre ] ="NA"
+vertices$group[mysouspartie]="NA"
+vertices$group[ mypartie ] ="NA"
+vertices$group[mycode]="NA"
+
+
+#vertices$niveau[thevide]=0
+
+
+ for (livre in mylivre)
+ {
+    #this<-sqldf(sprintf("SELECT partie FROM data where livre='%s'"),vertices$name[livre])
+   #"Livre Ier : Principes généraux de l'éducation"
+     vertices$group[livre]<-sqldf("SELECT partie FROM data where livre='Livre Ier : Principes généraux de l''éducation'")$partie[1]
+
+
+ }
+```
 
 ``` r
 mygraph<- graph_from_data_frame(edges,vertices=vertices) 
-```
-
-    ## Warning in graph_from_data_frame(edges, vertices = vertices): In `d' `NA' elements
-    ## were replaced with string "NA"
-
-    ## Warning in graph_from_data_frame(edges, vertices = vertices): In `vertices[,1]'
-    ## `NA' elements were replaced with string "NA"
-
-``` r
-ggraph(mygraph, layout = 'dendrogram', circular =TRUE)+geom_edge_diagonal(colour="grey")+scale_edge_colour_distiller(palette = "RdPu") +geom_node_point(aes(colour=group))+geom_node_text(aes(label=name,colour=group))+theme_void()+theme(legend.position="none",plot.margin=unit(c(0,0,0,0),"cm"))
+ggraph(mygraph, layout = 'dendrogram', circular =TRUE)+geom_edge_diagonal(colour="grey")+scale_edge_colour_distiller(palette = "RdPu") +geom_node_point(aes(colour=group,size=niveau))+geom_node_text(aes(label=name,colour=group),size=8)+theme_void()+theme(legend.position="none",plot.margin=unit(c(0,0,0,0),"cm"))
 ```
 
     ## Multiple parents. Unfolding graph
