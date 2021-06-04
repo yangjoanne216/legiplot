@@ -69,8 +69,6 @@ vertices$group[mycode]="NA"
     #this<-sqldf(sprintf("SELECT partie FROM data where livre='%s'"),vertices$name[livre])$partie[1]
    #"Livre Ier : Principes généraux de l'éducation"
     vertices$group[livre]<-sqldf("SELECT partie FROM data where livre='Livre Ier : Principes généraux de l''éducation'")$partie[1]
-
-
  }
 
 
