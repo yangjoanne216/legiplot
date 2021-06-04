@@ -41,7 +41,7 @@ mycode=which(!is.na(match(vertices$name,edges_code_partie$from)))
 vertices$niveau[ mychapitre ] =1
 vertices$niveau[ mytitre ] =2
 vertices$niveau[ mylivre ] =4
-vertices$niveau[mysouspartie]=8
+vertices$niveau[ mysouspartie]=8
 vertices$niveau[ mypartie ] =16
 vertices$niveau[mycode]=32
 
@@ -51,17 +51,6 @@ vertices$group[ mylivre ] ="NA"
 vertices$group[mysouspartie]="NA"
 vertices$group[ mypartie ] ="NA"
 vertices$group[mycode]="NA"
-
-
-#vertices$niveau[thevide]=0
-
-
- for (livre in mylivre)
- {
-    #this<-sqldf(sprintf("SELECT partie FROM data where livre='%s'"),vertices$name[livre])$partie[1]
-   #"Livre Ier : Principes généraux de l'éducation"
-    vertices$group[livre]<-sqldf("SELECT partie FROM data where livre='Livre Ier : Principes généraux de l''éducation'")$partie[1]
- }
 ```
 
 ``` r
@@ -72,7 +61,7 @@ ggraph(mygraph, layout = 'dendrogram', circular =TRUE)+
   geom_edge_diagonal(colour="grey")+
   scale_edge_colour_distiller(palette = "RdPu")+
   geom_node_point(aes(size=niveau),colour="grey")+
-  geom_node_text(aes(label=labeller(name),colour=group,size=niveau))+
+  geom_node_text(aes(label=labeller(name),colour=niveau,size=niveau))+
   scale_size_continuous(range=c(4,10)) +
   theme_void()+
   theme(legend.position="none",plot.margin=unit(c(0,0,0,0),"cm"))

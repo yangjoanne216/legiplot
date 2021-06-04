@@ -72,7 +72,7 @@ ggraph(mygraph, layout = 'dendrogram', circular =TRUE)+
   geom_edge_diagonal(colour="grey")+
   scale_edge_colour_distiller(palette = "RdPu")+
   geom_node_point(aes(size=niveau),colour="grey")+
-  geom_node_text(aes(label=labeller(name),colour=group,size=niveau))+
+  geom_node_text(aes(label=labeller(name),colour=niveau,size=niveau))+
   scale_size_continuous(range=c(4,10)) +
   theme_void()+
   theme(legend.position="none",plot.margin=unit(c(0,0,0,0),"cm"))
