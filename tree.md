@@ -27,7 +27,7 @@ vertices = data.frame(
   name = unique(c(as.character(edges$from), as.character(edges$to)))
 )
 
-#set niveau
+#set niveau pour le taille
 mychapitre=which(is.na(match(vertices$name,edges$from)))
 mytitre=which(!is.na(match(vertices$name,edges_livre_titre$to)))
 mylivre=which(!is.na(match(vertices$name,edges_sousPartie_livre$to)))
@@ -42,30 +42,41 @@ vertices$niveau[mysouspartie]=8
 vertices$niveau[ mypartie ] =16
 vertices$niveau[mycode]=32
 
+#set niveau group pour la couleur
 vertices$group[ mychapitre ] ="NA"
 vertices$group[ mytitre ] ="NA"
 vertices$group[ mylivre ] ="NA"
-vertices$group[mysouspartie]="NA"
-vertices$group[ mypartie ] ="NA"
-vertices$group[mycode]="NA"
-
-
-#vertices$niveau[thevide]=0
-
-
+vertices$group[ mysouspartie]="NA"
+vertices$group[ mypartie ] =vertices$name[ mypartie ]
+vertices$group[mycode]="code"
+for (souspartie in mysouspartie)
+ {
+    find<-gsub("'", "''", vertices$name[souspartie])
+    vertices$group[souspartie]<-sqldf(sprintf("select partie from data where sous_partie='%s'", find))$partie[1]
+    
+ }
  for (livre in mylivre)
  {
-    #this<-sqldf(sprintf("SELECT partie FROM data where livre='%s'"),vertices$name[livre])$partie[1]
-   #"Livre Ier : Principes généraux de l'éducation"
-    vertices$group[livre]<-sqldf("SELECT partie FROM data where livre='Livre Ier : Principes généraux de l''éducation'")$partie[1]
+    find<-gsub("'", "''", vertices$name[livre])
+    vertices$group[livre]<-sqldf(sprintf("select partie from data where livre='%s'", find))$partie[1]
+ }
 
+for (titre in mytitre)
+ {
+    find<-gsub("'", "''", vertices$name[titre])
+    vertices$group[titre]<-sqldf(sprintf("select partie from data where titre = '%s'", find))$partie[1]
+}
 
+ for (chapitre in mychapitre)
+ {
+    find<-gsub("'", "''", vertices$name[chapitre])
+    vertices$group[chapitre]<-sqldf(sprintf("select partie from data where chapitre = '%s'", find))$partie[1]
  }
 ```
 
 ``` r
 mygraph<- graph_from_data_frame(edges,vertices=vertices) 
-ggraph(mygraph, layout = 'dendrogram', circular =TRUE)+geom_edge_diagonal(colour="grey")+scale_edge_colour_distiller(palette = "RdPu") +geom_node_point(aes(colour=group,size=niveau))+geom_node_text(aes(label=name,colour=group),size=8)+theme_void()+theme(legend.position="none",plot.margin=unit(c(0,0,0,0),"cm"))
+ggraph(mygraph, layout = 'dendrogram', circular =TRUE)+geom_edge_diagonal(colour="grey")+scale_edge_colour_distiller(palette = "RdPu") +geom_node_point(aes(colour=group,size=niveau*2))+geom_node_text(aes(label=name,colour=group),size=6)+theme_void()+theme(legend.position="none",plot.margin=unit(c(0,0,0,0),"cm"))
 ```
 
     ## Multiple parents. Unfolding graph
