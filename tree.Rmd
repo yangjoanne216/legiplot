@@ -15,65 +15,38 @@ library(sqldf)
 # create a data frame 
 data <- read.csv("stats_shortlist_lts1.csv",encoding = "UTF-8") %>% 
   filter(code=="code_de_l'éducation") %>%
+  filter(partie != "Partie réglementaire") %>%
   mutate(code = str_replace_all(code,'_',' ')) %>%
   mutate(sous_partie = ifelse(sous_partie=="", partie,sous_partie))
 ```
 
-```{r transforme}
-# transform it to a edge list!
-edges_code_partie <- data %>% select(code,partie) %>% unique %>% rename(from=code, to=partie)
+```{r tree, fig.width=20, fig.height=20}
 
-edges_partie_sousPartie <- data %>% select(partie,sous_partie) %>% unique %>% rename(from=partie, to=sous_partie)
-
-edges_sousPartie_livre <- data %>% select(sous_partie, livre) %>% unique %>% rename(from=sous_partie,to=livre)
-
-edges_livre_titre <- data %>% select(livre, titre) %>% unique %>% rename(from=livre,to=titre)
-
-edges_titre_chapitre <- data %>% select(titre,chapitre) %>% unique %>% rename(from=titre,to=chapitre)
-
-#edges=rbind(edges_code_partie,edges_partie_sousPartie,edges_sousPartie_livre,edges_livre_titre,edges_titre_chapitre)
-edges=rbind(edges_code_partie,edges_partie_sousPartie,edges_sousPartie_livre)
-
-```
-
-```{r setColor}
-vertices = data.frame(
-  name = unique(c(as.character(edges$from), as.character(edges$to)))
+edges <- bind_rows(
+  data %>% group_by(from=code, to=sous_partie) %>% summarise(niveau = 5),
+  data %>% group_by(from=sous_partie, to=livre) %>% summarise(niveau = 4),
+  data %>% group_by(from=livre, to=paste(livre,titre)) %>% summarise(niveau = 3)
 )
 
-#set niveau
-mychapitre=which(is.na(match(vertices$name,edges$from)))
-mytitre=which(!is.na(match(vertices$name,edges_livre_titre$to)))
-mylivre=which(!is.na(match(vertices$name,edges_sousPartie_livre$to)))
-mysouspartie=which(!is.na(match(vertices$name,edges_partie_sousPartie$to)))
-mypartie=which(!is.na(match(vertices$name,edges_code_partie$to)))
-mycode=which(!is.na(match(vertices$name,edges_code_partie$from)))
+vertices <- bind_rows(
+  data %>% group_by(name = code) %>% summarise(label = unique(code), groupe = "code", niveau = 5, nb_articles = sum(nb_articles)),
+  #data %>% group_by(name = partie) %>% summarise(label = partie, groupe = partie, niveau = 5, nb_articles = sum(nb_articles)),
+  data %>% group_by(name = sous_partie) %>% summarise(label = unique(sous_partie), groupe = unique(sous_partie), niveau = 4, nb_articles = sum(nb_articles)),
+  data %>% group_by(name = livre) %>% summarise(label = unique(livre), groupe = unique(sous_partie), niveau = 3, nb_articles = sum(nb_articles)),
+  data %>% group_by(name = paste(livre,titre)) %>% summarise(label = unique(titre), groupe = unique(sous_partie), niveau = 2, nb_articles = sum(nb_articles))
+)
 
-vertices$niveau[ mychapitre ] =1
-vertices$niveau[ mytitre ] =2
-vertices$niveau[ mylivre ] =4
-vertices$niveau[ mysouspartie]=8
-vertices$niveau[ mypartie ] =16
-vertices$niveau[mycode]=32
+#vertices %>% group_by(name) %>% summarise(n = n()) %>% arrange(desc(n))
 
-vertices$group[ mychapitre ] ="NA"
-vertices$group[ mytitre ] ="NA"
-vertices$group[ mylivre ] ="NA"
-vertices$group[mysouspartie]="NA"
-vertices$group[ mypartie ] ="NA"
-vertices$group[mycode]="NA"
-```
-
-```{r fig.width=10, fig.height=10}
 labeller = label_wrap_gen(width = 15)
 
 mygraph<- graph_from_data_frame(edges,vertices=vertices) 
 ggraph(mygraph, layout = 'dendrogram', circular =TRUE)+
   geom_edge_diagonal(colour="grey")+
   scale_edge_colour_distiller(palette = "RdPu")+
-  geom_node_point(aes(size=niveau),colour="grey")+
-  geom_node_text(aes(label=labeller(name),colour=niveau,size=niveau))+
-  scale_size_continuous(range=c(4,10)) +
+  #geom_node_point(aes(size=niveau),colour="grey")+
+  geom_node_text(aes(label=labeller(label),colour=groupe,size=nb_articles))+
+  scale_size_continuous(range=c(3,15)) +
   theme_void()+
   theme(legend.position="none",plot.margin=unit(c(0,0,0,0),"cm"))
 
