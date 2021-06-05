@@ -1,0 +1,48 @@
+---
+title: "Legiplot"
+date: 12-12-2021
+author : Yang
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Introduction
+
+## Présentation CEIPI
+
+- Bullet 1
+- Bullet 2
+- Bullet 3
+
+## Sujet / archéolex
+
+```{r cars, echo = TRUE}
+summary(cars)
+```
+
+## Archeolex_excavation : présentation globale
+
+```{r pressure}
+plot(pressure)
+```
+
+## Archeolex_excavation : présentation technique
+
+# Résultats
+
+## Liste des codes et des visualisations
+
+## Evolution des volumes de codes
+
+## Visualisation des structures en arbre
+
+## Visualisation des évolutions des parties d'un code
+
+## Quelques tops
+
+- Code le plus modifié
+- Livre le plus modifié
+- Article le plus modifié

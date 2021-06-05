@@ -14,11 +14,10 @@ data <- read.csv("stats_shortlist_lts1.csv",encoding = "UTF-8") %>%
 edges <- bind_rows(
   data %>% group_by(from=code, to=sous_partie) %>% summarise(niveau = 5),
   data %>% group_by(from=sous_partie, to=livre) %>% summarise(niveau = 4),
-  data %>% group_by(from=livre, to=paste(livre,titre)) %>% summarise(niveau = 3)
+  #data %>% group_by(from=livre, to=paste(livre,titre)) %>% summarise(niveau = 3)
 )
 ```
 
-    ## `summarise()` has grouped output by 'from'. You can override using the `.groups` argument.
     ## `summarise()` has grouped output by 'from'. You can override using the `.groups` argument.
     ## `summarise()` has grouped output by 'from'. You can override using the `.groups` argument.
 
@@ -28,7 +27,7 @@ vertices <- bind_rows(
   #data %>% group_by(name = partie) %>% summarise(label = partie, groupe = partie, niveau = 5, nb_articles = sum(nb_articles)),
   data %>% group_by(name = sous_partie) %>% summarise(label = unique(sous_partie), groupe = unique(sous_partie), niveau = 4, nb_articles = sum(nb_articles)),
   data %>% group_by(name = livre) %>% summarise(label = unique(livre), groupe = unique(sous_partie), niveau = 3, nb_articles = sum(nb_articles)),
-  data %>% group_by(name = paste(livre,titre)) %>% summarise(label = unique(titre), groupe = unique(sous_partie), niveau = 2, nb_articles = sum(nb_articles))
+  #data %>% group_by(name = paste(livre,titre)) %>% summarise(label = unique(titre), groupe = unique(sous_partie), niveau = 2, nb_articles = sum(nb_articles))
 )
 
 #vertices %>% group_by(name) %>% summarise(n = n()) %>% arrange(desc(n))
