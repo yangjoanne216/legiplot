@@ -1,12 +1,19 @@
 ---
 title: "Legiplot"
-date: 12-12-2021
-author : Yang
-output: ioslides_presentation
+author: "Yang"
+date: "12-12-2021"
+output:
+  ioslides_presentation: default
+  beamer_presentation: default
+  slidy_presentation: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+options(dplyr.summarise.inform = FALSE)
+
+source("legiplot_functions.R")
+legiplot_loadall_short()
 ```
 
 # Introduction
@@ -38,6 +45,11 @@ plot(pressure)
 ## Evolution des volumes de codes
 
 ## Visualisation des structures en arbre
+
+```{r tree.cde, fig.width=15, fig.height=15, out.width=500, out.height=500, fig.align="center"}
+legiplot_tree("code de l'éducation")
+```
+
 
 ## Visualisation des évolutions des parties d'un code
 
