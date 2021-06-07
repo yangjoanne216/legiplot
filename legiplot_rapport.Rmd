@@ -1,0 +1,21 @@
+---
+title: "Legiplot"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+options(dplyr.summarise.inform = FALSE)
+
+source("legiplot_functions.R")
+legiplot_loadall_short()
+```
+
+# Structures
+
+```{r arbres, results='asis', fig.width=15, fig.height=15, out.width="100%", fig.align="center"}
+for(code in head(levels(lp_stats_lts1$code),100)) {
+  cat("## ",code,"\n\n")
+  print(legiplot_tree(code))
+}
+```
