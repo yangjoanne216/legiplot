@@ -21,6 +21,7 @@ stats <- read.csv("stats_shortlist_ts6.csv") %>%
     mots_par_alinea = nb_mots / nb_alineas
    ) %>%
   filter(date >= as.Date("2000-01-01"))
+
 ```
 
 ```{r nb_mots}
@@ -215,5 +216,6 @@ stats.pi %>%
   theme_hc() + 
   theme(legend.position = "right")
 ```
+
 
 

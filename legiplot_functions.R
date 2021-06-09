@@ -11,6 +11,7 @@ legiplot_load <- function(csvfile) {
 
 legiplot_loadall_short <- function() {
   lp_stats_lts1 <<- legiplot_load("stats_shortlist_lts1.csv")
+  lp_stats_lts0 <<- legiplot_load("stats_shortlist_lts0.csv")
 }
 
 # Arbres

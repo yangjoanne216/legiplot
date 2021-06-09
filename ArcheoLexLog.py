@@ -9,6 +9,7 @@ import sys
 import string
 import shutil
 import copy
+import tempfile
 
 class ArcheoLexLog:
     def __init__(self, code, verbose=False, PLTC_method="code"):
@@ -157,7 +158,6 @@ class ArcheoLexLog:
                 if curmod.type_modification is None : curmod.type_modification = "Modification"
                 curmod.nb_modifications += 1
 
-
         if curmod is not None and curmod.type_modification is not None:
             if curmod.article not in mods:
                 mods[curmod.article] = curmod
@@ -239,7 +239,7 @@ class ArcheoLexLog:
                     article_precedent = article
 
         if traitement == "stats" and article_precedent is not None:
-            ap = article 
+            ap = article
             nbs[-1] += ap.nb_mots
             nbs[-2] += ap.nb_lignes
             nbs[0:-2-shrink] = ap.getSections()[0:6-shrink]
@@ -280,10 +280,22 @@ class ArcheoLexLog:
             else:
                 articles = self.processVersion(commit,traitement,shrink)
 
+            if traitement == "check":
+                for sa in seen_articles:
+                    if sa in articles: del articles[sa]
+                seen_articles += articles.keys()
+
             for article in articles.values():
                 csvwriter.writerow(article.getValues(traitement))
 
             if datelimit != None:
-                if datelimit == "last": return()
-                if traitement != "check" and date < datelimit: return()
-                if traitement == "check" and date > datelimit: return()
+                if datelimit == "last": break
+                if traitement != "check" and date < datelimit: break
+                if traitement == "check" and date > datelimit: break
+
+        if traitement == "diff" and shrink == 0:
+            commit = commit.parents[0]
+            articles = self.processVersion(commit,"stats",0)
+            for article in articles.values():
+                article.type_modification = "Préexistence"
+                csvwriter.writerow(article.getValues(traitement))
