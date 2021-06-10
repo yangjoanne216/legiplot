@@ -181,7 +181,7 @@ output:
 
 <img src="05-images_files/figure-html/global.zoom-1.png" width="768" />
 
-### La nombre de modifications de chaque année
+### Nombre de modifications de chaque année
 
 #### Depuis 1950
 

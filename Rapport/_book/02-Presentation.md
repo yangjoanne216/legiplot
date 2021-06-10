@@ -6,14 +6,10 @@ CEIPI (Centre d'études internationales de la propriété intellectuelle) est un
 CEIPI s’est installé le 2 mars 2020 dans un nouveau bâtiment situé dans l'enceinte de l'Hôpital civil à Strasbourg
 
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.8\linewidth]{images/Location_du_CEIPI} 
-
-}
-
-\caption{Location du CEIPI}(\#fig:Location du CEIPI)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/Location_du_CEIPI.jpg" alt="Location du CEIPI" width="80%" />
+<p class="caption">(\#fig:Location du CEIPI)Location du CEIPI</p>
+</div>
 
 ## La structure
 Le centre était composé de trois sections : 
