@@ -13,155 +13,36 @@ output:
 ## modification et des visualisations
 
 ### Liste des codes et modifications
-<table>
- <thead>
-  <tr>
-   <th style="text-align:left;"> code </th>
-   <th style="text-align:right;"> nb_modifs </th>
-   <th style="text-align:left;"> début </th>
-   <th style="text-align:left;"> fin </th>
-   <th style="text-align:right;"> parties </th>
-   <th style="text-align:right;"> sous_parties </th>
-   <th style="text-align:right;"> livres </th>
-   <th style="text-align:right;"> titres </th>
-   <th style="text-align:right;"> chapitres </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> code_civil </td>
-   <td style="text-align:right;"> 6248 </td>
-   <td style="text-align:left;"> 1803-03-15 </td>
-   <td style="text-align:left;"> 2021-01-01 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 7 </td>
-   <td style="text-align:right;"> 70 </td>
-   <td style="text-align:right;"> 214 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> code_de_commerce </td>
-   <td style="text-align:right;"> 16455 </td>
-   <td style="text-align:left;"> 2000-12-14 </td>
-   <td style="text-align:left;"> 2021-05-23 </td>
-   <td style="text-align:right;"> 4 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 11 </td>
-   <td style="text-align:right;"> 80 </td>
-   <td style="text-align:right;"> 254 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> code_de_l'action_sociale_et_des_familles </td>
-   <td style="text-align:right;"> 8513 </td>
-   <td style="text-align:left;"> 2001-07-18 </td>
-   <td style="text-align:left;"> 2021-05-21 </td>
-   <td style="text-align:right;"> 3 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 8 </td>
-   <td style="text-align:right;"> 49 </td>
-   <td style="text-align:right;"> 238 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> code_de_l'éducation </td>
-   <td style="text-align:right;"> 10754 </td>
-   <td style="text-align:left;"> 2000-12-14 </td>
-   <td style="text-align:left;"> 2021-05-24 </td>
-   <td style="text-align:right;"> 2 </td>
-   <td style="text-align:right;"> 6 </td>
-   <td style="text-align:right;"> 15 </td>
-   <td style="text-align:right;"> 97 </td>
-   <td style="text-align:right;"> 274 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> code_de_la_consommation </td>
-   <td style="text-align:right;"> 6235 </td>
-   <td style="text-align:left;"> 1994-01-04 </td>
-   <td style="text-align:left;"> 2021-04-16 </td>
-   <td style="text-align:right;"> 4 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 16 </td>
-   <td style="text-align:right;"> 63 </td>
-   <td style="text-align:right;"> 227 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> code_de_la_propriété_intellectuelle </td>
-   <td style="text-align:right;"> 3227 </td>
-   <td style="text-align:left;"> 1993-01-01 </td>
-   <td style="text-align:left;"> 2021-05-14 </td>
-   <td style="text-align:right;"> 2 </td>
-   <td style="text-align:right;"> 6 </td>
-   <td style="text-align:right;"> 17 </td>
-   <td style="text-align:right;"> 27 </td>
-   <td style="text-align:right;"> 111 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> code_de_la_recherche </td>
-   <td style="text-align:right;"> 441 </td>
-   <td style="text-align:left;"> 2004-08-11 </td>
-   <td style="text-align:left;"> 2021-01-01 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 5 </td>
-   <td style="text-align:right;"> 21 </td>
-   <td style="text-align:right;"> 75 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> code_de_la_santé_publique </td>
-   <td style="text-align:right;"> 51280 </td>
-   <td style="text-align:left;"> 1953-10-27 </td>
-   <td style="text-align:left;"> 2021-05-27 </td>
-   <td style="text-align:right;"> 6 </td>
-   <td style="text-align:right;"> 10 </td>
-   <td style="text-align:right;"> 87 </td>
-   <td style="text-align:right;"> 290 </td>
-   <td style="text-align:right;"> 1138 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> code_de_la_sécurité_intérieure </td>
-   <td style="text-align:right;"> 4700 </td>
-   <td style="text-align:left;"> 2012-12-23 </td>
-   <td style="text-align:left;"> 2021-05-27 </td>
-   <td style="text-align:right;"> 2 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 9 </td>
-   <td style="text-align:right;"> 59 </td>
-   <td style="text-align:right;"> 165 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> code_de_la_sécurité_sociale </td>
-   <td style="text-align:right;"> 40633 </td>
-   <td style="text-align:left;"> 1961-01-12 </td>
-   <td style="text-align:left;"> 2021-05-23 </td>
-   <td style="text-align:right;"> 5 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 37 </td>
-   <td style="text-align:right;"> 185 </td>
-   <td style="text-align:right;"> 646 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> code_du_travail </td>
-   <td style="text-align:right;"> 48381 </td>
-   <td style="text-align:left;"> 1973-07-11 </td>
-   <td style="text-align:left;"> 2021-05-27 </td>
-   <td style="text-align:right;"> 6 </td>
-   <td style="text-align:right;"> 9 </td>
-   <td style="text-align:right;"> 76 </td>
-   <td style="text-align:right;"> 342 </td>
-   <td style="text-align:right;"> 1220 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> code_pénal </td>
-   <td style="text-align:right;"> 3235 </td>
-   <td style="text-align:left;"> 1992-07-23 </td>
-   <td style="text-align:left;"> 2021-05-27 </td>
-   <td style="text-align:right;"> 2 </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 11 </td>
-   <td style="text-align:right;"> 31 </td>
-   <td style="text-align:right;"> 87 </td>
-  </tr>
-</tbody>
-</table>
+
+\begin{tabular}{l|r|l|l|r|r|r|r|r}
+\hline
+code & nb\_modifs & début & fin & parties & sous\_parties & livres & titres & chapitres\\
+\hline
+code\_civil & 6248 & 1803-03-15 & 2021-01-01 & 1 & 1 & 7 & 70 & 214\\
+\hline
+code\_de\_commerce & 16455 & 2000-12-14 & 2021-05-23 & 4 & 1 & 11 & 80 & 254\\
+\hline
+code\_de\_l'action\_sociale\_et\_des\_familles & 8513 & 2001-07-18 & 2021-05-21 & 3 & 1 & 8 & 49 & 238\\
+\hline
+code\_de\_l'éducation & 10754 & 2000-12-14 & 2021-05-24 & 2 & 6 & 15 & 97 & 274\\
+\hline
+code\_de\_la\_consommation & 6235 & 1994-01-04 & 2021-04-16 & 4 & 1 & 16 & 63 & 227\\
+\hline
+code\_de\_la\_propriété\_intellectuelle & 3227 & 1993-01-01 & 2021-05-14 & 2 & 6 & 17 & 27 & 111\\
+\hline
+code\_de\_la\_recherche & 441 & 2004-08-11 & 2021-01-01 & 1 & 1 & 5 & 21 & 75\\
+\hline
+code\_de\_la\_santé\_publique & 51280 & 1953-10-27 & 2021-05-27 & 6 & 10 & 87 & 290 & 1138\\
+\hline
+code\_de\_la\_sécurité\_intérieure & 4700 & 2012-12-23 & 2021-05-27 & 2 & 1 & 9 & 59 & 165\\
+\hline
+code\_de\_la\_sécurité\_sociale & 40633 & 1961-01-12 & 2021-05-23 & 5 & 1 & 37 & 185 & 646\\
+\hline
+code\_du\_travail & 48381 & 1973-07-11 & 2021-05-27 & 6 & 9 & 76 & 342 & 1220\\
+\hline
+code\_pénal & 3235 & 1992-07-23 & 2021-05-27 & 2 & 1 & 11 & 31 & 87\\
+\hline
+\end{tabular}
 
 ### Pourcentage de différents types de modifications
 
@@ -171,7 +52,7 @@ output:
 ## `summarise()` has grouped output by 'année'. You can override using the `.groups` argument.
 ```
 
-<img src="05-images_files/figure-html/global-1.png" width="768" />
+![](05-images_files/figure-latex/global-1.pdf)<!-- --> 
 
 #### Depuis 1950
 
@@ -179,7 +60,7 @@ output:
 ## `summarise()` has grouped output by 'année'. You can override using the `.groups` argument.
 ```
 
-<img src="05-images_files/figure-html/global.zoom-1.png" width="768" />
+![](05-images_files/figure-latex/global.zoom-1.pdf)<!-- --> 
 
 ### Nombre de modifications de chaque année
 
@@ -189,7 +70,7 @@ output:
 ## `summarise()` has grouped output by 'année'. You can override using the `.groups` argument.
 ```
 
-<img src="05-images_files/figure-html/unnamed-chunk-1-1.png" width="960" />
+![](05-images_files/figure-latex/unnamed-chunk-1-1.pdf)<!-- --> 
 
 #### Depuis 1999
 
@@ -197,7 +78,7 @@ output:
 ## `summarise()` has grouped output by 'année'. You can override using the `.groups` argument.
 ```
 
-<img src="05-images_files/figure-html/unnamed-chunk-2-1.png" width="960" />
+![](05-images_files/figure-latex/unnamed-chunk-2-1.pdf)<!-- --> 
 
 
 ```
@@ -210,11 +91,11 @@ output:
 ## `summarise()` has grouped output by 'code'. You can override using the `.groups` argument.
 ```
 
-<img src="05-images_files/figure-html/modif.glob.plot1-1.png" width="768" />
+![](05-images_files/figure-latex/modif.glob.plot1-1.pdf)<!-- --> 
 
 ### Nombre modifications par articles
 
-<img src="05-images_files/figure-html/modif.glob.plot2-1.png" width="768" />
+![](05-images_files/figure-latex/modif.glob.plot2-1.pdf)<!-- --> 
 
 
 
@@ -233,31 +114,31 @@ output:
 
 ### Evolution de nombre de modifications
 
-<img src="05-images_files/figure-html/modif.evol.plot-1.png" width="768" />
+![](05-images_files/figure-latex/modif.evol.plot-1.pdf)<!-- --> 
 
 ## Evolution des volumes de codes
 
 
 
 ### Nombre de mots 
-<img src="05-images_files/figure-html/nb_mots-1.png" width="768" />
+![](05-images_files/figure-latex/nb_mots-1.pdf)<!-- --> 
 
 ### Nombre de lignes 
-<img src="05-images_files/figure-html/nb_alineas-1.png" width="768" />
+![](05-images_files/figure-latex/nb_alineas-1.pdf)<!-- --> 
 
 ### Nombre d'article 
-<img src="05-images_files/figure-html/nb_articles-1.png" width="768" />
+![](05-images_files/figure-latex/nb_articles-1.pdf)<!-- --> 
 
 
 ### Nombre moyen de lignes d'un article
-<img src="05-images_files/figure-html/alineas_par_article-1.png" width="768" />
+![](05-images_files/figure-latex/alineas_par_article-1.pdf)<!-- --> 
 
 
 ### Nombre moyen de mots d'un article
-<img src="05-images_files/figure-html/mots_par_article-1.png" width="768" />
+![](05-images_files/figure-latex/mots_par_article-1.pdf)<!-- --> 
 
 ### Nombre moyen de mots d'une ligne
-<img src="05-images_files/figure-html/mots_par_alinea-1.png" width="768" />
+![](05-images_files/figure-latex/mots_par_alinea-1.pdf)<!-- --> 
 
 ## Structure
 ### Législative vs. Réglementaire
@@ -265,10 +146,10 @@ output:
 
 
 #### Nombre de mots de chaque partie(séparées) 
-<img src="05-images_files/figure-html/lr.all-1.png" width="768" />
+![](05-images_files/figure-latex/lr.all-1.pdf)<!-- --> 
 
 #### Nombre de mots de chaque partie(combinées) 
-<img src="05-images_files/figure-html/lr.all.stack-1.png" width="768" />
+![](05-images_files/figure-latex/lr.all.stack-1.pdf)<!-- --> 
 
 #### Pourcentage de chaque partie
 
@@ -276,7 +157,7 @@ output:
 ## `summarise()` has grouped output by 'date', 'code'. You can override using the `.groups` argument.
 ```
 
-<img src="05-images_files/figure-html/lr.all.fill-1.png" width="960" />
+![](05-images_files/figure-latex/lr.all.fill-1.pdf)<!-- --> 
 
 ### Arborescence
 
@@ -305,7 +186,7 @@ stats.det %>%
   theme(legend.position = "right")
 ```
 
-<img src="05-images_files/figure-html/det.1-1.png" width="1536" />
+![](05-images_files/figure-latex/det.1-1.pdf)<!-- --> 
 
 Premier problème : les livres ne sont pas dans l'ordre : Livre IX < Livre V
 
@@ -326,7 +207,7 @@ stats.det %>%
   theme(legend.position = "right")
 ```
 
-<img src="05-images_files/figure-html/det.2-1.png" width="1536" />
+![](05-images_files/figure-latex/det.2-1.pdf)<!-- --> 
 
 Deuxième problème : des titres changent au cours du temps.
 
@@ -350,10 +231,10 @@ stats.det %>%
   theme(legend.position = "right")
 ```
 
-<img src="05-images_files/figure-html/det.3-1.png" width="1536" />
+![](05-images_files/figure-latex/det.3-1.pdf)<!-- --> 
 
 ### Code de la propriété intellectuelle
 
 
 
-<img src="05-images_files/figure-html/pi.livres-1.png" width="768" />
+![](05-images_files/figure-latex/pi.livres-1.pdf)<!-- --> 

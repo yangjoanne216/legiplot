@@ -112,6 +112,20 @@
 \usepackage{booktabs}
 \usepackage{fancyhdr}
 \usepackage{lastpage}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
 \ifluatex
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -404,7 +418,7 @@ Le rôle de cette classe est de stocker des fonctions d'exploration et d'analyse
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/ArcheoLexLog_UML} 
+{\centering \includegraphics[width=0.5\linewidth]{images/ArcheoLexLog_UML} 
 
 }
 
@@ -429,10 +443,261 @@ Cependant, il existe huit lois et leurs noms d'articles ne sont pas liés à la 
 
 \textbf{Solution}: ajout d'un paramètre check pour détecter et afficher les erreurs, et envoyer les erreurs à Archeo Lex.
 
-\hypertarget{final-words}{%
-\chapter{Final Words}\label{final-words}}
+\hypertarget{Images}{%
+\chapter{Les images générés}\label{Images}}
 
-We have finished a nice book.
+\hypertarget{modification-et-des-visualisations}{%
+\section{modification et des visualisations}\label{modification-et-des-visualisations}}
+
+\hypertarget{liste-des-codes-et-modifications}{%
+\subsection{Liste des codes et modifications}\label{liste-des-codes-et-modifications}}
+
+\begin{tabular}{l|r|l|l|r|r|r|r|r}
+\hline
+code & nb\_modifs & début & fin & parties & sous\_parties & livres & titres & chapitres\\
+\hline
+code\_civil & 6248 & 1803-03-15 & 2021-01-01 & 1 & 1 & 7 & 70 & 214\\
+\hline
+code\_de\_commerce & 16455 & 2000-12-14 & 2021-05-23 & 4 & 1 & 11 & 80 & 254\\
+\hline
+code\_de\_l'action\_sociale\_et\_des\_familles & 8513 & 2001-07-18 & 2021-05-21 & 3 & 1 & 8 & 49 & 238\\
+\hline
+code\_de\_l'éducation & 10754 & 2000-12-14 & 2021-05-24 & 2 & 6 & 15 & 97 & 274\\
+\hline
+code\_de\_la\_consommation & 6235 & 1994-01-04 & 2021-04-16 & 4 & 1 & 16 & 63 & 227\\
+\hline
+code\_de\_la\_propriété\_intellectuelle & 3227 & 1993-01-01 & 2021-05-14 & 2 & 6 & 17 & 27 & 111\\
+\hline
+code\_de\_la\_recherche & 441 & 2004-08-11 & 2021-01-01 & 1 & 1 & 5 & 21 & 75\\
+\hline
+code\_de\_la\_santé\_publique & 51280 & 1953-10-27 & 2021-05-27 & 6 & 10 & 87 & 290 & 1138\\
+\hline
+code\_de\_la\_sécurité\_intérieure & 4700 & 2012-12-23 & 2021-05-27 & 2 & 1 & 9 & 59 & 165\\
+\hline
+code\_de\_la\_sécurité\_sociale & 40633 & 1961-01-12 & 2021-05-23 & 5 & 1 & 37 & 185 & 646\\
+\hline
+code\_du\_travail & 48381 & 1973-07-11 & 2021-05-27 & 6 & 9 & 76 & 342 & 1220\\
+\hline
+code\_pénal & 3235 & 1992-07-23 & 2021-05-27 & 2 & 1 & 11 & 31 & 87\\
+\hline
+\end{tabular}
+
+\hypertarget{pourcentage-de-diffuxe9rents-types-de-modifications}{%
+\subsection{Pourcentage de différents types de modifications}\label{pourcentage-de-diffuxe9rents-types-de-modifications}}
+
+\hypertarget{toutes-les-annuxe9es}{%
+\subsubsection{Toutes les années}\label{toutes-les-annuxe9es}}
+
+\begin{verbatim}
+## `summarise()` has grouped output by 'année'. You can override using the `.groups` argument.
+\end{verbatim}
+
+\includegraphics{05-images_files/figure-latex/global-1.pdf}
+
+\hypertarget{depuis-1950}{%
+\subsubsection{Depuis 1950}\label{depuis-1950}}
+
+\begin{verbatim}
+## `summarise()` has grouped output by 'année'. You can override using the `.groups` argument.
+\end{verbatim}
+
+\includegraphics{05-images_files/figure-latex/global.zoom-1.pdf}
+
+\hypertarget{nombre-de-modifications-de-chaque-annuxe9e}{%
+\subsection{Nombre de modifications de chaque année}\label{nombre-de-modifications-de-chaque-annuxe9e}}
+
+\hypertarget{depuis-1950-1}{%
+\subsubsection{Depuis 1950}\label{depuis-1950-1}}
+
+\begin{verbatim}
+## `summarise()` has grouped output by 'année'. You can override using the `.groups` argument.
+\end{verbatim}
+
+\includegraphics{05-images_files/figure-latex/unnamed-chunk-1-1.pdf}
+
+\hypertarget{depuis-1999}{%
+\subsubsection{Depuis 1999}\label{depuis-1999}}
+
+\begin{verbatim}
+## `summarise()` has grouped output by 'année'. You can override using the `.groups` argument.
+\end{verbatim}
+
+\includegraphics{05-images_files/figure-latex/unnamed-chunk-2-1.pdf}
+
+\begin{verbatim}
+## `summarise()` has grouped output by 'code', 'partie', 'article'. You can override using the `.groups` argument.
+\end{verbatim}
+
+\hypertarget{etat-actuel}{%
+\subsection{Etat actuel}\label{etat-actuel}}
+
+\begin{verbatim}
+## `summarise()` has grouped output by 'code'. You can override using the `.groups` argument.
+\end{verbatim}
+
+\includegraphics{05-images_files/figure-latex/modif.glob.plot1-1.pdf}
+
+\hypertarget{nombre-modifications-par-articles}{%
+\subsection{Nombre modifications par articles}\label{nombre-modifications-par-articles}}
+
+\includegraphics{05-images_files/figure-latex/modif.glob.plot2-1.pdf}
+
+\begin{verbatim}
+## Warning: Unknown levels in `f`: Pr閑xistence
+\end{verbatim}
+
+\begin{verbatim}
+## `summarise()` has grouped output by 'code', 'article'. You can override using the `.groups` argument.
+\end{verbatim}
+
+\begin{verbatim}
+## `summarise()` has grouped output by 'code', 'date'. You can override using the `.groups` argument.
+\end{verbatim}
+
+\hypertarget{evolution-de-nombre-de-modifications}{%
+\subsection{Evolution de nombre de modifications}\label{evolution-de-nombre-de-modifications}}
+
+\includegraphics{05-images_files/figure-latex/modif.evol.plot-1.pdf}
+
+\hypertarget{evolution-des-volumes-de-codes}{%
+\section{Evolution des volumes de codes}\label{evolution-des-volumes-de-codes}}
+
+\hypertarget{nombre-de-mots}{%
+\subsection{Nombre de mots}\label{nombre-de-mots}}
+
+\includegraphics{05-images_files/figure-latex/nb_mots-1.pdf}
+
+\hypertarget{nombre-de-lignes}{%
+\subsection{Nombre de lignes}\label{nombre-de-lignes}}
+
+\includegraphics{05-images_files/figure-latex/nb_alineas-1.pdf}
+
+\hypertarget{nombre-darticle}{%
+\subsection{Nombre d'article}\label{nombre-darticle}}
+
+\includegraphics{05-images_files/figure-latex/nb_articles-1.pdf}
+
+\hypertarget{nombre-moyen-de-lignes-dun-article}{%
+\subsection{Nombre moyen de lignes d'un article}\label{nombre-moyen-de-lignes-dun-article}}
+
+\includegraphics{05-images_files/figure-latex/alineas_par_article-1.pdf}
+
+\hypertarget{nombre-moyen-de-mots-dun-article}{%
+\subsection{Nombre moyen de mots d'un article}\label{nombre-moyen-de-mots-dun-article}}
+
+\includegraphics{05-images_files/figure-latex/mots_par_article-1.pdf}
+
+\hypertarget{nombre-moyen-de-mots-dune-ligne}{%
+\subsection{Nombre moyen de mots d'une ligne}\label{nombre-moyen-de-mots-dune-ligne}}
+
+\includegraphics{05-images_files/figure-latex/mots_par_alinea-1.pdf}
+
+\hypertarget{structure}{%
+\section{Structure}\label{structure}}
+
+\hypertarget{luxe9gislative-vs.-ruxe9glementaire}{%
+\subsection{Législative vs.~Réglementaire}\label{luxe9gislative-vs.-ruxe9glementaire}}
+
+\hypertarget{nombre-de-mots-de-chaque-partiesuxe9paruxe9es}{%
+\subsubsection{Nombre de mots de chaque partie(séparées)}\label{nombre-de-mots-de-chaque-partiesuxe9paruxe9es}}
+
+\includegraphics{05-images_files/figure-latex/lr.all-1.pdf}
+
+\hypertarget{nombre-de-mots-de-chaque-partiecombinuxe9es}{%
+\subsubsection{Nombre de mots de chaque partie(combinées)}\label{nombre-de-mots-de-chaque-partiecombinuxe9es}}
+
+\includegraphics{05-images_files/figure-latex/lr.all.stack-1.pdf}
+
+\hypertarget{pourcentage-de-chaque-partie}{%
+\subsubsection{Pourcentage de chaque partie}\label{pourcentage-de-chaque-partie}}
+
+\begin{verbatim}
+## `summarise()` has grouped output by 'date', 'code'. You can override using the `.groups` argument.
+\end{verbatim}
+
+\includegraphics{05-images_files/figure-latex/lr.all.fill-1.pdf}
+
+\hypertarget{arborescence}{%
+\subsection{Arborescence}\label{arborescence}}
+
+\{r tree.edu, fig.width=15, fig.height=15, out.width=500, out.height=500, fig.align=``center''\}
+legiplot\_tree(``code de l'éducation'')
+
+\{r tree.pro, fig.width=15, fig.height=15, out.width=500, out.height=500, fig.align=``center''\}
+legiplot\_tree(``Code de la propriété'')
+
+\hypertarget{modification-pour-chaque-livre}{%
+\section{Modification pour chaque livre}\label{modification-pour-chaque-livre}}
+
+\hypertarget{code-de-luxe9ducation}{%
+\subsection{Code de l'éducation}\label{code-de-luxe9ducation}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{stats.det }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"../stats\_shortlist\_ts3.csv"}\NormalTok{,}\AttributeTok{encoding =} \StringTok{\textquotesingle{}UTF{-}8\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(code }\SpecialCharTok{==} \StringTok{"code\_de\_l\textquotesingle{}éducation"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{date =} \FunctionTok{as.Date}\NormalTok{(date)) }
+\NormalTok{stats.det }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{date,}\AttributeTok{y=}\NormalTok{nb\_mots,}\AttributeTok{fill=}\NormalTok{livre)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_area}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{group=}\NormalTok{livre)) }\SpecialCharTok{+}
+  \FunctionTok{facet\_grid}\NormalTok{(.}\SpecialCharTok{\textasciitilde{}}\NormalTok{partie)  }\SpecialCharTok{+}
+  \FunctionTok{theme\_hc}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"right"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{05-images_files/figure-latex/det.1-1.pdf}
+
+Premier problème : les livres ne sont pas dans l'ordre : Livre IX \textless{} Livre V
+
+Pour traiter ce problème, on force l'ordre des livres avec l'ordre dans le csv:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{stats.det }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{mutate\_at}\NormalTok{(}
+    \FunctionTok{c}\NormalTok{(}\StringTok{"partie"}\NormalTok{,}\StringTok{"sous\_partie"}\NormalTok{,}\StringTok{"livre"}\NormalTok{),}
+    \ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{factor}\NormalTok{(x,}\FunctionTok{unique}\NormalTok{(x))}
+\NormalTok{    ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{date,}\AttributeTok{y=}\NormalTok{nb\_mots,}\AttributeTok{fill=}\NormalTok{livre)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_area}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{group=}\NormalTok{livre)) }\SpecialCharTok{+}
+  \FunctionTok{facet\_grid}\NormalTok{(.}\SpecialCharTok{\textasciitilde{}}\NormalTok{partie)  }\SpecialCharTok{+}
+  \FunctionTok{theme\_hc}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"right"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{05-images_files/figure-latex/det.2-1.pdf}
+
+Deuxième problème : des titres changent au cours du temps.
+
+Pour traiter ce problème, on va supprimer ces titres :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{stats.det }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate\_at}\NormalTok{(}
+    \FunctionTok{c}\NormalTok{(}\StringTok{"sous\_partie"}\NormalTok{,}\StringTok{"livre"}\NormalTok{),}
+    \ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{gsub}\NormalTok{(}\StringTok{"(.*) :.*"}\NormalTok{, }\StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{1"}\NormalTok{,x)}
+\NormalTok{    ) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{mutate\_at}\NormalTok{(}
+    \FunctionTok{c}\NormalTok{(}\StringTok{"partie"}\NormalTok{,}\StringTok{"sous\_partie"}\NormalTok{,}\StringTok{"livre"}\NormalTok{),}
+    \ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{factor}\NormalTok{(x,}\FunctionTok{unique}\NormalTok{(x))}
+\NormalTok{    ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{date,}\AttributeTok{y=}\NormalTok{nb\_mots,}\AttributeTok{fill=}\NormalTok{livre)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_area}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{group=}\NormalTok{livre)) }\SpecialCharTok{+}
+  \FunctionTok{facet\_grid}\NormalTok{(.}\SpecialCharTok{\textasciitilde{}}\NormalTok{partie)  }\SpecialCharTok{+}
+  \FunctionTok{theme\_hc}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"right"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{05-images_files/figure-latex/det.3-1.pdf}
+
+\hypertarget{code-de-la-propriuxe9tuxe9-intellectuelle}{%
+\subsection{Code de la propriété intellectuelle}\label{code-de-la-propriuxe9tuxe9-intellectuelle}}
+
+\includegraphics{05-images_files/figure-latex/pi.livres-1.pdf}
 
   \bibliography{book.bib,packages.bib}
 

@@ -18,10 +18,14 @@ Il existe trois dépôts git présentent les données législatives françaises 
 
 Nous avons finalement choisi Archeo Lex. Bien que ses données ne soient pas aussi précises qu'EtabLab, mais il régulièrement mis à jour les données. En plus, ses données sont organisées bien, chaque code est placé dans un fichier séparé et nous pouvons trouver toutes les versions dans l’ordre.
 
-<div class="figure" style="text-align: center">
-<img src="images/archeolex_structure.png" alt="Les données dans Archeo Lex"  />
-<p class="caption">(\#fig:ArcheoLex)Les données dans Archeo Lex</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics{images/archeolex_structure} 
+
+}
+
+\caption{Les données dans Archeo Lex}(\#fig:ArcheoLex)
+\end{figure}
 
 ## Traitement du sujet
 

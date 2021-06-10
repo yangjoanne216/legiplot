@@ -58,10 +58,14 @@ Chapitre
 #### Quelques fichies csv générés
 
 ##### Example 1:
-<div class="figure" style="text-align: center">
-<img src="images/diff.png" alt="les informations de modification par article" width="80%" />
-<p class="caption">(\#fig:diff)les informations de modification par article</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.8\linewidth]{images/diff} 
+
+}
+
+\caption{les informations de modification par article}(\#fig:diff)
+\end{figure}
 ##### Example 2:
 L’application permet de détecter des erreurs de deux types :
 
@@ -70,22 +74,34 @@ L’application permet de détecter des erreurs de deux types :
 Cette détection d’erreur est imparfaite, et n’exclu ni faux-positifs ni faux-négatifs. La date correspond à la version la plus ancienne à laquelle l’erreur a été détectée.
 
 Les erreurs détectées sur un échantillon de codes se trouvent dans le fichier errors.csv, au format suivant :
-<div class="figure" style="text-align: center">
-<img src="images/check.png" alt="détecter des erreurs des codes" width="80%" />
-<p class="caption">(\#fig:check)détecter des erreurs des codes</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.8\linewidth]{images/check} 
+
+}
+
+\caption{détecter des erreurs des codes}(\#fig:check)
+\end{figure}
 
 ##### Example 3
-<div class="figure" style="text-align: center">
-<img src="images/stats3.png" alt="Les informations de sous-section des livres, ainsi que le nombre de lignes et de mots pour chaque livres." width="80%" />
-<p class="caption">(\#fig:stats3)Les informations de sous-section des livres, ainsi que le nombre de lignes et de mots pour chaque livres.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.8\linewidth]{images/stats3} 
+
+}
+
+\caption{Les informations de sous-section des livres, ainsi que le nombre de lignes et de mots pour chaque livres.}(\#fig:stats3)
+\end{figure}
 
 ##### Example 4
-<div class="figure" style="text-align: center">
-<img src="images/stats6.png" alt="Les informations de sous-section des chapitres, ainsi que le nombre de lignes et de mots pour chaque chapitre." width="80%" />
-<p class="caption">(\#fig:stats6)Les informations de sous-section des chapitres, ainsi que le nombre de lignes et de mots pour chaque chapitre.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.8\linewidth]{images/stats6} 
+
+}
+
+\caption{Les informations de sous-section des chapitres, ainsi que le nombre de lignes et de mots pour chaque chapitre.}(\#fig:stats6)
+\end{figure}
 
 ## Présentation technique
 
@@ -94,17 +110,25 @@ L'idée de code python est **orientée objet**,il y a trois fichiers python：
 
 1.**Article.py**: un article doit être considéré comme un objet, et les attributs liés à l'article peuvent être trouvés dans cette classe. Par exemple, le chapitre, le livre , le code où il se trouve, sa date, etc. (voir l'UML dans la figure ci-dessous pour plus de détails).
 Les fonctions permettent de modifier ou d'obtenir la valeur des attributs d'article.
-<div class="figure" style="text-align: center">
-<img src="images/Article_UML.png" alt="le diagramme UML pour Article.py" width="25%" />
-<p class="caption">(\#fig:Article)le diagramme UML pour Article.py</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.25\linewidth]{images/Article_UML} 
+
+}
+
+\caption{le diagramme UML pour Article.py}(\#fig:Article)
+\end{figure}
 
 2.**ArcheoLexLog.py**:
 Le rôle de cette classe est de stocker des fonctions d'exploration et d'analyse de données. Cette classe appelle la classe Article et appelle également un package très important GitPython* pour obtenir des informations de git diff.
-<div class="figure" style="text-align: center">
-<img src="images/ArcheoLexLog_UML.png" alt="le diagramme UML pour ArcheoLexLog.py" width="50%" />
-<p class="caption">(\#fig:ArcheoLexLog)le diagramme UML pour ArcheoLexLog.py</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{images/ArcheoLexLog_UML} 
+
+}
+
+\caption{le diagramme UML pour ArcheoLexLog.py}(\#fig:ArcheoLexLog)
+\end{figure}
 
 3.**archeolex_excavation.py**:Ce fichier appelle les deux classes Article et ArcheoLexLog, définit les paramètres et contient la fonction main.
 
