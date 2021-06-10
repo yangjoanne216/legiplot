@@ -1,8 +1,4 @@
----
-output:
-  pdf_document: default
-  html_document: default
----
+
 # Remerciement {#Remerc}
 
 Je remercie toutes les personnes qui m’ont soutenu personnellement ainsi que professionnellement avant et au cours de ce stage. 

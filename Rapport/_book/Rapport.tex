@@ -4,13 +4,14 @@
 %
 \documentclass[
   oneside]{book}
-\usepackage{amsmath,amssymb}
 \usepackage{lmodern}
+\usepackage{amsmath}
 \usepackage{ifxetex,ifluatex}
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
+  \usepackage{amssymb}
 \else % if luatex or xetex
   \usepackage{unicode-math}
   \defaultfontfeatures{Scale=MatchLowercase}
@@ -82,7 +83,7 @@
 \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\usepackage{longtable,booktabs,array}
+\usepackage{longtable,booktabs}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
@@ -143,6 +144,36 @@
 \setcounter{tocdepth}{1}
 \tableofcontents
 }
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -- Attaching packages --------------------------------------- tidyverse 1.3.1 --
+\end{verbatim}
+
+\begin{verbatim}
+## v ggplot2 3.3.3     v purrr   0.3.4
+## v tibble  3.1.2     v dplyr   1.0.6
+## v tidyr   1.1.3     v stringr 1.4.0
+## v readr   1.4.0     v forcats 0.5.1
+\end{verbatim}
+
+\begin{verbatim}
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{knitr}\SpecialCharTok{::}\NormalTok{opts\_chunk}\SpecialCharTok{$}\FunctionTok{set}\NormalTok{(}\AttributeTok{cache=}\ConstantTok{TRUE}\NormalTok{,}\AttributeTok{include=}\ConstantTok{FALSE}\NormalTok{)}
+\FunctionTok{options}\NormalTok{(}\AttributeTok{dplyr.summarise.inform =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
 \hypertarget{introduction}{%
 \chapter{Introduction}\label{introduction}}
 
@@ -221,7 +252,7 @@ Nous avons finalement choisi Archeo Lex. Bien que ses données ne soient pas aus
 
 \begin{figure}
 
-{\centering \includegraphics{images/archeolex_structure} 
+{\centering \includegraphics[width=27.28in]{images/archeoLex_Structure} 
 
 }
 
@@ -278,18 +309,40 @@ Parmi eux, le package le plus important que nous utilisons est git-python*, qui 
 \hypertarget{positional-arguments}{%
 \subsubsection{Positional arguments}\label{positional-arguments}}
 
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.50}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.50}}@{}}
+\begin{longtable}[]{@{}ll@{}}
 \toprule
-nom de paramètre & signification \\
+\begin{minipage}[b]{(\columnwidth - 1\tabcolsep) * \real{0.50}}\raggedright
+nom de paramètre\strut
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 1\tabcolsep) * \real{0.50}}\raggedright
+signification\strut
+\end{minipage}\tabularnewline
 \midrule
 \endhead
-\textbf{diff/check/status } & \textbf{Le traitement à effectuer} \\
-diff & obtenir les informations de modification par article \\
-check & détecter des erreurs des codes \\
-status & Les informations de sous-section d'une section, ainsi que le nombre de lignes et de mots dans cette section.Les paramètres d'entrée -s1 à -s6 (voir ci-dessous) pour confirmer le niveau de cette section. \\
-\textbf{codes } & \textbf{La liste des codes à fouiller} \\
+\begin{minipage}[t]{(\columnwidth - 1\tabcolsep) * \real{0.50}}\raggedright
+\textbf{diff/check/status }\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 1\tabcolsep) * \real{0.50}}\raggedright
+\textbf{Le traitement à effectuer}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 1\tabcolsep) * \real{0.50}}\raggedright
+diff\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 1\tabcolsep) * \real{0.50}}\raggedright
+obtenir les informations de modification par article\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 1\tabcolsep) * \real{0.50}}\raggedright
+check\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 1\tabcolsep) * \real{0.50}}\raggedright
+détecter des erreurs des codes\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 1\tabcolsep) * \real{0.50}}\raggedright
+status\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 1\tabcolsep) * \real{0.50}}\raggedright
+Les informations de sous-section d'une section, ainsi que le nombre de lignes et de mots dans cette section.Les paramètres d'entrée -s1 à -s6 (voir ci-dessous) pour confirmer le niveau de cette section.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 1\tabcolsep) * \real{0.50}}\raggedright
+\textbf{codes }\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 1\tabcolsep) * \real{0.50}}\raggedright
+\textbf{La liste des codes à fouiller}\strut
+\end{minipage}\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -309,23 +362,65 @@ Chapitre
 \hypertarget{optional-arguments}{%
 \subsubsection{Optional arguments}\label{optional-arguments}}
 
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.50}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.50}}@{}}
+\begin{longtable}[]{@{}ll@{}}
 \toprule
-nom de paramètre & signification \\
+\begin{minipage}[b]{(\columnwidth - 1\tabcolsep) * \real{0.50}}\raggedright
+nom de paramètre\strut
+\end{minipage} & \begin{minipage}[b]{(\columnwidth - 1\tabcolsep) * \real{0.50}}\raggedright
+signification\strut
+\end{minipage}\tabularnewline
 \midrule
 \endhead
--h, --help & montrer le message de help et quitter \\
--d YYYY-MM-DD, --datelimit YYYY-MM-DD & définir une date maximum pour la fouille \\
--f nom.csv, --file nom.csv & écrit les données dans ce fichier csv (sortie standard par défaut) \\
--t, --fulltext & détecter les noms entiers des section \\
--s1 & Obtenir les informations de chaque chapitre \\
--s2 & Obtenir les informations de chaque livre \\
--s3 & Obtenir les informations de chaque titre \\
--s4 & Obtenir les informations de chaque sous partie \\
--s5 & Obtenir les informations de chaque partie \\
--s6 & Obtenir les informations de chaque code \\
+\begin{minipage}[t]{(\columnwidth - 1\tabcolsep) * \real{0.50}}\raggedright
+-h, --help\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 1\tabcolsep) * \real{0.50}}\raggedright
+montrer le message de help et quitter\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 1\tabcolsep) * \real{0.50}}\raggedright
+-d YYYY-MM-DD, --datelimit YYYY-MM-DD\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 1\tabcolsep) * \real{0.50}}\raggedright
+définir une date maximum pour la fouille\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 1\tabcolsep) * \real{0.50}}\raggedright
+-f nom.csv, --file nom.csv\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 1\tabcolsep) * \real{0.50}}\raggedright
+écrit les données dans ce fichier csv (sortie standard par défaut)\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 1\tabcolsep) * \real{0.50}}\raggedright
+-t, --fulltext\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 1\tabcolsep) * \real{0.50}}\raggedright
+détecter les noms entiers des section\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 1\tabcolsep) * \real{0.50}}\raggedright
+-s1\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 1\tabcolsep) * \real{0.50}}\raggedright
+Obtenir les informations de chaque chapitre\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 1\tabcolsep) * \real{0.50}}\raggedright
+-s2\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 1\tabcolsep) * \real{0.50}}\raggedright
+Obtenir les informations de chaque livre\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 1\tabcolsep) * \real{0.50}}\raggedright
+-s3\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 1\tabcolsep) * \real{0.50}}\raggedright
+Obtenir les informations de chaque titre\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 1\tabcolsep) * \real{0.50}}\raggedright
+-s4\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 1\tabcolsep) * \real{0.50}}\raggedright
+Obtenir les informations de chaque sous partie\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 1\tabcolsep) * \real{0.50}}\raggedright
+-s5\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 1\tabcolsep) * \real{0.50}}\raggedright
+Obtenir les informations de chaque partie\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{(\columnwidth - 1\tabcolsep) * \real{0.50}}\raggedright
+-s6\strut
+\end{minipage} & \begin{minipage}[t]{(\columnwidth - 1\tabcolsep) * \real{0.50}}\raggedright
+Obtenir les informations de chaque code\strut
+\end{minipage}\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -456,27 +551,27 @@ Cependant, il existe huit lois et leurs noms d'articles ne sont pas liés à la 
 \hline
 code & nb\_modifs & début & fin & parties & sous\_parties & livres & titres & chapitres\\
 \hline
-code\_civil & 6248 & 1803-03-15 & 2021-01-01 & 1 & 1 & 7 & 70 & 214\\
+code\_civil & 6259 & 1803-03-14 & 2021-01-01 & 1 & 1 & 7 & 70 & 214\\
 \hline
-code\_de\_commerce & 16455 & 2000-12-14 & 2021-05-23 & 4 & 1 & 11 & 80 & 254\\
+code\_de\_commerce & 18373 & 2000-09-21 & 2021-05-23 & 4 & 1 & 11 & 81 & 258\\
 \hline
-code\_de\_l'action\_sociale\_et\_des\_familles & 8513 & 2001-07-18 & 2021-05-21 & 3 & 1 & 8 & 49 & 238\\
+code\_de\_l'action\_sociale\_et\_des\_familles & 9066 & 2000-12-23 & 2021-05-21 & 3 & 1 & 8 & 49 & 244\\
 \hline
-code\_de\_l'éducation & 10754 & 2000-12-14 & 2021-05-24 & 2 & 6 & 15 & 97 & 274\\
+code\_de\_l'éducation & 11510 & 2000-06-22 & 2021-05-24 & 2 & 6 & 15 & 99 & 285\\
 \hline
-code\_de\_la\_consommation & 6235 & 1994-01-04 & 2021-04-16 & 4 & 1 & 16 & 63 & 227\\
+code\_de\_la\_consommation & 6531 & 1993-07-27 & 2021-04-16 & 4 & 1 & 16 & 63 & 228\\
 \hline
-code\_de\_la\_propriété\_intellectuelle & 3227 & 1993-01-01 & 2021-05-14 & 2 & 6 & 17 & 27 & 111\\
+code\_de\_la\_propriété\_intellectuelle & 3626 & 1992-07-03 & 2021-05-14 & 2 & 6 & 17 & 27 & 115\\
 \hline
-code\_de\_la\_recherche & 441 & 2004-08-11 & 2021-01-01 & 1 & 1 & 5 & 21 & 75\\
+code\_de\_la\_recherche & 577 & 2004-06-16 & 2021-01-01 & 1 & 1 & 5 & 21 & 80\\
 \hline
-code\_de\_la\_santé\_publique & 51280 & 1953-10-27 & 2021-05-27 & 6 & 10 & 87 & 290 & 1138\\
+code\_de\_la\_santé\_publique & 51958 & 1953-10-07 & 2021-05-27 & 6 & 10 & 88 & 293 & 1142\\
 \hline
-code\_de\_la\_sécurité\_intérieure & 4700 & 2012-12-23 & 2021-05-27 & 2 & 1 & 9 & 59 & 165\\
+code\_de\_la\_sécurité\_intérieure & 5253 & 2012-05-01 & 2021-05-27 & 2 & 1 & 9 & 61 & 179\\
 \hline
 code\_de\_la\_sécurité\_sociale & 40633 & 1961-01-12 & 2021-05-23 & 5 & 1 & 37 & 185 & 646\\
 \hline
-code\_du\_travail & 48381 & 1973-07-11 & 2021-05-27 & 6 & 9 & 76 & 342 & 1220\\
+code\_du\_travail & 48427 & 1973-01-03 & 2021-05-27 & 6 & 9 & 76 & 342 & 1220\\
 \hline
 code\_pénal & 3235 & 1992-07-23 & 2021-05-27 & 2 & 1 & 11 & 31 & 87\\
 \hline
@@ -541,10 +636,6 @@ code\_pénal & 3235 & 1992-07-23 & 2021-05-27 & 2 & 1 & 11 & 31 & 87\\
 \subsection{Nombre modifications par articles}\label{nombre-modifications-par-articles}}
 
 \includegraphics{05-images_files/figure-latex/modif.glob.plot2-1.pdf}
-
-\begin{verbatim}
-## Warning: Unknown levels in `f`: Pr閑xistence
-\end{verbatim}
 
 \begin{verbatim}
 ## `summarise()` has grouped output by 'code', 'article'. You can override using the `.groups` argument.
@@ -620,11 +711,9 @@ code\_pénal & 3235 & 1992-07-23 & 2021-05-27 & 2 & 1 & 11 & 31 & 87\\
 \hypertarget{arborescence}{%
 \subsection{Arborescence}\label{arborescence}}
 
-\{r tree.edu, fig.width=15, fig.height=15, out.width=500, out.height=500, fig.align=``center''\}
-legiplot\_tree(``code de l'éducation'')
+\begin{center}\includegraphics[width=1\linewidth]{05-images_files/figure-latex/tree.edu-1} \end{center}
 
-\{r tree.pro, fig.width=15, fig.height=15, out.width=500, out.height=500, fig.align=``center''\}
-legiplot\_tree(``Code de la propriété'')
+\begin{center}\includegraphics[width=1\linewidth]{05-images_files/figure-latex/tree.pro-1} \end{center}
 
 \hypertarget{modification-pour-chaque-livre}{%
 \section{Modification pour chaque livre}\label{modification-pour-chaque-livre}}

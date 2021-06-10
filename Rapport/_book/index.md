@@ -2,7 +2,10 @@
 title: "Rapport de stage"
 author: "Yang YANG"
 date: "2021-06-10"
-output: pdf_document
+output:
+  pdf_document: default
+  word_document: default
+  html_document: default
 documentclass: book
 classoption: oneside
 bibliography:
@@ -18,6 +21,33 @@ header-includes:
 - \usepackage{fancyhdr}
 - \usepackage{lastpage}
 ---
+
+
+```r
+library(tidyverse)
+```
+
+```
+## -- Attaching packages --------------------------------------- tidyverse 1.3.1 --
+```
+
+```
+## v ggplot2 3.3.3     v purrr   0.3.4
+## v tibble  3.1.2     v dplyr   1.0.6
+## v tidyr   1.1.3     v stringr 1.4.0
+## v readr   1.4.0     v forcats 0.5.1
+```
+
+```
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+```
+
+```r
+knitr::opts_chunk$set(cache=TRUE,include=FALSE)
+options(dplyr.summarise.inform = FALSE)
+```
 
 # Introduction
 

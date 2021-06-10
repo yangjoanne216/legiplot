@@ -2,7 +2,10 @@
 title: "Rapport de stage"
 author: "Yang YANG"
 date: "`r Sys.Date()`"
-output: pdf_document
+output:
+  pdf_document: default
+  word_document: default
+  html_document: default
 documentclass: book
 classoption: oneside
 bibliography:
@@ -18,6 +21,12 @@ header-includes:
 - \usepackage{fancyhdr}
 - \usepackage{lastpage}
 ---
+
+```{r options}
+library(tidyverse)
+knitr::opts_chunk$set(cache=TRUE,include=FALSE)
+options(dplyr.summarise.inform = FALSE)
+```
 
 # Introduction
 

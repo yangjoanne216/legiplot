@@ -1,8 +1,4 @@
----
-output:
-  pdf_document: default
-  html_document: default
----
+
 # Les images générés {#Images}
 
 ```{r setup, include=FALSE}
@@ -306,13 +302,13 @@ source("legiplot_functions.R")
 legiplot_loadall_short()
 ```
 
-{r tree.edu, fig.width=15, fig.height=15, out.width=500, out.height=500, fig.align="center"}
+```{r tree.edu, fig.width=15, fig.height=15, out.width="100%", fig.align="center"}
 legiplot_tree("code de l'éducation")
+```
 
-
-{r tree.pro, fig.width=15, fig.height=15, out.width=500, out.height=500, fig.align="center"}
-legiplot_tree("Code de la propriété")
-
+```{r tree.pro, fig.width=15, fig.height=15, out.width="100%", fig.align="center"}
+legiplot_tree("code de la propriété intellectuelle")
+```
 
 ## Modification pour chaque livre 
 

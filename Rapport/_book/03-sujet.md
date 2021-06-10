@@ -1,8 +1,4 @@
----
-output:
-  word_document: default
-  html_document: default
----
+
 # Le sujet du stage {#Sujet}
 
 Le sujet de mon stage est quantification les évolutions législatives, en particulière pour les évolutions de la propriété intellectuelle. Les données pertinentes seront utilisées dans les recherches du CEIPI.
@@ -20,7 +16,7 @@ Nous avons finalement choisi Archeo Lex. Bien que ses données ne soient pas aus
 
 \begin{figure}
 
-{\centering \includegraphics{images/archeolex_structure} 
+{\centering \includegraphics[width=27.28in]{images/archeoLex_Structure} 
 
 }
 

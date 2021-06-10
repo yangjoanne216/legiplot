@@ -1,8 +1,4 @@
----
-output:
-  pdf_document: default
-  html_document: default
----
+
 # Les images générés {#Images}
 
 
@@ -18,27 +14,27 @@ output:
 \hline
 code & nb\_modifs & début & fin & parties & sous\_parties & livres & titres & chapitres\\
 \hline
-code\_civil & 6248 & 1803-03-15 & 2021-01-01 & 1 & 1 & 7 & 70 & 214\\
+code\_civil & 6259 & 1803-03-14 & 2021-01-01 & 1 & 1 & 7 & 70 & 214\\
 \hline
-code\_de\_commerce & 16455 & 2000-12-14 & 2021-05-23 & 4 & 1 & 11 & 80 & 254\\
+code\_de\_commerce & 18373 & 2000-09-21 & 2021-05-23 & 4 & 1 & 11 & 81 & 258\\
 \hline
-code\_de\_l'action\_sociale\_et\_des\_familles & 8513 & 2001-07-18 & 2021-05-21 & 3 & 1 & 8 & 49 & 238\\
+code\_de\_l'action\_sociale\_et\_des\_familles & 9066 & 2000-12-23 & 2021-05-21 & 3 & 1 & 8 & 49 & 244\\
 \hline
-code\_de\_l'éducation & 10754 & 2000-12-14 & 2021-05-24 & 2 & 6 & 15 & 97 & 274\\
+code\_de\_l'éducation & 11510 & 2000-06-22 & 2021-05-24 & 2 & 6 & 15 & 99 & 285\\
 \hline
-code\_de\_la\_consommation & 6235 & 1994-01-04 & 2021-04-16 & 4 & 1 & 16 & 63 & 227\\
+code\_de\_la\_consommation & 6531 & 1993-07-27 & 2021-04-16 & 4 & 1 & 16 & 63 & 228\\
 \hline
-code\_de\_la\_propriété\_intellectuelle & 3227 & 1993-01-01 & 2021-05-14 & 2 & 6 & 17 & 27 & 111\\
+code\_de\_la\_propriété\_intellectuelle & 3626 & 1992-07-03 & 2021-05-14 & 2 & 6 & 17 & 27 & 115\\
 \hline
-code\_de\_la\_recherche & 441 & 2004-08-11 & 2021-01-01 & 1 & 1 & 5 & 21 & 75\\
+code\_de\_la\_recherche & 577 & 2004-06-16 & 2021-01-01 & 1 & 1 & 5 & 21 & 80\\
 \hline
-code\_de\_la\_santé\_publique & 51280 & 1953-10-27 & 2021-05-27 & 6 & 10 & 87 & 290 & 1138\\
+code\_de\_la\_santé\_publique & 51958 & 1953-10-07 & 2021-05-27 & 6 & 10 & 88 & 293 & 1142\\
 \hline
-code\_de\_la\_sécurité\_intérieure & 4700 & 2012-12-23 & 2021-05-27 & 2 & 1 & 9 & 59 & 165\\
+code\_de\_la\_sécurité\_intérieure & 5253 & 2012-05-01 & 2021-05-27 & 2 & 1 & 9 & 61 & 179\\
 \hline
 code\_de\_la\_sécurité\_sociale & 40633 & 1961-01-12 & 2021-05-23 & 5 & 1 & 37 & 185 & 646\\
 \hline
-code\_du\_travail & 48381 & 1973-07-11 & 2021-05-27 & 6 & 9 & 76 & 342 & 1220\\
+code\_du\_travail & 48427 & 1973-01-03 & 2021-05-27 & 6 & 9 & 76 & 342 & 1220\\
 \hline
 code\_pénal & 3235 & 1992-07-23 & 2021-05-27 & 2 & 1 & 11 & 31 & 87\\
 \hline
@@ -100,10 +96,6 @@ code\_pénal & 3235 & 1992-07-23 & 2021-05-27 & 2 & 1 & 11 & 31 & 87\\
 
 
 ```
-## Warning: Unknown levels in `f`: Pr閑xistence
-```
-
-```
 ## `summarise()` has grouped output by 'code', 'article'. You can override using the `.groups` argument.
 ```
 
@@ -162,13 +154,11 @@ code\_pénal & 3235 & 1992-07-23 & 2021-05-27 & 2 & 1 & 11 & 31 & 87\\
 ### Arborescence
 
 
-{r tree.edu, fig.width=15, fig.height=15, out.width=500, out.height=500, fig.align="center"}
-legiplot_tree("code de l'éducation")
+
+\begin{center}\includegraphics[width=1\linewidth]{05-images_files/figure-latex/tree.edu-1} \end{center}
 
 
-{r tree.pro, fig.width=15, fig.height=15, out.width=500, out.height=500, fig.align="center"}
-legiplot_tree("Code de la propriété")
-
+\begin{center}\includegraphics[width=1\linewidth]{05-images_files/figure-latex/tree.pro-1} \end{center}
 
 ## Modification pour chaque livre 
 
