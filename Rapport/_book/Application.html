@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapitre 5 Application archeolex_excavation.py | Rapport de stage</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapitre 5 Application archeolex_excavation.py | Rapport de stage" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapitre 5 Application archeolex_excavation.py | Rapport de stage" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Yang YANG" />
+
+
+<meta name="date" content="2021-06-09" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="Sujet.html"/>
+<link rel="next" href="final-words.html"/>
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Rapport de stage</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="Remerc.html"><a href="Remerc.html"><i class="fa fa-check"></i><b>2</b> Remerciement</a></li>
+<li class="chapter" data-level="3" data-path="présentation-du-ceipi.html"><a href="présentation-du-ceipi.html"><i class="fa fa-check"></i><b>3</b> Présentation du CEIPI</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="présentation-du-ceipi.html"><a href="présentation-du-ceipi.html#informations-générales"><i class="fa fa-check"></i><b>3.1</b> Informations Générales</a></li>
+<li class="chapter" data-level="3.2" data-path="présentation-du-ceipi.html"><a href="présentation-du-ceipi.html#la-structure"><i class="fa fa-check"></i><b>3.2</b> La structure</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="Sujet.html"><a href="Sujet.html"><i class="fa fa-check"></i><b>4</b> Le sujet du stage</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="Sujet.html"><a href="Sujet.html#doù-viennent-les-données"><i class="fa fa-check"></i><b>4.1</b> D’où viennent les données</a></li>
+<li class="chapter" data-level="4.2" data-path="Sujet.html"><a href="Sujet.html#traitement-du-sujet"><i class="fa fa-check"></i><b>4.2</b> Traitement du sujet</a></li>
+<li class="chapter" data-level="4.3" data-path="Sujet.html"><a href="Sujet.html#choix-des-outils"><i class="fa fa-check"></i><b>4.3</b> Choix des outils</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="Sujet.html"><a href="Sujet.html#langage"><i class="fa fa-check"></i><b>4.3.1</b> Langage</a></li>
+<li class="chapter" data-level="4.3.2" data-path="Sujet.html"><a href="Sujet.html#ide"><i class="fa fa-check"></i><b>4.3.2</b> IDE</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="Application.html"><a href="Application.html"><i class="fa fa-check"></i><b>5</b> Application archeolex_excavation.py</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="Application.html"><a href="Application.html#présentation-générale"><i class="fa fa-check"></i><b>5.1</b> Présentation Générale</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="Application.html"><a href="Application.html#les-paramètres"><i class="fa fa-check"></i><b>5.1.1</b> Les paramètres</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="Application.html"><a href="Application.html#présentation-technique"><i class="fa fa-check"></i><b>5.2</b> Présentation technique</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="Application.html"><a href="Application.html#la-structure-des-codes"><i class="fa fa-check"></i><b>5.2.1</b> La structure des codes</a></li>
+<li class="chapter" data-level="5.2.2" data-path="Application.html"><a href="Application.html#problèmes-rencontrés-et-solution"><i class="fa fa-check"></i><b>5.2.2</b> problèmes rencontrés et solution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>6</b> Final Words</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Rapport de stage</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="Application" class="section level1" number="5">
+<h1><span class="header-section-number">Chapitre 5</span> Application archeolex_excavation.py</h1>
+<div id="présentation-générale" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Présentation Générale</h2>
+<p><strong>Rôle</strong> : archeolex_excavation.py est utilisée pour fouiller des dépôts git Archéo Lex et générer des fichiers csv. Nous pouvons générer différents fichiers csv en modifiant les paramètres dans la ligne de commande.</p>
+<p><strong>Usage</strong> : archeolex_excavation.py [-h] [-d YYYY-MM-DD] [-f fichier.csv] [-t] [-v] diff|check| |stats [code …]</p>
+<p><strong>Example</strong>:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="Application.html#cb1-1" aria-hidden="true" tabindex="-1"></a>archeolex_excavation.py stats code_civil <span class="sc">-</span>d last <span class="sc">-</span>t <span class="sc">-</span>s1 <span class="sc">-</span>f test.csv</span></code></pre></div>
+<div id="les-paramètres" class="section level3" number="5.1.1">
+<h3><span class="header-section-number">5.1.1</span> Les paramètres</h3>
+<div id="positional-arguments" class="section level4" number="5.1.1.1">
+<h4><span class="header-section-number">5.1.1.1</span> Positional arguments</h4>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>nom de paramètre</th>
+<th>signification</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>diff/check/status </strong></td>
+<td><strong>Le traitement à effectuer</strong></td>
+</tr>
+<tr class="even">
+<td>diff</td>
+<td>obtenir les informations de modification par article</td>
+</tr>
+<tr class="odd">
+<td>check</td>
+<td>détecter des erreurs des codes</td>
+</tr>
+<tr class="even">
+<td>status</td>
+<td>Les informations de sous-section d’une section, ainsi que le nombre de lignes et de mots dans cette section.Les paramètres d’entrée -s1 à -s6 (voir ci-dessous) pour confirmer le niveau de cette section.</td>
+</tr>
+<tr class="odd">
+<td><strong>codes </strong></td>
+<td><strong>La liste des codes à fouiller</strong></td>
+</tr>
+</tbody>
+</table>
+<div id="les-niveaus-généraux-de-la-structure-des-codes" class="section level5" number="5.1.1.1.1">
+<h5><span class="header-section-number">5.1.1.1.1</span> Les niveaus généraux de la structure des codes</h5>
+<p>Partie</p>
+<p>Sous_partie</p>
+<p>Livre</p>
+<p>Titre</p>
+<p>Chapitre</p>
+</div>
+</div>
+<div id="optional-arguments" class="section level4" number="5.1.1.2">
+<h4><span class="header-section-number">5.1.1.2</span> Optional arguments</h4>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>nom de paramètre</th>
+<th>signification</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>-h, –help</td>
+<td>montrer le message de help et quitter</td>
+</tr>
+<tr class="even">
+<td>-d YYYY-MM-DD, –datelimit YYYY-MM-DD</td>
+<td>définir une date maximum pour la fouille</td>
+</tr>
+<tr class="odd">
+<td>-f nom.csv, –file nom.csv</td>
+<td>écrit les données dans ce fichier csv (sortie standard par défaut)</td>
+</tr>
+<tr class="even">
+<td>-t, –fulltext</td>
+<td>détecter les noms entiers des section</td>
+</tr>
+<tr class="odd">
+<td>-s1</td>
+<td>Obtenir les informations de chaque chapitre</td>
+</tr>
+<tr class="even">
+<td>-s2</td>
+<td>Obtenir les informations de chaque livre</td>
+</tr>
+<tr class="odd">
+<td>-s3</td>
+<td>Obtenir les informations de chaque titre</td>
+</tr>
+<tr class="even">
+<td>-s4</td>
+<td>Obtenir les informations de chaque sous partie</td>
+</tr>
+<tr class="odd">
+<td>-s5</td>
+<td>Obtenir les informations de chaque partie</td>
+</tr>
+<tr class="even">
+<td>-s6</td>
+<td>Obtenir les informations de chaque code</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="quelques-fichies-csv-générés" class="section level4" number="5.1.1.3">
+<h4><span class="header-section-number">5.1.1.3</span> Quelques fichies csv générés</h4>
+<div id="example-1" class="section level5" number="5.1.1.3.1">
+<h5><span class="header-section-number">5.1.1.3.1</span> Example 1:</h5>
+<div class="figure" style="text-align: center"><span id="fig:diff"></span>
+<img src="images/diff.png" alt="les informations de modification par article" width="80%" />
+<p class="caption">
+Figure 5.1: les informations de modification par article
+</p>
+</div>
+</div>
+<div id="example-2" class="section level5" number="5.1.1.3.2">
+<h5><span class="header-section-number">5.1.1.3.2</span> Example 2:</h5>
+<p>L’application permet de détecter des erreurs de deux types :</p>
+<ul>
+<li>doublon : articles apparaissant deux fois dans un code ;</li>
+<li>inversion : deux articles consécutifs dont la numérotation n’est pas croissante.
+Cette détection d’erreur est imparfaite, et n’exclu ni faux-positifs ni faux-négatifs. La date correspond à la version la plus ancienne à laquelle l’erreur a été détectée.</li>
+</ul>
+Les erreurs détectées sur un échantillon de codes se trouvent dans le fichier errors.csv, au format suivant :
+<div class="figure" style="text-align: center"><span id="fig:check"></span>
+<img src="images/check.png" alt="détecter des erreurs des codes" width="80%" />
+<p class="caption">
+Figure 5.2: détecter des erreurs des codes
+</p>
+</div>
+<p>Le nombre d’erreurs détectées est :</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+doublon
+</th>
+<th style="text-align:right;">
+inversion
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+463
+</td>
+<td style="text-align:right;">
+2179
+</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+code
+</th>
+<th style="text-align:right;">
+doublon
+</th>
+<th style="text-align:right;">
+inversion
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+code civil
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+46
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+code de commerce
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+61
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+code de justice administrative
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+code de l’action sociale et des familles
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+38
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+code de l’aviation civile
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+code de l’éducation
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+28
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+code de l’énergie
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+44
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+code de l’entrée et du séjour des étrangers et du droit d’asile
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+code de l’environnement
+</td>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:right;">
+69
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+code de l’organisation judiciaire
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+22
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+code de l’urbanisme
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+127
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+code de la consommation
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+19
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+code de la construction et de l’habitation
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+130
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+code de la défense
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+36
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+code de la propriété intellectuelle
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+code de la recherche
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+code de la route
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+code de la santé publique
+</td>
+<td style="text-align:right;">
+80
+</td>
+<td style="text-align:right;">
+502
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+code de la sécurité intérieure
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+13
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+code de la sécurité sociale
+</td>
+<td style="text-align:right;">
+76
+</td>
+<td style="text-align:right;">
+260
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+code de procédure pénale
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+48
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+code des assurances
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+79
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+code des juridictions financières
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+56
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+code des postes et des communications électroniques
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+44
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+code des transports
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+code du cinéma et de l’image animée
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+code du patrimoine
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+code du sport
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+24
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+code du tourisme
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+code du travail
+</td>
+<td style="text-align:right;">
+51
+</td>
+<td style="text-align:right;">
+346
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+code électoral
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+31
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+code général de la propriété des personnes publiques
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+code général des collectivités territoriales
+</td>
+<td style="text-align:right;">
+35
+</td>
+<td style="text-align:right;">
+63
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+code pénal
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+5
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="example-3" class="section level5" number="5.1.1.3.3">
+<h5><span class="header-section-number">5.1.1.3.3</span> Example 3</h5>
+<div class="figure" style="text-align: center"><span id="fig:stats3"></span>
+<img src="images/stats3.png" alt="Les informations de sous-section des livres, ainsi que le nombre de lignes et de mots pour chaque livres." width="80%" />
+<p class="caption">
+Figure 5.3: Les informations de sous-section des livres, ainsi que le nombre de lignes et de mots pour chaque livres.
+</p>
+</div>
+</div>
+<div id="example-4" class="section level5" number="5.1.1.3.4">
+<h5><span class="header-section-number">5.1.1.3.4</span> Example 4</h5>
+<div class="figure" style="text-align: center"><span id="fig:stats6"></span>
+<img src="images/stats6.png" alt="Les informations de sous-section des chapitres, ainsi que le nombre de lignes et de mots pour chaque chapitre." width="80%" />
+<p class="caption">
+Figure 5.4: Les informations de sous-section des chapitres, ainsi que le nombre de lignes et de mots pour chaque chapitre.
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="présentation-technique" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Présentation technique</h2>
+<div id="la-structure-des-codes" class="section level3" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> La structure des codes</h3>
+<p>L’idée de code python est <strong>orientée objet</strong>,il y a trois fichiers python：</p>
+1.<strong>Article.py</strong>: un article doit être considéré comme un objet, et les attributs liés à l’article peuvent être trouvés dans cette classe. Par exemple, le chapitre, le livre , le code où il se trouve, sa date, etc. (voir l’UML dans la figure ci-dessous pour plus de détails).
+Les fonctions permettent de modifier ou d’obtenir la valeur des attributs d’article.
+<div class="figure" style="text-align: center"><span id="fig:Article"></span>
+<img src="images/Article_UML.png" alt="le diagramme UML pour Article.py" width="25%" />
+<p class="caption">
+Figure 5.5: le diagramme UML pour Article.py
+</p>
+</div>
+2.<strong>ArcheoLexLog.py</strong>:
+Le rôle de cette classe est de stocker des fonctions d’exploration et d’analyse de données. Cette classe appelle la classe Article et appelle également un package très important GitPython* pour obtenir des informations de git diff.
+<div class="figure" style="text-align: center"><span id="fig:ArcheoLexLog"></span>
+<img src="images/ArcheoLexLog_UML.png" alt="le diagramme UML pour ArcheoLexLog.py" width="100%" />
+<p class="caption">
+Figure 5.6: le diagramme UML pour ArcheoLexLog.py
+</p>
+</div>
+<p>3.<strong>archeolex_excavation.py</strong>:Ce fichier appelle les deux classes Article et ArcheoLexLog, définit les paramètres et contient la fonction main.</p>
+</div>
+<div id="problèmes-rencontrés-et-solution" class="section level3" number="5.2.2">
+<h3><span class="header-section-number">5.2.2</span> problèmes rencontrés et solution</h3>
+<p>1.Au début,l’idée était d’obtenir les informations de la structure de l’article à partir du nom. Par exemple : Article L312 -&gt; L’article se trouve dans la partie législative, le troisième livre, le premier titre, le deuxième chapitre.
+Cependant, il existe huit lois et leurs noms d’articles ne sont pas liés à la structure : code_civil code_de_l’artisanat code_de_la_famille_et_de_l’aide_sociale code_de_procédure_civile code_de_procédure_pénale code_des_postes_et_des_communicet_pélectroniquedemaraire_demarale_demarique</p>
+<p><strong>Solution</strong>: parcourir le texte complet du diff pour obtenir les informations de structure correspondantes. Et le nom complet(fulltext) de la structure est directement écrit dans la table sans utiliser le nom numérique.</p>
+<p>2.L’ajout d’une nouvelle section dans un commit.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="Sujet.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="final-words.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Rapport.pdf", "Rapport.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

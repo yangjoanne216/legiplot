@@ -1,0 +1,399 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+# Les images générés {#Images}
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(fig.width = 8, fig.height = 4.5)
+library(tidyverse)
+library(ggthemes)
+library(ggthemes)
+library(kableExtra)
+```
+
+
+```{r load}
+legiplot <- read.csv("../diff_shortlist_t.csv",encoding ='UTF-8') %>% mutate(année = as.numeric(str_sub(date,1,4)))
+
+```
+
+## modification et des visualisations
+
+### Liste des codes et modifications
+```{r data,echo=FALSE}
+legiplot %>%
+  group_by(code) %>%
+  summarise(
+    nb_modifs = n(),
+    début = min(date),
+    fin = max(date),
+    parties = n_distinct(partie),
+    sous_parties = n_distinct(sous_partie),
+    livres = n_distinct(livre),
+    titres = n_distinct(titre),
+    chapitres = n_distinct(chapitre)
+  ) %>% kable()
+```
+
+### Pourcentage de différents types de modifications
+
+#### Toutes les années
+```{r global,echo=FALSE}
+legiplot %>%
+  group_by(année,type) %>%
+  summarise(nombre = n()) %>%
+  ggplot(aes(x=année,y=nombre,fill=type)) +
+  geom_col() +
+  theme_hc()
+```
+
+#### Depuis 1950
+```{r global.zoom,echo=FALSE}
+legiplot %>%
+  filter(année > 1950) %>%
+  group_by(année,type) %>%
+  summarise(nombre = n()) %>%
+  ggplot(aes(x=année,y=nombre,fill=type)) +
+  geom_col() +
+  theme_hc()
+```
+
+### Nombre de modifications de chaque année
+
+#### Depuis 1950
+```{r fig.width=10, fig.height=8,echo=FALSE}
+legiplot %>%
+  filter(année > 1949) %>%
+  group_by(année,code) %>%
+  summarise(nombre = n()) %>%
+  ggplot(aes(x=année,y=nombre,color=code)) +
+  geom_line() +
+  facet_wrap(~code) +
+  guides(color=FALSE) +
+  theme_hc()
+```
+
+#### Depuis 1999
+```{r fig.width=10, fig.height=8,echo=FALSE}
+legiplot %>%
+  filter(année > 1999, code != "code_du_travail") %>%
+  group_by(année,code) %>%
+  summarise(nombre = n()) %>%
+  ggplot(aes(x=année,y=nombre,color=code)) +
+  geom_line() +
+  facet_wrap(~code) +
+  guides(color=FALSE) +
+  theme_hc()
+```
+
+```{r modif.glob.data}
+
+lp_diff_shortlist_t <- read.csv("../diff_shortlist_t.csv",encoding = "UTF-8", stringsAsFactors = TRUE) %>%
+    mutate(code = factor(code, labels=str_replace_all(levels(code),'_',' '))) %>%
+    mutate(
+      année = as.factor(substr(date,1,4)),
+      date = as.Date(date)
+      )
+
+lp_modifs_glob <- lp_diff_shortlist_t %>%
+  group_by(code,partie,article,type) %>%
+  summarise(nb = n()) %>%
+  pivot_wider(names_from = type, values_from = nb, values_fill = 0) %>%
+  mutate(partie = ifelse(str_detect(partie,"législative")|is.na(partie),"législative","autre")) %>%
+  mutate(status = case_when(
+    Suppression > 0 ~ "Supprimé",
+    Modification > 0 ~ "Modifié",
+    TRUE ~ "Ajouté/Conservé"
+  )) 
+```
+
+### Etat actuel
+```{r modif.glob.plot1}
+lp_modifs_glob %>%
+  group_by(code,status) %>%
+  summarise(nb_articles = n()) %>% 
+  ggplot(aes(x=code,y=nb_articles,fill=status)) +
+  geom_col(position = "fill") +
+  #facet_grid(.~partie)+
+  coord_flip()
+```
+
+### Nombre modifications par articles
+
+```{r modif.glob.plot2}
+lp_modifs_glob %>%
+  mutate(
+    Modifications = ifelse(Modification<9,as.character(Modification),"9+")
+  ) %>%
+  ggplot(aes(x=Modifications,fill=partie)) +
+  geom_bar() +
+  facet_wrap(code~., scales = "free_y") +
+  theme_hc()
+```
+
+
+```{r modif.evol.data,echo=FALSE}
+
+lp_diff_shortlist_t <- read.csv("../diff_shortlist_t.csv",encoding = "UTF-8", stringsAsFactors = TRUE) %>%
+    mutate(code = factor(code, labels=str_replace_all(levels(code),'_',' '))) %>%
+    mutate(
+      année = as.factor(substr(date,1,4)),
+      date = as.Date(date)
+      )
+
+lp_modifs_evol <- lp_diff_shortlist_t %>%
+  arrange(date) %>%
+  mutate(type = fct_recode(type, Ajout = "Préexistence")) %>%
+  group_by(code,article,type) %>%
+  summarise(across(everything(),first)) %>%
+  group_by(code,date,type) %>%
+  summarise(nb = n()) %>%
+  group_by(code,type) %>%
+  mutate(nb = cumsum(nb)) %>%
+  pivot_wider(names_from = type, values_from = nb) %>%
+  fill(Ajout,Suppression,Modification) %>%
+  mutate(across(Ajout:Modification, ~ replace_na(.,0))) %>%
+  mutate(Ajout_Conservation = Ajout - Modification - Suppression)
+
+```
+
+
+### Evolution de nombre de modifications
+
+```{r modif.evol.plot, fig.height=8, fig.width=8}
+lp_modifs_evol %>%
+  pivot_longer(c(Ajout_Conservation,Modification,Suppression), names_to = "status", values_to = "nb_articles") %>% 
+  mutate(status = factor(status, levels = c("Suppression","Modification","Ajout_Conservation"))) %>%
+  ggplot(aes(x=date,y=nb_articles,fill=status)) +
+  geom_area(aes(color=status)) +
+  facet_wrap(code~., scales = "free", ncol=3) +
+  theme_hc()
+```
+
+## Evolution des volumes de codes
+
+```{r loadsave, echo=FALSE}
+stats <- read.csv("../stats_shortlist_ts6.csv",encoding = 'UTF-8') %>%
+  mutate(
+    code = as.factor(code),
+    date = as.Date(date),
+    alineas_par_article = nb_alineas / nb_articles,
+    mots_par_article = nb_mots / nb_articles,
+    mots_par_alinea = nb_mots / nb_alineas
+   ) %>%
+  filter(date >= as.Date("2000-01-01"))
+```
+
+### Nombre de mots 
+```{r nb_mots}
+stats %>%
+  mutate(code = fct_reorder(code,-nb_mots,.fun=first)) %>%
+  ggplot(aes(x=date,y=nb_mots,color=code)) +
+  geom_line(aes(group=code)) +
+  theme_hc() + theme(legend.position = "right")
+```
+
+### Nombre de lignes 
+```{r nb_alineas}
+stats %>%
+  mutate(code = fct_reorder(code,-nb_alineas,.fun=first)) %>%
+  ggplot(aes(x=date,y=nb_alineas,color=code)) +
+  geom_line(aes(group=code)) +
+  theme_hc() + theme(legend.position = "right")
+```
+
+### Nombre d'article 
+```{r nb_articles}
+stats %>%
+  mutate(code = fct_reorder(code,-nb_articles,.fun=first)) %>%
+  ggplot(aes(x=date,y=nb_articles,color=code)) +
+  geom_line(aes(group=code)) +
+  theme_hc() + theme(legend.position = "right")
+```
+
+
+### Nombre moyen de lignes d'un article
+```{r alineas_par_article}
+stats %>%
+  mutate(code = fct_reorder(code,-alineas_par_article,.fun=first)) %>%
+  ggplot(aes(x=date,y=alineas_par_article,color=code)) +
+  geom_line(aes(group=code)) +
+  theme_hc() + theme(legend.position = "right")
+```
+
+
+### Nombre moyen de mots d'un article
+```{r mots_par_article}
+stats %>%
+  mutate(code = fct_reorder(code,-mots_par_article,.fun=first)) %>%
+  ggplot(aes(x=date,y=mots_par_article,color=code)) +
+  geom_line(aes(group=code)) +
+  theme_hc() + theme(legend.position = "right")
+```
+
+### Nombre moyen de mots d'une ligne
+```{r mots_par_alinea}
+stats %>%
+  mutate(code = fct_reorder(code,-mots_par_alinea,.fun=first)) %>%
+  ggplot(aes(x=date,y=mots_par_alinea,color=code)) +
+  geom_line(aes(group=code)) +
+  theme_hc() + theme(legend.position = "right")
+```
+
+## Structure
+### Législative vs. Réglementaire
+
+```{r lr.data, echo=FALSE}
+stats.lr <- read.csv("../stats_shortlist_ts5.csv",encoding='UTF-8') %>%
+  mutate(
+    code = as.factor(str_replace_all(code,"_"," ")),
+    partie = as.factor(case_when(
+      str_detect(partie,"législative") ~ "Législative",
+      str_detect(partie,"réglementaire") ~ "Réglementaire",
+      TRUE ~ "Autre")), 
+    date = as.Date(date),
+    alineas_par_article = nb_alineas / nb_articles,
+    mots_par_article = nb_mots / nb_articles,
+    mots_par_alinea = nb_mots / nb_alineas
+   ) %>%
+  filter(date >= as.Date("2000-01-01"))
+```
+
+#### Nombre de mots de chaque partie(séparées) 
+```{r lr.all, fig.width=8, fig.height=16}
+stats.lr %>%
+  mutate(code = fct_reorder(code,-nb_mots,.fun=first)) %>%
+  ggplot(aes(x=date,y=nb_mots,color=partie,fill=partie)) +
+  geom_area(aes(group=partie)) +
+  facet_grid(code~partie, labeller = label_wrap_gen(width=15)) +
+  theme_hc() + theme(legend.position = "top")
+```
+
+#### Nombre de mots de chaque partie(combinées) 
+```{r lr.all.stack, fig.width=8, fig.height=8}
+stats.lr %>%
+  mutate(code = fct_reorder(code,-nb_mots,.fun=first)) %>%
+  ggplot(aes(x=date,y=nb_mots,color=partie,fill=partie)) +
+  geom_area(aes(group=partie)) +
+  facet_wrap(code~., labeller = label_wrap_gen(width=20)) +
+  theme_hc() + theme(legend.position = "top")
+```
+
+#### Pourcentage de chaque partie
+```{r lr.all.fill, fig.width=10, fig.height=5.6}
+stats.lr %>%
+  group_by(date,code,partie) %>%
+  summarise(nb_articles = sum(nb_articles)) %>%
+  mutate(code = fct_reorder(code,-nb_articles,.fun=first)) %>%
+  ggplot(aes(x=date,y=nb_articles,color=partie,fill=partie)) +
+  geom_area(aes(group=partie),position="fill") +
+  facet_wrap(code~., labeller = label_wrap_gen(width=25)) +
+  scale_y_continuous(labels = scales::percent) +
+  
+  ylab("Nombre d'articles") +
+  theme_hc() + theme(legend.position = "top")
+```
+
+### Arborescence
+```{r setup2, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+options(dplyr.summarise.inform = FALSE)
+
+source("legiplot_functions.R")
+legiplot_loadall_short()
+```
+
+{r tree.edu, fig.width=15, fig.height=15, out.width=500, out.height=500, fig.align="center"}
+legiplot_tree("code de l'éducation")
+
+
+{r tree.pro, fig.width=15, fig.height=15, out.width=500, out.height=500, fig.align="center"}
+legiplot_tree("Code de la propriété")
+
+
+## Modification pour chaque livre 
+
+### Code de l'éducation
+```{r det.1, echo = TRUE, fig.height=9, fig.width=16}
+stats.det <- read.csv("../stats_shortlist_ts3.csv",encoding = 'UTF-8') %>%
+  filter(code == "code_de_l'éducation") %>%
+  mutate(date = as.Date(date)) 
+stats.det %>%
+  ggplot(aes(x=date,y=nb_mots,fill=livre)) +
+  geom_area(aes(group=livre)) +
+  facet_grid(.~partie)  +
+  theme_hc() + 
+  theme(legend.position = "right")
+```
+
+Premier problème : les livres ne sont pas dans l'ordre : Livre IX < Livre V
+
+Pour traiter ce problème, on force l'ordre des livres avec l'ordre dans le csv:
+
+
+```{r det.2, echo = TRUE, fig.height=9, fig.width=16}
+stats.det %>%
+    mutate_at(
+    c("partie","sous_partie","livre"),
+    function(x) factor(x,unique(x))
+    ) %>%
+  ggplot(aes(x=date,y=nb_mots,fill=livre)) +
+  geom_area(aes(group=livre)) +
+  facet_grid(.~partie)  +
+  theme_hc() + 
+  theme(legend.position = "right")
+```
+
+Deuxième problème : des titres changent au cours du temps.
+
+Pour traiter ce problème, on va supprimer ces titres :
+
+```{r det.3, echo = TRUE, fig.height=9, fig.width=16}
+stats.det %>%
+  mutate_at(
+    c("sous_partie","livre"),
+    function(x) gsub("(.*) :.*", "\\1",x)
+    ) %>%
+    mutate_at(
+    c("partie","sous_partie","livre"),
+    function(x) factor(x,unique(x))
+    ) %>%
+  ggplot(aes(x=date,y=nb_mots,fill=livre)) +
+  geom_area(aes(group=livre)) +
+  facet_grid(.~partie)  +
+  theme_hc() + 
+  theme(legend.position = "right")
+```
+
+### Code de la propriété intellectuelle
+
+```{r pi.data}
+stats.pi <- read.csv("../stats_shortlist_ts3.csv",encoding = 'UTF-8') %>%
+  filter(code == "code_de_la_propriété_intellectuelle") %>%
+  mutate(
+    date = as.Date(date),
+    alineas_par_article = nb_alineas / nb_articles,
+    mots_par_article = nb_mots / nb_articles,
+    mots_par_alinea = nb_mots / nb_alineas
+   ) %>%
+  mutate_at(
+    c("sous_partie","livre"),
+    function(x) gsub("(.*) :.*", "\\1",x)
+    ) %>%
+  mutate_at(
+    c("partie","sous_partie","livre"),
+    function(x) factor(x,unique(x))
+    )
+```
+
+```{r pi.livres}
+stats.pi %>%
+  ggplot(aes(x=date,y=nb_mots,fill=livre,color=livre)) +
+  geom_area(aes(group=livre)) +
+  facet_grid(.~partie)  +
+  theme_hc() + 
+  theme(legend.position = "right")
+```

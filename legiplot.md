@@ -1,7 +1,26 @@
 Legiplot
 ================
 
+``` r
+legiplot <- read.csv("diff_shortlist_t.csv",encoding ='UTF-8') %>% mutate(année = as.numeric(str_sub(date,1,4)))
+```
+
 ## Données
+
+``` r
+legiplot %>%
+  group_by(code) %>%
+  summarise(
+    nb_modifs = n(),
+    début = min(date),
+    fin = max(date),
+    parties = n_distinct(partie),
+    sous_parties = n_distinct(sous_partie),
+    livres = n_distinct(livre),
+    titres = n_distinct(titre),
+    chapitres = n_distinct(chapitre)
+  ) %>% kable()
+```
 
 <table>
 <thead>
@@ -38,10 +57,10 @@ chapitres
 <tbody>
 <tr>
 <td style="text-align:left;">
-code civil
+code\_civil
 </td>
 <td style="text-align:right;">
-6240
+6248
 </td>
 <td style="text-align:left;">
 1803-03-15
@@ -50,85 +69,56 @@ code civil
 2021-01-01
 </td>
 <td style="text-align:right;">
-2
+1
 </td>
 <td style="text-align:right;">
-72
+1
 </td>
 <td style="text-align:right;">
-213
+7
 </td>
 <td style="text-align:right;">
-418
+70
 </td>
 <td style="text-align:right;">
-1849
+214
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-code de commerce
+code\_de\_commerce
 </td>
 <td style="text-align:right;">
-16445
+16455
 </td>
 <td style="text-align:left;">
 2000-12-14
 </td>
 <td style="text-align:left;">
-2021-05-17
+2021-05-23
+</td>
+<td style="text-align:right;">
+4
 </td>
 <td style="text-align:right;">
 1
 </td>
 <td style="text-align:right;">
-13
+11
 </td>
 <td style="text-align:right;">
-117
+80
 </td>
 <td style="text-align:right;">
-324
-</td>
-<td style="text-align:right;">
-1970
+254
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-code de justice administrative
+code\_de\_l’action\_sociale\_et\_des\_familles
 </td>
 <td style="text-align:right;">
-2690
-</td>
-<td style="text-align:left;">
-2001-01-01
-</td>
-<td style="text-align:left;">
-2021-05-01
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-13
-</td>
-<td style="text-align:right;">
-40
-</td>
-<td style="text-align:right;">
-137
-</td>
-<td style="text-align:right;">
-698
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-code de l’action sociale et des familles
-</td>
-<td style="text-align:right;">
-8507
+8513
 </td>
 <td style="text-align:left;">
 2001-07-18
@@ -137,259 +127,56 @@ code de l’action sociale et des familles
 2021-05-21
 </td>
 <td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
 1
 </td>
 <td style="text-align:right;">
-9
+8
 </td>
 <td style="text-align:right;">
-50
+49
 </td>
 <td style="text-align:right;">
-239
-</td>
-<td style="text-align:right;">
-1332
+238
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-code de l’artisanat
+code\_de\_l’éducation
 </td>
 <td style="text-align:right;">
-374
-</td>
-<td style="text-align:left;">
-1955-05-22
-</td>
-<td style="text-align:left;">
-2021-04-01
-</td>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:right;">
-12
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-code de l’aviation civile
-</td>
-<td style="text-align:right;">
-2218
-</td>
-<td style="text-align:left;">
-1967-06-25
-</td>
-<td style="text-align:left;">
-2021-01-28
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-21
-</td>
-<td style="text-align:right;">
-60
-</td>
-<td style="text-align:right;">
-97
-</td>
-<td style="text-align:right;">
-640
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-code de l’éducation
-</td>
-<td style="text-align:right;">
-10747
+10754
 </td>
 <td style="text-align:left;">
 2000-12-14
 </td>
 <td style="text-align:left;">
-2021-05-22
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-14
-</td>
-<td style="text-align:right;">
-69
-</td>
-<td style="text-align:right;">
-232
-</td>
-<td style="text-align:right;">
-1032
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-code de l’énergie
-</td>
-<td style="text-align:right;">
-3617
-</td>
-<td style="text-align:left;">
-2011-07-31
-</td>
-<td style="text-align:left;">
-2021-05-21
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-15
-</td>
-<td style="text-align:right;">
-65
-</td>
-<td style="text-align:right;">
-107
-</td>
-<td style="text-align:right;">
-737
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-code de l’entrée et du séjour des étrangers et du droit d’asile
-</td>
-<td style="text-align:right;">
-6514
-</td>
-<td style="text-align:left;">
-2005-01-28
-</td>
-<td style="text-align:left;">
-2021-05-01
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-30
-</td>
-<td style="text-align:right;">
-107
-</td>
-<td style="text-align:right;">
-266
-</td>
-<td style="text-align:right;">
-1394
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-code de l’environnement
-</td>
-<td style="text-align:right;">
-19966
-</td>
-<td style="text-align:left;">
-2001-01-01
-</td>
-<td style="text-align:left;">
-2021-05-16
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-13
-</td>
-<td style="text-align:right;">
-63
-</td>
-<td style="text-align:right;">
-233
-</td>
-<td style="text-align:right;">
-1509
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-code de l’organisation judiciaire
-</td>
-<td style="text-align:right;">
-5214
-</td>
-<td style="text-align:left;">
-1978-07-13
-</td>
-<td style="text-align:left;">
-2021-05-01
+2021-05-24
 </td>
 <td style="text-align:right;">
 2
 </td>
 <td style="text-align:right;">
-39
+6
 </td>
 <td style="text-align:right;">
-140
+15
 </td>
 <td style="text-align:right;">
-229
+97
 </td>
 <td style="text-align:right;">
-971
+274
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-code de l’urbanisme
+code\_de\_la\_consommation
 </td>
 <td style="text-align:right;">
-12577
-</td>
-<td style="text-align:left;">
-1973-03-27
-</td>
-<td style="text-align:left;">
-2021-04-10
-</td>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:right;">
-55
-</td>
-<td style="text-align:right;">
-206
-</td>
-<td style="text-align:right;">
-584
-</td>
-<td style="text-align:right;">
-1956
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-code de la consommation
-</td>
-<td style="text-align:right;">
-6234
+6235
 </td>
 <td style="text-align:left;">
 1994-01-04
@@ -401,111 +188,24 @@ code de la consommation
 4
 </td>
 <td style="text-align:right;">
-18
-</td>
-<td style="text-align:right;">
-63
-</td>
-<td style="text-align:right;">
-233
-</td>
-<td style="text-align:right;">
-1292
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-code de la construction et de l’habitation
-</td>
-<td style="text-align:right;">
-14600
-</td>
-<td style="text-align:left;">
-1978-06-08
-</td>
-<td style="text-align:left;">
-2021-05-01
-</td>
-<td style="text-align:right;">
 1
-</td>
-<td style="text-align:right;">
-82
-</td>
-<td style="text-align:right;">
-121
-</td>
-<td style="text-align:right;">
-294
-</td>
-<td style="text-align:right;">
-1898
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-code de la défense
-</td>
-<td style="text-align:right;">
-9202
-</td>
-<td style="text-align:left;">
-2005-03-23
-</td>
-<td style="text-align:left;">
-2021-04-18
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-12
-</td>
-<td style="text-align:right;">
-39
-</td>
-<td style="text-align:right;">
-140
-</td>
-<td style="text-align:right;">
-205
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-code de la famille et de l’aide sociale
-</td>
-<td style="text-align:right;">
-890
-</td>
-<td style="text-align:left;">
-1956-01-28
-</td>
-<td style="text-align:left;">
-2019-12-30
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-42
-</td>
-<td style="text-align:right;">
-48
 </td>
 <td style="text-align:right;">
 16
 </td>
 <td style="text-align:right;">
-36
+63
+</td>
+<td style="text-align:right;">
+227
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-code de la propriété intellectuelle
+code\_de\_la\_propriété\_intellectuelle
 </td>
 <td style="text-align:right;">
-3222
+3227
 </td>
 <td style="text-align:left;">
 1993-01-01
@@ -514,27 +214,27 @@ code de la propriété intellectuelle
 2021-05-14
 </td>
 <td style="text-align:right;">
-1
+2
 </td>
 <td style="text-align:right;">
-14
+6
 </td>
 <td style="text-align:right;">
-36
+17
 </td>
 <td style="text-align:right;">
-95
+27
 </td>
 <td style="text-align:right;">
-481
+111
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-code de la recherche
+code\_de\_la\_recherche
 </td>
 <td style="text-align:right;">
-435
+441
 </td>
 <td style="text-align:left;">
 2004-08-11
@@ -546,30 +246,62 @@ code de la recherche
 1
 </td>
 <td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
 5
 </td>
 <td style="text-align:right;">
 21
 </td>
 <td style="text-align:right;">
-74
-</td>
-<td style="text-align:right;">
-199
+75
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-code de la route
+code\_de\_la\_santé\_publique
 </td>
 <td style="text-align:right;">
-2763
+51280
 </td>
 <td style="text-align:left;">
-2001-06-01
+1953-10-27
 </td>
 <td style="text-align:left;">
-2021-05-01
+2021-05-27
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+87
+</td>
+<td style="text-align:right;">
+290
+</td>
+<td style="text-align:right;">
+1138
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+code\_de\_la\_sécurité\_intérieure
+</td>
+<td style="text-align:right;">
+4700
+</td>
+<td style="text-align:left;">
+2012-12-23
+</td>
+<td style="text-align:left;">
+2021-05-27
+</td>
+<td style="text-align:right;">
+2
 </td>
 <td style="text-align:right;">
 1
@@ -578,259 +310,85 @@ code de la route
 9
 </td>
 <td style="text-align:right;">
-29
+59
 </td>
 <td style="text-align:right;">
-123
-</td>
-<td style="text-align:right;">
-610
+165
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-code de la santé publique
+code\_de\_la\_sécurité\_sociale
 </td>
 <td style="text-align:right;">
-51268
+40633
 </td>
 <td style="text-align:left;">
-1953-10-27
+1961-01-12
 </td>
 <td style="text-align:left;">
-2021-05-21
+2021-05-23
 </td>
 <td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-52
-</td>
-<td style="text-align:right;">
-204
-</td>
-<td style="text-align:right;">
-666
-</td>
-<td style="text-align:right;">
-2797
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-code de la sécurité intérieure
-</td>
-<td style="text-align:right;">
-4606
-</td>
-<td style="text-align:left;">
-2012-12-23
-</td>
-<td style="text-align:left;">
-2021-05-08
+5
 </td>
 <td style="text-align:right;">
 1
 </td>
 <td style="text-align:right;">
-10
+37
 </td>
 <td style="text-align:right;">
-59
+185
 </td>
 <td style="text-align:right;">
-162
-</td>
-<td style="text-align:right;">
-967
+646
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-code de la sécurité sociale
+code\_du\_travail
 </td>
 <td style="text-align:right;">
-40626
+48381
 </td>
 <td style="text-align:left;">
-1976-01-15
+1973-07-11
 </td>
 <td style="text-align:left;">
-2021-05-16
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-166
-</td>
-<td style="text-align:right;">
-726
-</td>
-<td style="text-align:right;">
-3473
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-code de procédure civile
-</td>
-<td style="text-align:right;">
-3324
-</td>
-<td style="text-align:left;">
-1976-07-30
-</td>
-<td style="text-align:left;">
-2021-01-01
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-59
-</td>
-<td style="text-align:right;">
-175
-</td>
-<td style="text-align:right;">
-223
-</td>
-<td style="text-align:right;">
-834
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-code de procédure pénale
-</td>
-<td style="text-align:right;">
-13103
-</td>
-<td style="text-align:left;">
-1958-12-24
-</td>
-<td style="text-align:left;">
-2021-05-01
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-29
-</td>
-<td style="text-align:right;">
-151
-</td>
-<td style="text-align:right;">
-368
-</td>
-<td style="text-align:right;">
-1817
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-code des assurances
-</td>
-<td style="text-align:right;">
-10492
-</td>
-<td style="text-align:left;">
-1976-07-16
-</td>
-<td style="text-align:left;">
-2021-04-01
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-14
-</td>
-<td style="text-align:right;">
-98
-</td>
-<td style="text-align:right;">
-231
-</td>
-<td style="text-align:right;">
-1244
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-code des juridictions financières
-</td>
-<td style="text-align:right;">
-4280
-</td>
-<td style="text-align:left;">
-1994-12-28
-</td>
-<td style="text-align:left;">
-2021-03-29
-</td>
-<td style="text-align:right;">
-1
+2021-05-27
 </td>
 <td style="text-align:right;">
 6
 </td>
 <td style="text-align:right;">
-22
+9
 </td>
 <td style="text-align:right;">
-78
+76
 </td>
 <td style="text-align:right;">
-490
+342
+</td>
+<td style="text-align:right;">
+1220
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-code des postes et des communications électroniques
+code\_pénal
 </td>
 <td style="text-align:right;">
-3901
+3235
 </td>
 <td style="text-align:left;">
-1962-03-23
+1992-07-23
 </td>
 <td style="text-align:left;">
-2021-05-01
+2021-05-27
 </td>
 <td style="text-align:right;">
 2
-</td>
-<td style="text-align:right;">
-12
-</td>
-<td style="text-align:right;">
-59
-</td>
-<td style="text-align:right;">
-149
-</td>
-<td style="text-align:right;">
-673
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-code des transports
-</td>
-<td style="text-align:right;">
-9120
-</td>
-<td style="text-align:left;">
-2010-12-18
-</td>
-<td style="text-align:left;">
-2021-05-17
 </td>
 <td style="text-align:right;">
 1
@@ -839,383 +397,72 @@ code des transports
 11
 </td>
 <td style="text-align:right;">
-58
+31
 </td>
 <td style="text-align:right;">
-227
-</td>
-<td style="text-align:right;">
-419
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-code disciplinaire et pénal de la marine marchande
-</td>
-<td style="text-align:right;">
-211
-</td>
-<td style="text-align:left;">
-1939-06-06
-</td>
-<td style="text-align:left;">
-2015-01-01
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:right;">
-6
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-code du cinéma et de l’image animée
-</td>
-<td style="text-align:right;">
-3156
-</td>
-<td style="text-align:left;">
-2009-11-07
-</td>
-<td style="text-align:left;">
-2021-01-25
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-15
-</td>
-<td style="text-align:right;">
-47
-</td>
-<td style="text-align:right;">
-109
-</td>
-<td style="text-align:right;">
-266
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-code du patrimoine
-</td>
-<td style="text-align:right;">
-2545
-</td>
-<td style="text-align:left;">
-2004-08-07
-</td>
-<td style="text-align:left;">
-2021-01-02
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-13
-</td>
-<td style="text-align:right;">
-51
-</td>
-<td style="text-align:right;">
-113
-</td>
-<td style="text-align:right;">
-400
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-code du sport
-</td>
-<td style="text-align:right;">
-4667
-</td>
-<td style="text-align:left;">
-2006-05-25
-</td>
-<td style="text-align:left;">
-2021-05-09
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-8
-</td>
-<td style="text-align:right;">
-22
-</td>
-<td style="text-align:right;">
-54
-</td>
-<td style="text-align:right;">
-391
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-code du tourisme
-</td>
-<td style="text-align:right;">
-1878
-</td>
-<td style="text-align:left;">
-2005-02-24
-</td>
-<td style="text-align:left;">
-2021-02-26
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-7
-</td>
-<td style="text-align:right;">
-30
-</td>
-<td style="text-align:right;">
-86
-</td>
-<td style="text-align:right;">
-273
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-code du travail
-</td>
-<td style="text-align:right;">
-48377
-</td>
-<td style="text-align:left;">
-1973-07-11
-</td>
-<td style="text-align:left;">
-2021-05-22
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-58
-</td>
-<td style="text-align:right;">
-331
-</td>
-<td style="text-align:right;">
-1071
-</td>
-<td style="text-align:right;">
-4087
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-code électoral
-</td>
-<td style="text-align:right;">
-3644
-</td>
-<td style="text-align:left;">
-1966-12-30
-</td>
-<td style="text-align:left;">
-2021-04-06
-</td>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:right;">
-43
-</td>
-<td style="text-align:right;">
-96
-</td>
-<td style="text-align:right;">
-148
-</td>
-<td style="text-align:right;">
-1022
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-code forestier (nouveau)
-</td>
-<td style="text-align:right;">
-427
-</td>
-<td style="text-align:left;">
-2012-09-14
-</td>
-<td style="text-align:left;">
-2021-03-12
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:right;">
-22
-</td>
-<td style="text-align:right;">
-59
-</td>
-<td style="text-align:right;">
-168
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-code général de la propriété des personnes publiques
-</td>
-<td style="text-align:right;">
-1364
-</td>
-<td style="text-align:left;">
-2006-07-16
-</td>
-<td style="text-align:left;">
-2021-04-16
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-6
-</td>
-<td style="text-align:right;">
-20
-</td>
-<td style="text-align:right;">
-44
-</td>
-<td style="text-align:right;">
-96
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-code général des collectivités territoriales
-</td>
-<td style="text-align:right;">
-19111
-</td>
-<td style="text-align:left;">
-1996-02-25
-</td>
-<td style="text-align:left;">
-2021-05-17
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-36
-</td>
-<td style="text-align:right;">
-92
-</td>
-<td style="text-align:right;">
-265
-</td>
-<td style="text-align:right;">
-602
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-code pénal
-</td>
-<td style="text-align:right;">
-3223
-</td>
-<td style="text-align:left;">
-1992-07-23
-</td>
-<td style="text-align:left;">
-2021-05-01
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-13
-</td>
-<td style="text-align:right;">
-34
-</td>
-<td style="text-align:right;">
-86
-</td>
-<td style="text-align:right;">
-451
+87
 </td>
 </tr>
 </tbody>
 </table>
 
-## Statistiques générales
+## Nombre de modifications globales
+
+``` r
+legiplot %>%
+  group_by(année,type) %>%
+  summarise(nombre = n()) %>%
+  ggplot(aes(x=année,y=nombre,fill=type)) +
+  geom_col() +
+  theme_hc()
+```
 
     ## `summarise()` has grouped output by 'année'. You can override using the `.groups` argument.
 
 ![](legiplot_files/figure-gfm/global-1.png)<!-- -->
 
+``` r
+legiplot %>%
+  filter(année > 1950) %>%
+  group_by(année,type) %>%
+  summarise(nombre = n()) %>%
+  ggplot(aes(x=année,y=nombre,fill=type)) +
+  geom_col() +
+  theme_hc()
+```
+
     ## `summarise()` has grouped output by 'année'. You can override using the `.groups` argument.
 
 ![](legiplot_files/figure-gfm/global.zoom-1.png)<!-- -->
 
+``` r
+legiplot %>%
+  filter(année > 1950) %>%
+  group_by(année,code) %>%
+  summarise(nombre = n()) %>%
+  ggplot(aes(x=année,y=nombre,color=code)) +
+  geom_line() +
+  facet_wrap(~code) +
+  guides(color=FALSE) +
+  theme_hc()
+```
+
     ## `summarise()` has grouped output by 'année'. You can override using the `.groups` argument.
 
-![](legiplot_files/figure-gfm/global.code.zoom-1.png)<!-- -->
+![](legiplot_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
 
-## Choses à faire
+``` r
+legiplot %>%
+  filter(année > 1999, code != "code_du_travail") %>%
+  group_by(année,code) %>%
+  summarise(nombre = n()) %>%
+  ggplot(aes(x=année,y=nombre,color=code)) +
+  geom_line() +
+  facet_wrap(~code) +
+  guides(color=FALSE) +
+  theme_hc()
+```
 
-### Comparaison des codes
+    ## `summarise()` has grouped output by 'année'. You can override using the `.groups` argument.
 
--   Classement des codes les plus modifiés (absolu)
-
--   Classement des codes les plus modifiés pendant les dernières
-    mandatures (absolu)
-
--   Classement des codes les plus modifiés (relatif au nombre
-    d’articles)
-
--   Classement des codes les plus modifiés pendant les dernières
-    mandatures (relatif au nombre d’articles)
-
--   Classement des articles les plus livres/titres/chapitres les plus
-    modifiés, tous codes confondus (relatif au nombre d’articles)
-
--   Classement des articles les plus modifiés, tous codes confondus
-
--   Classements des plus grosses modifications
-
--   Classements des plus grosses modifications selon une fenêtre
-    glissante
-
-### Pour un code donné
-
--   Evolution du nombre d’articles
--   Evolution du nombre d’articles par Livre/Titre/Chapitre
--   Visualisation de la taille des sections
--   Nombre de modifications dans le temps
--   Classement des Livres/Titres/Chapitres/articles les plus modifiés
--   Classement des plus grosses modifications
--   Classements des plus grosses modifications selon une fenêtre
-    glissante
+![](legiplot_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->

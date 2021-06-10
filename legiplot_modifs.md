@@ -81,6 +81,8 @@ lp_modifs_evol <- lp_diff_shortlist_t %>%
   mutate(Ajout_Conservation = Ajout - Modification - Suppression)
 ```
 
+    ## Warning: Unknown levels in `f`: Pr閑xistence
+
     ## `summarise()` has grouped output by 'code', 'article'. You can override using the `.groups` argument.
 
     ## `summarise()` has grouped output by 'code', 'date'. You can override using the `.groups` argument.

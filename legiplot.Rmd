@@ -11,8 +11,7 @@ library(ggthemes)
 ```
 
 ```{r load}
-# legiplot <- read.csv("diff_shortlist_t.csv",encoding ='UTF-8') %>%
-  mutate(année = as.numeric(str_sub(date,1,4)))
+legiplot <- read.csv("diff_shortlist_t.csv",encoding ='UTF-8') %>% mutate(année = as.numeric(str_sub(date,1,4)))
 
 ```
 
@@ -81,16 +80,4 @@ legiplot %>%
   theme_hc()
 ```
 
-##Des information pour la propriété intellectuelle
 
-```{r fig.width=10, fig.height=8}
-propriete_intellectuelle %>%
-  summarise(nombre = n()) %>%
-  ggplot(aes(x=livre,y=nombre))+
-  geom_line() +
-  facet_wrap(~code) +
-  guides(color=FALSE) +
-  theme_hc()
-  
-
-```
