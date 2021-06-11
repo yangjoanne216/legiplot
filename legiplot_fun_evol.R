@@ -110,11 +110,11 @@ legiplot_vol_code <- function(uncode) {
       function(x) factor(x,unique(x))
     ) %>%
     mutate(livre = fct_rev(livre)) %>%
-    group_by(date,partie,sous_partie,livre) %>%
+    group_by(date,partie,livre) %>%
     summarise(across(nb_articles:nb_mots,sum)) %>%
     
       ggplot(aes(x=date,y=nb_articles,fill=livre)) +
-      geom_area(aes(group=livre)) +
+      geom_area(aes(group=livre),colour="white",size=0.3) +
       facet_grid(.~partie)  +
       theme_hc() + 
       ylab("Nombre d'articles") +
