@@ -5,15 +5,16 @@ output: github_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(tidyverse)
-library(ggthemes)
 ```
 
 
 
-## Modifications globales
+## Modification actuelles
 
-```{r modif.glob.data}
+```{r modif.data}
+lp_stats_lts0 <- read.csv("stats_shortlist_lts0.csv",encoding = "UTF-8", stringsAsFactors = TRUE) %>%
+    mutate(code = factor(code, labels=str_replace_all(levels(code),'_',' '))) %>%
+  select(-date)
 
 lp_diff_shortlist_t <- read.csv("diff_shortlist_t.csv",encoding = "UTF-8", stringsAsFactors = TRUE) %>%
     mutate(code = factor(code, labels=str_replace_all(levels(code),'_',' '))) %>%
@@ -22,83 +23,123 @@ lp_diff_shortlist_t <- read.csv("diff_shortlist_t.csv",encoding = "UTF-8", strin
       date = as.Date(date)
       )
 
-lp_modifs_glob <- lp_diff_shortlist_t %>%
+lp_actu <- full_join(
+  lp_stats_lts0,
+  lp_diff_shortlist_t %>% 
+    filter(date > as.Date("2011-05-14")) %>% 
+    select(date,code,article,type)
+) %>%
+  mutate(type = fct_explicit_na(type,"Conservation")) %>%
   group_by(code,partie,article,type) %>%
   summarise(nb = n()) %>%
   pivot_wider(names_from = type, values_from = nb, values_fill = 0) %>%
-  mutate(partie = ifelse(str_detect(partie,"législative")|is.na(partie),"législative","autre")) %>%
-  mutate(status = case_when(
-    Suppression > 0 ~ "Supprimé",
-    Modification > 0 ~ "Modifié",
-    TRUE ~ "Ajouté/Conservé"
-  )) 
+  mutate(type=factor(case_when(
+    Modification > 0 ~ "Modification",
+    Ajout > 0 & Suppression > 0 ~ "Modification",
+    Ajout > 0 ~ "Ajout",
+    Suppression > 0 ~ "Suppression",
+    TRUE ~ "Conservation"),
+    levels=c("Conservation","Modification","Ajout","Suppression")
+  ))
 ```
 
-### Etat actuel
-
-```{r modif.glob.plot1}
-lp_modifs_glob %>%
-  group_by(code,status) %>%
+```{r modif.plot}
+lp_actu %>%
+  mutate(partie = ifelse(str_detect(partie,"législative")|is.na(partie),"législative","autre")) %>%
+  group_by(code,type) %>%
   summarise(nb_articles = n()) %>% 
-  ggplot(aes(x=code,y=nb_articles,fill=status)) +
+  ggplot(aes(x=code,y=nb_articles,fill=type)) +
   geom_col(position = "fill") +
   #facet_grid(.~partie)+
   coord_flip()
 ```
 
-### Nombre modifications par articles
-
-```{r modif.glob.plot2}
-lp_modifs_glob %>%
-  mutate(
-    Modifications = ifelse(Modification<9,as.character(Modification),"9+")
-  ) %>%
-  ggplot(aes(x=Modifications,fill=partie)) +
-  geom_bar() +
-  facet_wrap(code~., scales = "free_y") +
-  theme_hc()
-```
+### Modifications dans le temps
 
 
+```{r modif.data}
+lp_stats_ts6 <- read.csv("stats_shortlist_ts6.csv",encoding = "UTF-8", stringsAsFactors = TRUE) %>%
+  mutate(code = factor(code, labels=str_replace_all(levels(code),'_',' '))) %>%
+  mutate(date = as.Date(date))
 
-## Evolutions
-
-```{r modif.evol.data}
-
-lp_diff_shortlist_t <- read.csv("diff_shortlist_t.csv",encoding = "UTF-8", stringsAsFactors = TRUE) %>%
-    mutate(code = factor(code, labels=str_replace_all(levels(code),'_',' '))) %>%
-    mutate(
-      année = as.factor(substr(date,1,4)),
-      date = as.Date(date)
-      )
-
-lp_modifs_evol <- lp_diff_shortlist_t %>%
-  arrange(date) %>%
-  mutate(type = fct_recode(type, Ajout = "Préexistence")) %>%
-  group_by(code,article,type) %>%
-  summarise(across(everything(),first)) %>%
+lp_diff_ts6 <- read.csv("diff_shortlist_t.csv",encoding = "UTF-8", stringsAsFactors = TRUE) %>%
+  mutate(code = factor(code, labels=str_replace_all(levels(code),'_',' '))) %>%
+  mutate(date = as.Date(date)) %>%
   group_by(code,date,type) %>%
   summarise(nb = n()) %>%
-  group_by(code,type) %>%
-  mutate(nb = cumsum(nb)) %>%
-  pivot_wider(names_from = type, values_from = nb) %>%
-  fill(Ajout,Suppression,Modification) %>%
-  mutate(across(Ajout:Modification, ~ replace_na(.,0))) %>%
-  mutate(Ajout_Conservation = Ajout - Modification - Suppression)
+  pivot_wider(names_from = type, values_from = nb, values_fill = 0) 
+
+lp_diff_date <- full_join(lp_stats_ts6,lp_diff_ts6) %>%
+  mutate(Année = format(date, "%Y")) %>%
+  mutate(
+    Conservation = nb_articles - Ajout - Suppression - Modification
+  )
+
+lp_diff_year <- lp_diff_date %>%
+  group_by(code,Année) %>%
+  arrange(Année) %>%
+  summarise(
+    nb_articles = last(nb_articles),
+    Ajout = sum(Ajout),
+    Suppression = sum(Suppression),
+    Modification = sum(Modification)
+  ) %>%
+  mutate(
+    Taux.modification = Modification / nb_articles,
+    Conservation = nb_articles - Ajout - Suppression - Modification)
+```
+
+```{r modif.date.plot}
+lp_diff_year %>%
+  filter(Année >= "2000") %>%
+  ggplot(aes(x=Année,y=Taux.modification,color=code)) +
+  geom_line(aes(group=code))
 
 ```
 
 
-### Nombre de modifications
 
-```{r modif.evol.plot, fig.height=8, fig.width=8}
-lp_modifs_evol %>%
-  pivot_longer(c(Ajout_Conservation,Modification,Suppression), names_to = "status", values_to = "nb_articles") %>% 
-  mutate(status = factor(status, levels = c("Suppression","Modification","Ajout_Conservation"))) %>%
-  ggplot(aes(x=date,y=nb_articles,fill=status)) +
-  geom_area(aes(color=status)) +
-  facet_wrap(code~., scales = "free", ncol=3) +
-  theme_hc()
+### Modifications dans le temps 2
+
+
+```{r modif.data}
+library(tidyverse)
+lp_modifs <- read.csv("diff_shortlist_t.csv",encoding = "UTF-8", stringsAsFactors = TRUE) %>%
+  mutate(code = factor(code, labels=str_replace_all(levels(code),'_',' '))) %>%
+  mutate(date = as.Date(date)) %>%
+  mutate(mandature = case_when(
+    date < as.Date("2007-05-15") ~ "Chirac",
+    date < as.Date("2012-05-15") ~ "Sarkozy",
+    date < as.Date("2017-05-15") ~ "Hollande",
+    TRUE ~ "Macron"
+  ))
+
+
+lp_modifs2 <- lp_modifs %>%
+  filter(code == "code de l'éducation") %>%
+  mutate(année = as.factor(format(date, "%Y"))) %>%
+  group_by(code, mandature, article, type) %>%
+  summarise(nb = n()) %>%
+  pivot_wider(names_from = type, values_from = nb, values_fill = 0 ) %>%
+  complete(code,mandature,article)
+
+lp_modifs2 <- lp_modifs %>%
+  mutate(
+    AjSuppr = cumsum(case_when(
+      type == "Ajout" ~ 1,
+      type == "Préexistence" ~ 1,
+      type == "Suppression" ~ -1,
+      TRUE ~ 0)),
+    Modifications = cumsum(ifelse(is.na(type),0,1))
+    )
+  
+
 ```
 
+```{r modif.date.plot}
+lp_diff_year %>%
+  filter(Année >= "2000") %>%
+  ggplot(aes(x=Année,y=Taux.modification,color=code)) +
+  geom_line(aes(group=code))
 
+```
