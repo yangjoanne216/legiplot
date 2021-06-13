@@ -3,18 +3,14 @@ library(ggraph)
 library(igraph)
 
 # Fonctions de chargement
-legiplot_load <- function(csvfile) {
-  read.csv(csvfile,encoding = "UTF-8", stringsAsFactors = TRUE) %>%
+legiplot_load_tree <- function() {
+  lp_stats_lts1 <<- read.csv("stats_shortlist_lts1.csv",encoding = "UTF-8", stringsAsFactors = TRUE) %>%
     mutate(code = factor(code, labels=str_replace_all(levels(code),'_',' ')))
 }
 
-legiplot_loadall_short <- function() {
-  lp_stats_lts1 <<- legiplot_load("stats_shortlist_lts1.csv")
-  lp_stats_lts0 <<- legiplot_load("stats_shortlist_lts0.csv")
-}
 
 # Arbres
-legiplot_tree <- function(lecode) {
+legiplot_plot_tree <- function(lecode) {
 
   lp_tree <<- lp_stats_lts1 %>%
     filter(code==lecode) %>%
@@ -78,5 +74,5 @@ legiplot_tree <- function(lecode) {
     theme(legend.position="none",plot.margin=unit(c(0,0,0,0),"cm"))
 }
 
-legiplot_loadall_short()
-legiplot_tree("code de l'éducation")
+# legiplot_load_tree()
+# legiplot_plot_tree("code de l'éducation")

@@ -1,0 +1,100 @@
+---
+title: "Function démo"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Arbres
+
+```{r tree.data}
+source("legiplot_fun_tree.R")
+legiplot_load_tree()
+```
+
+```{r tree.plot, fig.width=15, fig.height=15}
+legiplot_plot_tree("code de l'éducation")
+```
+
+## Indicateurs
+
+```{r ind.data}
+source("legiplot_fun_evol.R")
+legiplot_load_evol()
+```
+
+
+```{r ind.plot.1, fig.width=16, fig.height=9}
+start <- "2000-01-01"
+norm <- FALSE
+plot_grid(
+  legiplot_ind_plot("nb_mots","Nombre de mots par code",norm,start),
+  legiplot_ind_plot("nb_alineas","Nombre d'alinéas par code",norm,start),
+  legiplot_ind_plot("nb_articles","Nombre d'articles par code",norm,start),
+  legiplot_ind_plot("alineas_par_article","Nombre d'alinéas par article",norm,start),
+  legiplot_ind_plot("mots_par_article","Nombre de mots par article",norm,start),
+  legiplot_ind_plot("mots_par_alinea","Nombre de mots par alinéas",norm,start)
+)
+```
+
+
+```{r ind.plot.2, fig.width=16, fig.height=9}
+start <- "2000-01-01"
+norm <- TRUE
+plot_grid(
+  legiplot_ind_plot("nb_mots","Nombre de mots par code",norm,start),
+  legiplot_ind_plot("nb_alineas","Nombre d'alinéas par code",norm,start),
+  legiplot_ind_plot("nb_articles","Nombre d'articles par code",norm,start),
+  legiplot_ind_plot("alineas_par_article","Nombre d'alinéas par article",norm,start),
+  legiplot_ind_plot("mots_par_article","Nombre de mots par article",norm,start),
+  legiplot_ind_plot("mots_par_alinea","Nombre de mots par alinéas",norm,start)
+)
+```
+
+
+## Volumes 
+
+```{r vol.plot.1, fig.width=8, fig.height=7}
+legiplot_vol_plot()
+```
+
+```{r vol.plot.2, fig.width=8, fig.height=7}
+legiplot_vol_plot("fill")
+```
+
+```{r vol.plot.3, fig.width=8, fig.height=4.5}
+legiplot_vol_plot(pos="fill",uncode="code de l'éducation")
+```
+
+```{r vol.plot.4, fig.width=8, fig.height=4.5}
+legiplot_vol_code("code de l'éducation")
+```
+
+## Diffs / Modifications
+
+```{r diff.data}
+source("legiplot_fun_diff.R")
+legiplot_load_diff()
+```
+
+```{r diff.plot.1, fig.width=8, fig.height=4.5}
+legiplot_modifs_articles_plot()
+```
+
+```{r diff.plot.2, fig.width=8, fig.height=4.5}
+legiplot_modifs_articles_plot("code de l'éducation")
+```
+
+```{r diff.plot.3, fig.width=8, fig.height=8}
+legiplot_modifs_codes_plot()
+```
+
+```{r diff.plot.4, fig.width=8, fig.height=8}
+legiplot_modifs_codes_plot(pos="fill")
+```
+
+
+

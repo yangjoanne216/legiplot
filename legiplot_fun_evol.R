@@ -28,8 +28,6 @@ legiplot_load_evol <- function() {
     summarise(nb_articles = sum(nb_articles))
 }
 
-legiplot_load_evol()
-
 
 # Etude des indicateurs
 
@@ -49,27 +47,6 @@ legiplot_ind_plot <- function(col,collab,norm=FALSE,start="0000-01-01") {
 }
 
 
-start <- "2000-01-01"
-norm <- FALSE
-plot_grid(
-  legiplot_ind_plot("nb_mots","Nombre de mots par code",norm,start),
-  legiplot_ind_plot("nb_alineas","Nombre d'alinéas par code",norm,start),
-  legiplot_ind_plot("nb_articles","Nombre d'articles par code",norm,start),
-  legiplot_ind_plot("alineas_par_article","Nombre d'alinéas par article",norm,start),
-  legiplot_ind_plot("mots_par_article","Nombre de mots par article",norm,start),
-  legiplot_ind_plot("mots_par_alinea","Nombre de mots par alinéas",norm,start)
-)
-
-
-norm <- TRUE
-plot_grid(
-  legiplot_ind_plot("nb_mots","Nombre de mots par code",norm,start),
-  legiplot_ind_plot("nb_alineas","Nombre d'alinéas par code",norm,start),
-  legiplot_ind_plot("nb_articles","Nombre d'articles par code",norm,start),
-  legiplot_ind_plot("alineas_par_article","Nombre d'alinéas par article",norm,start),
-  legiplot_ind_plot("mots_par_article","Nombre de mots par article",norm,start),
-  legiplot_ind_plot("mots_par_alinea","Nombre de mots par alinéas",norm,start)
-)
 
 # Etude des volumes des parties
 
@@ -82,18 +59,12 @@ legiplot_vol_plot <- function(pos="stack",uncode=FALSE,start="2000-01-01") {
     geom_area(aes(group=partie),position=pos) +
     expand_limits(x=as.Date("2000-01-01")) +
     { if(uncode == FALSE) 
-      facet_wrap(code~., labeller = label_wrap_gen(width=20), scales = "free_x") } +
+      facet_wrap(code~., labeller = label_wrap_gen(width=25), scales = "free_x") } +
     { if(pos == "fill") 
       scale_y_continuous(labels = scales::percent)  } +
     ylab("Nombre d'articles") +
     theme_hc() + theme(legend.position = "top")
 }
-
-legiplot_vol_plot()
-
-legiplot_vol_plot("fill")
-
-legiplot_vol_plot(pos="fill",uncode="code de l'éducation")
 
 
 # Etude des volumes des livres
@@ -121,4 +92,37 @@ legiplot_vol_code <- function(uncode) {
       theme(legend.position = "right")
 }
 
-legiplot_vol_code("code de l'éducation")
+# 
+# legiplot_load_evol()
+# 
+# 
+# start <- "2000-01-01"
+# norm <- FALSE
+# plot_grid(
+#   legiplot_ind_plot("nb_mots","Nombre de mots par code",norm,start),
+#   legiplot_ind_plot("nb_alineas","Nombre d'alinéas par code",norm,start),
+#   legiplot_ind_plot("nb_articles","Nombre d'articles par code",norm,start),
+#   legiplot_ind_plot("alineas_par_article","Nombre d'alinéas par article",norm,start),
+#   legiplot_ind_plot("mots_par_article","Nombre de mots par article",norm,start),
+#   legiplot_ind_plot("mots_par_alinea","Nombre de mots par alinéas",norm,start)
+# )
+# 
+# 
+# norm <- TRUE
+# plot_grid(
+#   legiplot_ind_plot("nb_mots","Nombre de mots par code",norm,start),
+#   legiplot_ind_plot("nb_alineas","Nombre d'alinéas par code",norm,start),
+#   legiplot_ind_plot("nb_articles","Nombre d'articles par code",norm,start),
+#   legiplot_ind_plot("alineas_par_article","Nombre d'alinéas par article",norm,start),
+#   legiplot_ind_plot("mots_par_article","Nombre de mots par article",norm,start),
+#   legiplot_ind_plot("mots_par_alinea","Nombre de mots par alinéas",norm,start)
+# )
+
+# 
+# legiplot_vol_plot()
+# 
+# legiplot_vol_plot("fill")
+# 
+# legiplot_vol_plot(pos="fill",uncode="code de l'éducation")
+# 
+# legiplot_vol_code("code de l'éducation")

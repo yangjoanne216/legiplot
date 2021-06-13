@@ -106,24 +106,9 @@ lp_diff_year %>%
 library(tidyverse)
 lp_modifs <- read.csv("diff_shortlist_t.csv",encoding = "UTF-8", stringsAsFactors = TRUE) %>%
   mutate(code = factor(code, labels=str_replace_all(levels(code),'_',' '))) %>%
-  mutate(date = as.Date(date)) %>%
-  mutate(mandature = case_when(
-    date < as.Date("2007-05-15") ~ "Chirac",
-    date < as.Date("2012-05-15") ~ "Sarkozy",
-    date < as.Date("2017-05-15") ~ "Hollande",
-    TRUE ~ "Macron"
-  ))
+  mutate(date = as.Date(date))
 
-
-lp_modifs2 <- lp_modifs %>%
-  filter(code == "code de l'éducation") %>%
-  mutate(année = as.factor(format(date, "%Y"))) %>%
-  group_by(code, mandature, article, type) %>%
-  summarise(nb = n()) %>%
-  pivot_wider(names_from = type, values_from = nb, values_fill = 0 ) %>%
-  complete(code,mandature,article)
-
-lp_modifs2 <- lp_modifs %>%
+lp_modifs_sum <- lp_modifs %>%
   mutate(
     AjSuppr = cumsum(case_when(
       type == "Ajout" ~ 1,
@@ -132,14 +117,8 @@ lp_modifs2 <- lp_modifs %>%
       TRUE ~ 0)),
     Modifications = cumsum(ifelse(is.na(type),0,1))
     )
-  
-
 ```
 
 ```{r modif.date.plot}
-lp_diff_year %>%
-  filter(Année >= "2000") %>%
-  ggplot(aes(x=Année,y=Taux.modification,color=code)) +
-  geom_line(aes(group=code))
 
 ```
