@@ -4,15 +4,7 @@ library(cowplot)
 
 legiplot_load_evol <- function() {
   
-  lp_stats <<- read.csv("stats_shortlist_ts3.csv") %>%
-    mutate(
-      code = as.factor(str_replace_all(code,"_"," ")),
-      partie = factor(case_when(
-        str_detect(partie,"législative") ~ "Législative",
-        str_detect(partie,"réglementaire") ~ "Réglementaire",
-        TRUE ~ "Autre"),
-        levels = c("Législative","Réglementaire","Autre")), 
-      date = as.Date(date))
+  lp_stats <<- legiplot_load_csv("stats_shortlist_ts3.csv")
   
   lp_stats_ind <<- lp_stats %>%
     group_by(code,date) %>%

@@ -1,0 +1,54 @@
+---
+title: "Legiplot"
+output: beamer_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+options(dplyr.summarise.inform = FALSE)
+
+library(tidyverse)
+library(ggthemes)
+library(cowplot)
+
+source("legiplot_fun_load.R")
+source("legiplot_fun_tree.R")
+source("legiplot_fun_evol.R")
+source("legiplot_fun_diff.R")
+```
+
+```{r setup.load, include=FALSE, cache=TRUE}
+legiplot_load_tree()
+legiplot_load_evol()
+legiplot_load_diff()
+```
+
+```{r tdb}
+
+tdb <- function(code) {
+  plot_grid(ncol=2,
+     legiplot_plot_tree(code),
+     plot_grid(ncol=1, align = "v", axis="lr",
+       legiplot_vol_code(uncode=code),
+       legiplot_modifs_annees_plot(uncode=code,start="0001-01-01"),
+       plot_grid(ncol=2,
+         legiplot_modifs_codes_plot(uncode=code,start="0001-01-01",legend.pos="none"),
+         legiplot_modifs_codes_plot(pos="fill",uncode=code,start="0001-01-01",legend.pos="none")
+       )
+    )
+  )
+}
+```
+
+
+```{r all, results='asis', fig.width=24,fig.height=12, warning=FALSE}
+for(code in levels(lp_modifs_articles_sum$code)) {
+  #code <- "code de l'éducation"
+  
+  cat("### ",code,"\n\n")
+  
+  print(tdb(code))
+  
+  cat("\n\n")
+}
+```

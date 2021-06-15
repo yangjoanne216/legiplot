@@ -4,17 +4,16 @@ library(igraph)
 
 # Fonctions de chargement
 legiplot_load_tree <- function() {
-  lp_stats_lts1 <<- read.csv("stats_shortlist_lts1.csv",encoding = "UTF-8", stringsAsFactors = TRUE) %>%
-    mutate(code = factor(code, labels=str_replace_all(levels(code),'_',' ')))
+  lp_stats_lts1 <<- legiplot_load_csv("stats_shortlist_lts1.csv")
 }
 
 
 # Arbres
 legiplot_plot_tree <- function(lecode) {
 
-  lp_tree <<- lp_stats_lts1 %>%
+  lp_tree <- lp_stats_lts1 %>%
     filter(code==lecode) %>%
-    filter(partie %in% c("Partie législative","Partie législative nouvelle") | code == "code civil") %>%
+    filter(partie == "Législative" | code == "code civil") %>%
     mutate(
       livre = fct_recode(livre, "Sans Livre" = ""),
       titre = fct_recode(titre, "Sans Titre" = ""),
@@ -56,14 +55,9 @@ legiplot_plot_tree <- function(lecode) {
     vertices <- vertices %>% filter(niveau>2)
   }
 
-  v <<- vertices
-  e <<- edges
-  lecode <<- lecode
-  #vertices %>% group_by(name) %>% summarise(n = n()) %>% arrange(desc(n)) %>% View()
-
   labeller = label_wrap_gen(width = 15)
 
-  mygraph <<- graph_from_data_frame(edges,vertices=vertices)
+  mygraph <- graph_from_data_frame(edges,vertices=vertices)
   ggraph(mygraph, layout = 'dendrogram', circular =TRUE)+
     geom_edge_diagonal(aes(colour=groupe))+
     #scale_edge_colour_distiller(palette = "RdPu")+

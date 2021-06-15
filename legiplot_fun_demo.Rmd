@@ -5,6 +5,7 @@ output: github_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+source("legiplot_fun_load.R")
 ```
 
 
@@ -96,5 +97,8 @@ legiplot_modifs_codes_plot()
 legiplot_modifs_codes_plot(pos="fill")
 ```
 
+```{r diff.plot.5, fig.width=8, fig.height=8}
+legiplot_modifs_annees_plot()
+```
 
 
