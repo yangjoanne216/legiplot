@@ -62,8 +62,8 @@ legiplot_plot_tree <- function(lecode) {
     geom_edge_diagonal(aes(colour=groupe))+
     #scale_edge_colour_distiller(palette = "RdPu")+
     geom_node_point(aes(size=nb_articles,colour=groupe))+
-    geom_node_text(aes(label=labeller(vlabel)),colour="white",size=vertices$niveau)+
-    scale_size_continuous(range=c(10,80)) +
+    geom_node_text(aes(label=labeller(vlabel)),colour="white",size=vertices$niveau*0.7)+
+    scale_size_continuous(range=c(10,50)) +
     theme_void()+
     theme(legend.position="none",plot.margin=unit(c(0,0,0,0),"cm"))
 }

@@ -7,7 +7,8 @@ legiplot_load_evol <- function() {
   lp_stats <<- legiplot_load_csv("stats_shortlist_ts3.csv")
   
   lp_stats_ind <<- lp_stats %>%
-    group_by(code,date) %>%
+    filter(date > as.Date("1810-01-01")) %>% # Gestion d'un problème de nombre de mots dans l'archive
+    group_by(code,date,partie) %>%
     summarise(across(nb_articles:nb_mots,sum)) %>%
     mutate(
       alineas_par_article = nb_alineas / nb_articles,
@@ -15,16 +16,17 @@ legiplot_load_evol <- function() {
       mots_par_alinea = nb_mots / nb_alineas
     ) 
   
-  lp_stats_vol <<- lp_stats %>%
-    group_by(code,date,partie) %>%
-    summarise(nb_articles = sum(nb_articles))
+  lp_stats_ind_palette <<- RColorBrewer::brewer.pal(6,"Paired")[c(2,4,6,1,3,5)]
 }
+
+legiplot_load_evol()
 
 
 # Etude des indicateurs
 
 legiplot_ind_plot <- function(col,collab,norm=FALSE,start="0000-01-01") {
   lp_stats_ind  %>%
+    filter(partie == "Législative") %>%
     filter(date >= as.Date(start)) %>%
     mutate(indicateur = !!sym(col)) %>%
     arrange(date) %>%
@@ -38,6 +40,34 @@ legiplot_ind_plot <- function(col,collab,norm=FALSE,start="0000-01-01") {
     theme_hc() + theme(legend.position = "right")
 }
 
+# legiplot_ind_plot("nb_mots","Nombre de mots par code")
+
+
+legiplot_indcode_plot <- function(uncode,start="0001-01-01") {
+   
+  lp_stats_ind  %>%
+    filter(code == uncode & date >= as.Date(start)) %>%
+    pivot_longer(-c("code","date","partie"), names_to = "indicateur", values_to = "valeur") %>%
+    mutate(indicateur = factor(indicateur, 
+      levels = c(
+        "nb_articles", "nb_alineas", "nb_mots",
+        "alineas_par_article", "mots_par_article", "mots_par_alinea"),
+      labels = c(
+        "articles", "alineas", "mots",
+        "alineas par article", "mots par article", "mots par alinea"))) %>%
+    arrange(date) %>%
+    group_by(code,partie,indicateur) %>%
+    mutate(valeur = valeur / first(valeur) * 100) %>%
+    ungroup() %>%
+    ggplot(aes(x=date,y=valeur,color=indicateur)) +
+    geom_line(aes(group=indicateur)) +
+    facet_wrap(.~partie, scales = "free_y") +
+    scale_color_manual(values=lp_stats_ind_palette) +
+    ylab("Evolution en valeur 100 à l'origine") +
+    theme_hc() + theme(legend.position = "right")
+}
+
+legiplot_indcode_plot("code civil")
 
 
 # Etude des volumes des parties
@@ -64,25 +94,20 @@ legiplot_vol_plot <- function(pos="stack",uncode=FALSE,start="2000-01-01") {
 legiplot_vol_code <- function(uncode) {
   lp_stats %>%
     filter(code == uncode) %>%
-    mutate_at(
-      c("sous_partie","livre"),
-      function(x) gsub("(.*) :.*", "\\1",x)
-    ) %>%
-    mutate_at(
-      c("partie","sous_partie","livre"),
-      function(x) factor(x,unique(x))
-    ) %>%
-    mutate(livre = fct_rev(livre)) %>%
-    group_by(date,partie,livre) %>%
+    group_by(date,partie,livre.no) %>%
     summarise(across(nb_articles:nb_mots,sum)) %>%
     
-      ggplot(aes(x=date,y=nb_articles,fill=livre)) +
-      geom_area(aes(group=livre),colour="white",size=0.3) +
+      ggplot(aes(x=date,y=nb_articles,fill=livre.no)) +
+      geom_area(aes(group=livre.no),colour="white",size=0.3) +
       facet_grid(.~partie)  +
       theme_hc() + 
+      scale_fill_discrete(name="Livre") +
       ylab("Nombre d'articles") +
       theme(legend.position = "right")
 }
+
+#legiplot_vol_code("code de l'éducation")
+
 
 # 
 # legiplot_load_evol()
@@ -117,4 +142,3 @@ legiplot_vol_code <- function(uncode) {
 # 
 # legiplot_vol_plot(pos="fill",uncode="code de l'éducation")
 # 
-# legiplot_vol_code("code de l'éducation")
