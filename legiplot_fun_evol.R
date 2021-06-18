@@ -4,7 +4,7 @@ library(cowplot)
 
 legiplot_load_evol <- function() {
   
-  lp_stats <<- legiplot_load_csv("stats_shortlist_ts3.csv")
+  lp_stats <<- legiplot_load_csv("lp_stats_ts3.csv")
   
   lp_stats_ind <<- lp_stats %>%
     filter(date > as.Date("1810-01-01")) %>% # Gestion d'un problème de nombre de mots dans l'archive
@@ -19,7 +19,7 @@ legiplot_load_evol <- function() {
   lp_stats_ind_palette <<- RColorBrewer::brewer.pal(6,"Paired")[c(2,4,6,1,3,5)]
 }
 
-legiplot_load_evol()
+# legiplot_load_evol()
 
 
 # Etude des indicateurs
@@ -67,7 +67,7 @@ legiplot_indcode_plot <- function(uncode,start="0001-01-01") {
     theme_hc() + theme(legend.position = "right")
 }
 
-legiplot_indcode_plot("code civil")
+# legiplot_indcode_plot("code civil")
 
 
 # Etude des volumes des parties
@@ -96,6 +96,7 @@ legiplot_vol_code <- function(uncode) {
     filter(code == uncode) %>%
     group_by(date,partie,livre.no) %>%
     summarise(across(nb_articles:nb_mots,sum)) %>%
+    mutate(livre.no = fct_rev(livre.no)) %>%
     
       ggplot(aes(x=date,y=nb_articles,fill=livre.no)) +
       geom_area(aes(group=livre.no),colour="white",size=0.3) +

@@ -2,19 +2,20 @@
 title: "Legiplot : une étude quantitative des codes législatifs"
 subtitle: "https://github.com/juliengossa/legiplot"
 author: 
-  - Yang Yang, email \newline
+  - Yang Yang, yangjoanne216@gmail.com \newline
   - Julien Gossa, gossa@unistra.fr \newline
   - Université de Strasbourg
 date: Juin 2021
+lang: "fr"
 output: 
   beamer_presentation:
     theme: "Madrid"
-    toc: true
+    toc: false
 fontsize: 8pt
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE)
 options(dplyr.summarise.inform = FALSE)
 
 library(tidyverse)
@@ -33,6 +34,7 @@ code.exemple <- "code de l'éducation"
 legiplot_load_tree()
 legiplot_load_evol()
 legiplot_load_diff()
+
 ```
 
 ## Introduction
@@ -43,12 +45,24 @@ Legiplot vise à évaluer le rythme des réformes par la quantification des
 modification des codes législatifs. 
 
 Les données de ces codes sont extraites des projets suivants :
+
 -   [Légifrance](https://www.legifrance.gouv.fr/) : le portail officiel bien connu ;
 -   [Archéo Lex](https://archeo-lex.fr/) : un projet indépendant qui consolide les 
     textes de Légifrance dans des dépôts GIT.
     
-De ces données, nous extrayons différents indicateurs et visualisations 
-qui sont présentés dans la suite.
+De ces données, nous extrayons différents indicateurs et visualisations, 
+qui sont présentés en détail dans la suite.
+
+```{r exemples, fig.width=50, fig.height=8, out.width="100%" }
+plot_grid(ncol=6,
+  legiplot_plot_tree(code.exemple),
+  legiplot_indcode_plot(code.exemple),
+  legiplot_vol_code(code.exemple),
+  legiplot_modifs_annees_plot(uncode=code.exemple,start="0001-01-01"),
+  legiplot_modifs_codes_plot(uncode=code.exemple,start="0001-01-01",legend.pos="none"),
+  legiplot_modifs_codes_plot(pos="fill",uncode=code.exemple,start="0001-01-01",legend.pos="none")
+)
+```
 
 
 ### Structure
@@ -56,12 +70,11 @@ qui sont présentés dans la suite.
 ::: columns
 
 :::: column
-Cette représentation permet d'apprécier, dans l'espace, le volume relatif de 
-différentes partie des codes.
+Cette représentation permet d'apprécier, dans l'espace, le volume relatif des 
+différentes parties des codes.
 
-- Les structures des codes sont présentées en arbre. 
 - La représentation se limite à la partie législative.
-- Chaque nœud représente une section.
+- Chaque nœud représente une section du code.
 - La couleur est celle de la sous-partie ou du Livre.
 - La taille représente le nombre d'articles.
 ::::
@@ -81,23 +94,22 @@ legiplot_plot_tree(code.exemple)
 
 :::: column
 
-Cette représentation permet d'apprécier l'évolution dans le temps des volumes des codes,
-selon plusieurs manières de les mesurer.
+Cette représentation permet d'apprécier différentes manières de mesurer l'évolution
+volumétrique des codes.
 
 - Trois indicateurs primaires sont présentés :
 
-  - Nombre d'articles
-  - Nombre d'alinéas (les énumerations sont comptées comme alinéas)
-  - Nombre de mots
+  - nombre d'articles ;
+  - nombre d'alinéas (les énumerations sont comptées comme alinéas) ;
+  - nombre de mots.
 
 - Trois indicateurs secondaires sont présentés :
 
-  - Nombre d'alinéas par articles
-  - Nombre de mots par articles
-  - Nombre de mots par alinéas
+  - nombre d'alinéas par articles ;
+  - nombre de mots par articles ;
+  - nombre de mots par alinéas.
 
-- Pour être comparables, tous les indicateurs sont normalisés en valeur 100 pour
-le début de la période.
+- Pour être comparables, tous les indicateurs sont normalisés en valeur 100 au début de la période.
 ::::
 
 :::: column
@@ -147,9 +159,10 @@ Elle est particulièrement utile pour vérifier ce qu'il reste du code original 
 fil des transformations.
 
 - Les couleurs représentent le nombre d'articles ajoutés, modifiés ou supprimés.
-- La première réprésentation est en nombre d'articles.
+- La première rEprésentation est en nombre d'articles.
 - La seconde représentation est en proportion des articles.
-- En raison d'erreurs en cours de correction dans Légifrance, certaines 
+- En raison d'erreurs en cours de correction dans Légifrance, certaines visualisations
+peuvent présenter des aberrations. 
 
 ::::
 
@@ -192,11 +205,12 @@ tdb <- function(code) {
 
 
 ```{r all, results='asis', fig.width=18,fig.height=12, warning=FALSE, cache=TRUE}
-for(code in levels(lp_modifs_articles_sum$code)) {
+for(code in levels(lp_stats$code)) {
 #  code <- "code de l'éducation"
 
   cat("### ",code,"\n\n")
   
+  #if(code != "code de l'artisanat")
   print(tdb(code))
   
   cat("\n\n")

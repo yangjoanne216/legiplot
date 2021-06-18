@@ -4,7 +4,7 @@ library(ggthemes)
 
 legiplot_load_diff <- function() {
   
-  lp_modifs <<- legiplot_load_csv("diff_shortlist_t.csv")
+  lp_modifs <<- legiplot_load_csv("lp_diff_t.csv")
   
   lp_modifs_articles <<- lp_modifs %>%
     filter(type == "Modification") %>%
